@@ -1,0 +1,45 @@
+
+<div class="example-container"  fxLayoutAlign="center center">
+  <mat-card class="example-card">
+    <form [formGroup]="form" novalidate (ngSubmit)="login()">
+      
+    <div>
+      <h1 align="center">login</h1>
+    </div>
+
+    <div class="example-container" fxLayout="row" fxLayoutAlign="center">
+   <mat-form-field fxFlex fxFlex.gt-xs="400px">
+   <input matInput type=text placeholder="email"  formControlName="emailFormControl"
+           [errorStateMatcher]="matcher" name="email" [(ngModel)]="model.email" required>
+
+   <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+     Please enter a valid email address
+   </mat-error>
+   <mat-error *ngIf="emailFormControl.hasError('required')">
+     Email is <strong>required</strong>
+   </mat-error>
+
+  </mat-form-field>
+</div>
+
+  <div class="example-container" fxLayout="row" fxLayoutAlign="center">
+ <mat-form-field fxFlex fxFlex.gt-xs="400px">
+  <input matInput type="password" placeholder="Enter password" formControlName="passwordFormControl"
+           [errorStateMatcher]="matcher" name="password" [(ngModel)]="model.password" required>
+           <mat-error *ngIf="passwordFormControl.hasError('password') && !passwordFormControl.hasError('required')">
+             Please enter a valid password address
+           </mat-error>
+           <mat-error *ngIf="passwordFormControl.hasError('required')">
+             password is <strong>required</strong>
+           </mat-error>
+
+
+</mat-form-field>
+</div>
+
+  <div class="example-container" fxLayout="row" fxLayoutAlign="center">
+<button fxFlex fxFlex.gt-xs="100px" type="submit" mat-button mat-raised-button color="primary">sigIn</button>
+</div>
+ </form>
+</mat-card>
+</div>
