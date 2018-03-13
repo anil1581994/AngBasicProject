@@ -11,7 +11,7 @@
 .example-card {
   max-width: 400px;
   /*background-color: card blue-grey darken-1;*/
-  margin-top: 200px;
+  margin-top: 100px;
     margin-bottom: 100px;
     margin-left: 100px;
       margin-right: 100px;
@@ -20,4 +20,7 @@
   left: 0;
   height: 100%;
   width: 100%; */
+}
+.loginMain-div{
+background: silver;
 }

@@ -1,44 +1,39 @@
 
-<div class="example-container"  fxLayoutAlign="center center">
+<div class="example-container"  fxLayoutAlign="center center" class="loginMain-div">
   <mat-card class="example-card">
-    <form [formGroup]="form" novalidate (ngSubmit)="login()">
-      
+
+  <form class="example-container" #loginFrom="ngForm" (ngSubmit)="logIn()">
     <div>
       <h1 align="center">login</h1>
     </div>
+  <!-- USERNAME-->
 
-    <div class="example-container" fxLayout="row" fxLayoutAlign="center">
-   <mat-form-field fxFlex fxFlex.gt-xs="400px">
-   <input matInput type=text placeholder="email"  formControlName="emailFormControl"
-           [errorStateMatcher]="matcher" name="email" [(ngModel)]="model.email" required>
 
-   <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-     Please enter a valid email address
-   </mat-error>
-   <mat-error *ngIf="emailFormControl.hasError('required')">
-     Email is <strong>required</strong>
-   </mat-error>
+        <div fxLayout="row">
 
-  </mat-form-field>
-</div>
+             <mat-form-field fxFlex fxFlex.gt-xs="400px">
+               <input matInput placeholder="Email" name="email" [formControl]="emailControl" [errorStateMatcher]="match"  [(ngModel)]="model.email">
+               <mat-error *ngIf="emailControl.hasError('required')">Email Address is required</mat-error>
+               <mat-error *ngIf="emailControl.hasError('pattern') && !emailControl.hasError('required') ">Enter Valid Email</mat-error>
+             </mat-form-field>
+           </div>
 
+
+  <!-- PASSWORD-->
   <div class="example-container" fxLayout="row" fxLayoutAlign="center">
  <mat-form-field fxFlex fxFlex.gt-xs="400px">
-  <input matInput type="password" placeholder="Enter password" formControlName="passwordFormControl"
-           [errorStateMatcher]="matcher" name="password" [(ngModel)]="model.password" required>
-           <mat-error *ngIf="passwordFormControl.hasError('password') && !passwordFormControl.hasError('required')">
-             Please enter a valid password address
+  <input matInput type="password" placeholder="Enter password" [formControl]="passwordControl"
+           [errorStateMatcher]="match" name="password" [(ngModel)]="model.password" required>
+           <mat-error *ngIf="passwordControl.hasError('password') && !passwordControl.hasError('required')">Please enter a valid password address
            </mat-error>
-           <mat-error *ngIf="passwordFormControl.hasError('required')">
-             password is <strong>required</strong>
-           </mat-error>
-
-
+   <mat-error *ngIf="passwordControl.hasError('required')">password is <strong>required</strong> </mat-error>
+   <mat-error *ngIf="passwordControl.hasError('pattern') && !passwordControl.hasError('required') ">Password not valid</mat-error>
 </mat-form-field>
 </div>
 
   <div class="example-container" fxLayout="row" fxLayoutAlign="center">
-<button fxFlex fxFlex.gt-xs="100px" type="submit" mat-button mat-raised-button color="primary">sigIn</button>
+       <button mat-raised-button color="primary" class="save_button" [disabled]="!emailControl.valid || !passwordControl.valid">login</button>
+ <!-- <button fxFlex fxFlex.gt-xs="100px" type="submit" mat-button mat-raised-button color="primary" [disabled]="!loginFrom.form.valid" >login</button> -->
 </div>
  </form>
 </mat-card>

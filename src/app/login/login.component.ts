@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
-
-import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
-import {ErrorStateMatcher} from '@angular/material/core';
-import {FormGroup} from '@angular/forms';
-
+import { Component,OnInit } from '@angular/core';
+import { NgForm, FormControl, FormGroupDirective, Validators,FormsModule} from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
+import { FormGroup} from '@angular/forms';
+import { HttputilService } from '../httputil.service';
+import { ToDoResponse } from '../ToDoResponse';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -17,16 +17,34 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 model:any={};
 
-  constructor() {}
+  constructor(private commonService:HttputilService) {}
+ ngOnInit() {}
+   logIn():void{
+    console.log("sigInForm",this.model);
 
-   login():void{}
-   emailFormControl = new FormControl('', [
+     this.commonService.postServiceLogin('login',this.model).subscribe(response => {
+       if(response.statusCode === 100){
+          alert("Login successful");
+       } else if(response.statusCode !== 100){
+          alert(response.msg);
+       }
+     });
+    //  console.log("sigInForm",this.data);
+
+   }
+   // email validation pattern using validators
+    emailControl = new FormControl('', [
     Validators.required,
-    Validators.email,
+    Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')
   ]);
 
-  matcher = new MyErrorStateMatcher();
+  // password validation pattern using validators
+  passwordControl = new FormControl('', [
+    Validators.required,
+    Validators.pattern('[A-Za-z0-9]{8}')
+  ]);
+  match = new MyErrorStateMatcher();
 }
