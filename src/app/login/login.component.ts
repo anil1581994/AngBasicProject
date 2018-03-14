@@ -4,6 +4,7 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { FormGroup} from '@angular/forms';
 import { HttputilService } from '../httputil.service';
 import { ToDoResponse } from '../ToDoResponse';
+import { Router } from '@angular/router';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -20,16 +21,23 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 export class LoginComponent implements OnInit {
 model:any={};
 
-  constructor(private commonService:HttputilService) {}
+  constructor(private commonService:HttputilService,private router:Router) {}
+
  ngOnInit() {}
    logIn():void{
     console.log("sigInForm",this.model);
 
-     this.commonService.postServiceLogin('login',this.model).subscribe(response => {
-       if(response.statusCode === 100){
-          alert("Login successful");
-       } else if(response.statusCode !== 100){
-          alert(response.msg);
+     this.commonService.postServiceLogin('login',this.model)
+     .subscribe(response => {
+       var toDoResponse = response.body;
+        if(toDoResponse.statusCode === 100)
+        {
+         
+          localStorage.setItem('token',response.headers.get("token"));
+            // alert(response.headers.get("token"));
+          this.router.navigate(['/home'])
+        } else if(toDoResponse.statusCode !== 100){
+            alert(toDoResponse.msg);
        }
      });
     //  console.log("sigInForm",this.data);

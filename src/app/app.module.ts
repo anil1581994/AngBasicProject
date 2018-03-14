@@ -12,19 +12,29 @@ import { RouterModule, Routes } from '@angular/router';
 import {MatCardModule} from '@angular/material/card';
 import { HttpClientModule } from '@angular/common/http';
 import {HttputilService} from './httputil.service';
+import { HomeComponent } from './home/home.component';
+import { WelcomeComponent } from './welcome/welcome.component';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 //import {FormControl, FormGroup, FormArray, Validators} from '@angular/forms';
 // Route Configuration
 export const appRoutes: Routes = [
 { path: '', component: RegistrationComponent },
   { path: 'register', component: RegistrationComponent },
-  { path: 'login', component: LoginComponent }
+  { path: 'login', component: LoginComponent },
+  { path: 'home', component:WelcomeComponent  }
+
 ];
 @NgModule({
   declarations: [
     AppComponent,
     RegistrationComponent,
-    LoginComponent
+    LoginComponent,
+    HomeComponent,
+    WelcomeComponent
   ],
   imports: [
     BrowserModule,
@@ -38,6 +48,10 @@ export const appRoutes: Routes = [
     MatCardModule,
     FormsModule,
     HttpClientModule,
+    MatMenuModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatTooltipModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [HttputilService],

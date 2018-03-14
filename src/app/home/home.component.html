@@ -1,0 +1,52 @@
+
+<div>
+    <div style="height: 100vh;">
+      <mat-toolbar class="colortool-container" color="primary">
+        <button mat-icon-button (click)="sidenav.toggle()" href="#" matTooltip="Main menu">
+          <mat-icon>menu</mat-icon>
+         
+        </button> 
+        
+     
+      <span>Fundoo Keep</span> 
+    
+      <a href="#" mat-button>Menu Item 1</a>
+    
+      <a href="#" mat-button>Menu Item 2</a>
+    
+      <a href="#" mat-button>Menu Item 3</a>
+    
+      </mat-toolbar>
+      
+      
+      <mat-sidenav-container fxFlexFill class="example-container">
+    
+          <mat-sidenav fxLayout="column" mode="side" #sidenav opened>
+             
+      
+            <div fxLayout="column" fxLayoutAlign="start">
+           <ul>
+             <li><a href="#" mat-button>Notes</a></li>
+      
+             <li><a href="#" mat-button>Reminders</a></li>
+      
+              <li><a href="#" mat-button>Labels</a></li>
+      
+             <li><a href="#" mat-button>Archieve</a></li>
+      
+             <li><a href="#" mat-button>Trash</a></li>
+      
+              <li><a href="#" mat-button>Settings</a></li>
+
+             <li><a href="#" mat-button>Help</a></li>
+      
+             <li><a href="#" mat-button>App downloads</a></li>
+      
+             <li><a href="#" mat-button>Keyboard shortcuts</a></li>   
+          </ul>
+            </div>
+      
+          </mat-sidenav>
+         </mat-sidenav-container>
+        </div>
+    </div>
