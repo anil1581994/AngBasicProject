@@ -18,6 +18,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { NoteComponent } from './note/note.component';
 
 //import {FormControl, FormGroup, FormArray, Validators} from '@angular/forms';
 // Route Configuration
@@ -25,7 +26,8 @@ export const appRoutes: Routes = [
 { path: '', component: RegistrationComponent },
   { path: 'register', component: RegistrationComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'home', component:WelcomeComponent  }
+  { path: 'home', component:WelcomeComponent  },
+  { path:'note',component:NoteComponent },
 
 ];
 @NgModule({
@@ -34,7 +36,8 @@ export const appRoutes: Routes = [
     RegistrationComponent,
     LoginComponent,
     HomeComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    NoteComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,16 @@
+.note-card {
+    max-width: 600px;
+    margin-left: 300px;
+    margin-top: 50px;
+  }
+   .editable {
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    outline: none;
+     line-height: 20px;  
+ } 
+ 
+ [contenteditable=true]:empty:before {
+     content: attr(data-text);;
+    
+ }  
