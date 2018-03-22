@@ -26,18 +26,16 @@ model:any={};
  ngOnInit() {}
    logIn():void{
     console.log("sigInForm",this.model);
-
-     this.commonService.postServiceLogin('login',this.model)
+     this.commonService.postServiceData('login',this.model)
      .subscribe(response => {
-       var toDoResponse = response.body;
-        if(toDoResponse.statusCode === 100)
+        if(response.body.statusCode=== 100)
         {
          
-          localStorage.setItem('token',response.headers.get("token"));
+          localStorage.setItem('Authorization',response.headers.get("Authorization"));
             // alert(response.headers.get("token"));
           this.router.navigate(['/home'])
-        } else if(toDoResponse.statusCode !== 100){
-            alert(toDoResponse.msg);
+        } else if(response.body.statusCode !== 100){
+            alert(response.body.msg);
        }
      });
     //  console.log("sigInForm",this.data);

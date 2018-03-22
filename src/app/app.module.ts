@@ -1,8 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
+import { NgModule ,Injectable} from '@angular/core';
 import { AppComponent } from './app.component';
-import {MatFormFieldModule,MatInputModule,MatButtonModule} from '@angular/material';
+import {MatFormFieldModule,MatInputModule,MatButtonModule,
+        MatIconModule,MatSidenavModule,MatTooltipModule,MatSelectModule} from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RegistrationComponent } from './registration/registration.component';
 import {FormsModule,ReactiveFormsModule,FormGroup,Validators,FormControl} from '@angular/forms'
@@ -13,22 +13,33 @@ import {MatCardModule} from '@angular/material/card';
 import { HttpClientModule } from '@angular/common/http';
 import {HttputilService} from './httputil.service';
 import { HomeComponent } from './home/home.component';
-import { WelcomeComponent } from './welcome/welcome.component';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatTooltipModule} from '@angular/material/tooltip';
 import { NoteComponent } from './note/note.component';
+import {CanActivate} from "@angular/router";
+import { AuthGuard,AlwaysLogginAuthGuard } from './auth/AuthGuard';
+import {MatDialogModule} from '@angular/material/dialog';
+import { UpdateNoteComponent } from './update-note/update-note.component';
+
+
 
 //import {FormControl, FormGroup, FormArray, Validators} from '@angular/forms';
+
 // Route Configuration
 export const appRoutes: Routes = [
-{ path: '', component: RegistrationComponent },
-  { path: 'register', component: RegistrationComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'home', component:WelcomeComponent  },
-  { path:'note',component:NoteComponent },
-
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', component: RegistrationComponent },
+  { path: 'register', component: RegistrationComponent},
+  { path: 'login', component: LoginComponent, canActivate: [AlwaysLogginAuthGuard]},
+  { path: 'home', component:HomeComponent,
+      canActivate: [AuthGuard],
+    children: [
+      { path: '', redirectTo: 'note', pathMatch: 'full' },
+      { path: 'note', component: NoteComponent }
+   
+      ]
+}
+ 
 ];
 @NgModule({
   declarations: [
@@ -36,8 +47,8 @@ export const appRoutes: Routes = [
     RegistrationComponent,
     LoginComponent,
     HomeComponent,
-    WelcomeComponent,
-    NoteComponent
+    NoteComponent,
+    UpdateNoteComponent
   ],
   imports: [
     BrowserModule,
@@ -55,9 +66,14 @@ export const appRoutes: Routes = [
     MatToolbarModule,
     MatSidenavModule,
     MatTooltipModule,
+    MatSelectModule,
+    MatDialogModule,
+    
+  
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [HttputilService],
+  entryComponents:[UpdateNoteComponent],
+  providers: [HttputilService,AuthGuard,AlwaysLogginAuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {

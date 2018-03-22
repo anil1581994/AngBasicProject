@@ -1,8 +1,7 @@
 .colortool-containe {
     display:flex;
     flex-direction:column;
-    background-color: red;
-
+  
   
   }
   .sidenav-container {
@@ -26,4 +25,24 @@
   
   ul {
     list-style-type: none;
+    padding-left: 0;
+    width: 280px;
   }
+  .title-css{
+    max-height: 600px;
+  }
+
+  .sidebar-item{
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 2px;
+  }
+
+  .sidebar-item:hover {
+    background-color: rgba(0,0,0,0.12);
+  }
+  .app-toolbar {
+    position: sticky;
+    top: 0; /* Sets the sticky toolbar to be on top */
+    z-index: 1000; /* Ensure that your app's content doesn't overlap the toolbar */
+}

@@ -1,53 +1,61 @@
-
 <div>
-    <div style="height: 100vh;">
-      <mat-toolbar class="colortool-container" style="background-color: #fb0">
-        <button mat-icon-button (click)="sidenav.toggle()" href="#" matTooltip="Main menu">
-          <mat-icon>menu</mat-icon>
-         
-        </button> 
-        
-     
-      <span>Fundoo Keep</span> 
-    
-      <a href="#" mat-button>Menu Item 1</a>
-    
-      <a href="#" mat-button>Menu Item 2</a>
-    
-      <a href="#" mat-button>Menu Item 3</a>
-    
-      </mat-toolbar>
-      
-      
-      <mat-sidenav-container fxFlexFill class="example-container">
-    
-          <mat-sidenav fxLayout="column" mode="side" #sidenav opened>
-             
-      
-            <div fxLayout="column" fxLayoutAlign="start">
-           <ul>
-             <li><a href="#" mat-button>Notes</a></li>
-      
-             <li><a href="#" mat-button>Reminders</a></li>
-      
-              <li><a href="#" mat-button>Labels</a></li>
-      
-             <li><a href="#" mat-button>Archieve</a></li>
-      
-             <li><a href="#" mat-button>Trash</a></li>
-      
-              <li><a href="#" mat-button>Settings</a></li>
+  <div style="height:100vh;">
+    <mat-toolbar style="background-color: #fb0; position: sticky; top: 0;z-index: 1000;">
+      <button mat-icon-button (click)="sidenav.toggle()" href="#" matTooltip="Main menu">
+        <mat-icon>menu</mat-icon>
 
-             <li><a href="#" mat-button>Help</a></li>
+      </button>
+
+
+      <span>Fundoo Keep</span>
+      <div>
+        <button mat-icon-button (click)="refresh()">
+          <mat-icon>refresh</mat-icon>
+        </button>
+      </div>
+      <a href="#" mat-button>Menu Item 1</a>
+
+      <a href="#" mat-button>Menu Item 2</a>
+
+      <a href="#" mat-button>Menu Item 3</a>
+      <button mat-button type="submit" (click)="logout()">Sign out</button>
       
-             <li><a href="#" mat-button>App downloads</a></li>
-      
-             <li><a href="#" mat-button>Keyboard shortcuts</a></li>   
+    </mat-toolbar>
+
+    <mat-sidenav-container class="example-container">
+
+      <mat-sidenav mode="side" #sidenav opened>
+          <ul>
+            <li class="sidebar-item" fxLayout="row">
+              <span>Notes</span>
+            </li>
+
+            <li class="sidebar-item" fxLayout="row">
+              <span>Reminder</span>
+            </li>
+
+            <li class="sidebar-item" fxLayout="row">
+              <span>Labels</span>
+            </li>
+
+            <li class="sidebar-item" fxLayout="row">
+              <span>Archieve</span>
+            </li>
+            <li class="sidebar-item" fxLayout="row">
+              <span>Trash</span>
+            </li>
+            <li class="sidebar-item" fxLayout="row">
+              <span>app</span>
+            </li>
           </ul>
-            </div>
+      </mat-sidenav>
+      <!-- <mat-sidenav-content><app-note style="overflow-y: hidden"></app-note></mat-sidenav-content> -->
       
-          </mat-sidenav>
-         </mat-sidenav-container>
-        </div>
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
       
-    </div>
+    </mat-sidenav-content>
+    </mat-sidenav-container>
+  </div>
+
+</div>

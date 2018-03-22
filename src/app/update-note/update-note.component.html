@@ -1,0 +1,7 @@
+<div> 
+    <div  #title style="font-weight: bold; font-size: 17px; padding: 10px 15px;"  contenteditable="true"  class="editable1-css" name="Title" (input)="data.title=$event.target.innerHTML" ></div> 
+    <div  #description style="font-size: 17px; padding: 12px 15px 15px 15px;" contenteditable="true" class="editable1-css" name="description" (input)="data.description=$event.target.innerHTML"></div>
+    <div flexLayout="row" fxLayoutAlign="end">
+     <button mat-button type="submit" (click)="updateNote()">Done</button>
+   </div>
+</div>

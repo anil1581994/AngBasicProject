@@ -1,6 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Inject } from '@angular/core';
 import { HttputilService } from '../httputil.service';
-import { variable } from '@angular/compiler/src/output/output_ast';
+import { Note } from '../Note';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {UpdateNoteComponent} from '../update-note/update-note.component';
+
 
 @Component({
   selector: 'app-note',
@@ -8,23 +12,67 @@ import { variable } from '@angular/compiler/src/output/output_ast';
   styleUrls: ['./note.component.css']
 })
 export class NoteComponent implements OnInit {
+  fullImagePath: string;
   public show:boolean = false;
-  public buttonName:any = 'Show';
+  model:any={};
+   //array to store note
+  notes:Note[];
+ 
+  constructor(private commonService:HttputilService,private dialog: MatDialog) {
+ 
+  
+   }
+      
+   ngOnInit() {
 
-  ngOnInit() {
+    this.commonService.getServiceData('note/getAllNotes').subscribe(data=> {
+  
+     this.notes=data.body;
+                });
+ }
+    openDialog(note) {
+  console.log("data",note);
+    this.dialog.open(UpdateNoteComponent, 
+       {
+         data: note,
+         width:'600px'
+        
+              });
+  }
+  // call(){
+  //   console.log("msg");
+  // }
+   
+   createNote():void{
+   console.log("formValue",this.model);
+  this.commonService.postServiceData('note/createNote',this.model)
+   .subscribe(data=> {
+    console.log(data)
+    this.refreshNote();
+   }) ;
+
+ }
+ refreshNote():void{//getAllnotes
+   this.commonService.getServiceData('note/getAllNotes').subscribe(data=> {
+     this.notes=data.body;
+      });
+ }
+    deleteNote(noteId):void{
+      console.log(noteId);
+      this.commonService.deleteServiceData('note/deleteNote',noteId).subscribe(data=>{this.notes=data.body;
+        this.refreshNote();
+     });
     
-  }
-  
-  constructor(private commonService:HttputilService) { }
-  toggle() {
-    console.log("toggle");
-    this.show = !this.show;
+    }
+//     updateNote():void{
+//       console.log("formValue",this.model);
+//      this.commonService.updateServiceData('note/updateNote',this.model)
+//       .subscribe(data=> {
+//        console.log(data)
+//        this.refreshNote();
+//       }) ;
+   
+// }
 
-    // CHANGE THE NAME OF THE BUTTON.
-    if(this.show)  
-      this.buttonName = "Hide";
-    else
-      this.buttonName = "Show";
-  }
-  
 }
+
