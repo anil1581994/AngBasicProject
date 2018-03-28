@@ -1,0 +1,44 @@
+<div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="20px">
+  
+    <div *ngFor="let note of notes">
+    <div *ngIf="note.status===1">
+    <mat-card class="note-card2" fxFlex="240px">
+      
+          <div (click)="openDialog(note)">
+            <div [innerHTML]="note.title" class="editable"></div>
+            <div [innerHTML]="note.description"></div>
+          </div>
+          <div fxLayout="row">
+            <div>
+              <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+
+              <mat-menu #menu="matMenu">
+               
+                <button type="submit" mat-menu-item (click)="restore(note)">
+                  <mat-icon>restore</mat-icon>
+                  <span>restore</span>
+                </button>
+
+                <button type="submit" mat-menu-item (click)="deleteForever(note.noteId)">
+                    <mat-icon>delete</mat-icon>
+                    <span>delete note</span>
+                  </button>
+                <!-- <button mat-menu-item disabled>
+              <mat-icon>voicemail</mat-icon>
+              <span>Check voicemail</span>
+            </button>
+            <button mat-menu-item>
+              <mat-icon>notifications_off</mat-icon>
+              <span>Disable alerts</span>
+            </button> -->
+              </mat-menu>
+            </div>
+          </div>
+     
+      </mat-card>
+      </div>
+      </div>
+    </div>
+   

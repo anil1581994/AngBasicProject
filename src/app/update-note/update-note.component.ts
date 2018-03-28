@@ -36,7 +36,7 @@ export class UpdateNoteComponent implements OnInit {
 
   updateNote():void{//update note
     console.log("formValue",this.data);
-   this.commonService.updateServiceData('note/updateNote',this.data)
+   this.commonService.putServiceData('note/updateNote',this.data)
     .subscribe(data=> {
      console.log(data)
      this.refreshNote();

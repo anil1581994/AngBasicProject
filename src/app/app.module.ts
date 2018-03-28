@@ -20,6 +20,8 @@ import {CanActivate} from "@angular/router";
 import { AuthGuard,AlwaysLogginAuthGuard } from './auth/AuthGuard';
 import {MatDialogModule} from '@angular/material/dialog';
 import { UpdateNoteComponent } from './update-note/update-note.component';
+import { TrashComponent } from './trash/trash.component';
+import { ArchiveComponent } from './archive/archive.component';
 
 
 
@@ -35,7 +37,9 @@ export const appRoutes: Routes = [
       canActivate: [AuthGuard],
     children: [
       { path: '', redirectTo: 'note', pathMatch: 'full' },
-      { path: 'note', component: NoteComponent }
+      { path: 'note', component: NoteComponent },
+      { path: 'trash', component: TrashComponent },
+      { path: 'archive', component: ArchiveComponent }
    
       ]
 }
@@ -48,7 +52,9 @@ export const appRoutes: Routes = [
     LoginComponent,
     HomeComponent,
     NoteComponent,
-    UpdateNoteComponent
+    UpdateNoteComponent,
+    TrashComponent,
+    ArchiveComponent
   ],
   imports: [
     BrowserModule,

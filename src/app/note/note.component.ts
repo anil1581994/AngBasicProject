@@ -27,7 +27,7 @@ export class NoteComponent implements OnInit {
 
     this.commonService.getServiceData('note/getAllNotes').subscribe(data=> {
   
-     this.notes=data.body;
+    this.notes = data.body;
                 });
  }
     openDialog(note) {
@@ -39,15 +39,13 @@ export class NoteComponent implements OnInit {
         
               });
   }
-  // call(){
-  //   console.log("msg");
-  // }
+  
    
    createNote():void{
    console.log("formValue",this.model);
   this.commonService.postServiceData('note/createNote',this.model)
    .subscribe(data=> {
-    console.log(data)
+    console.log("note created",data)
     this.refreshNote();
    }) ;
 
@@ -57,13 +55,13 @@ export class NoteComponent implements OnInit {
      this.notes=data.body;
       });
  }
-    deleteNote(noteId):void{
-      console.log(noteId);
-      this.commonService.deleteServiceData('note/deleteNote',noteId).subscribe(data=>{this.notes=data.body;
-        this.refreshNote();
-     });
+  //  deleteNote(noteId):void{
+  //     console.log(noteId);
+  //     this.commonService.deleteServiceData('note/deleteNote',noteId).subscribe(data=>{this.notes=data.body;
+  //       this.refreshNote();
+  //    });
     
-    }
+  //   }
 //     updateNote():void{
 //       console.log("formValue",this.model);
 //      this.commonService.updateServiceData('note/updateNote',this.model)
@@ -73,6 +71,13 @@ export class NoteComponent implements OnInit {
 //       }) ;
    
 // }
-
+   /* move trash */
+  moveTrash(note):void{
+        note.status=1;
+        this.commonService.putServiceData('note/updateNote',note).subscribe(data=>{
+            console.log(data)
+           this.refreshNote();
+        }) ;
+    }
+   
 }
-

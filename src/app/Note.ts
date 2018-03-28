@@ -3,6 +3,7 @@ export class Note {
        title:String
 	   description:String
       createDate:Date
-     lastUpdateDate:Date
+      lastUpdateDate:Date
+      status:number
 
 }

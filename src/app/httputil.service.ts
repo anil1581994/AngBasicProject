@@ -59,11 +59,11 @@ export class HttputilService {
       this.urlpath=this.base_url.concat(path);//deleteNote
      return this.http.delete<any>(this.urlpath+'/'+noteId,this.httpOptions);
     }
-    updateServiceData(path,model) {//updateNote
+    putServiceData(path,model) {//updateNote
        console.log(model);
        this.addAuthorization();
        this.urlpath= this.base_url.concat(path);
       // return this.http.put(this.urlpath,model,this.httpOptions);
-       return this.http.post(this.urlpath,model,this.httpOptions);
+       return this.http.put(this.urlpath,model,this.httpOptions);
     }
 }
