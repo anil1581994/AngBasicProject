@@ -10,6 +10,8 @@ import { Note } from '../Note';
 })
 export class ArchiveComponent implements OnInit {
   notes:Note[];
+  unArchiveImg="/assets/icons/unarchive.svg";
+  pinIcon="/assets/icons/pin.svg";
   constructor(private commonService:HttputilService) { }
 
   ngOnInit() {
@@ -23,11 +25,21 @@ export class ArchiveComponent implements OnInit {
             this.notes=data.body;
              });
         }
-         resunArchive(note):void{
+         unArchive(note):void{
           note.status=0;
           this.commonService.putServiceData('note/updateNote',note).subscribe(data=>{
               console.log(data)
              this.refreshNote();
           }) ;
       }
+      pinNote(note): void {
+        console.log("pin note", note);
+        note.status = 3;
+        this.commonService.putServiceData('note/updateNote', note).subscribe(response => {
+          console.log("unArchive note", response);
+          this.refreshNote();
+        });
+      };
+    
+
 }

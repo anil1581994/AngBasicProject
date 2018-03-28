@@ -1,0 +1,29 @@
+  <mat-card class="note-card2" fxFlex="240px">
+    
+    <div (click)="openDialog(note)">
+      <div [innerHTML]="note.title" class="editable"></div>
+      <div [innerHTML]="note.description"></div>
+    </div>
+    <div fxLayout="row">
+      <div>
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button type="submit" mat-menu-item (click)="moveTrash(note)">
+            <mat-icon>delete</mat-icon>
+            <span>delete note</span>
+          </button>
+          <div></div>
+        
+        </mat-menu>
+      </div>
+      <div>
+          <img style="margin-right: 10px;height: 20px;margin-top: 10px;" src="{{archiveImg}}" (click)=" archive(note)">
+        </div> 
+
+    </div>
+
+    
+</mat-card>  
+ <!-- <div style="width:400px;height:200px;border:2px solid red;"></div>  -->

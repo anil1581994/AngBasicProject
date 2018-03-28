@@ -22,6 +22,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { UpdateNoteComponent } from './update-note/update-note.component';
 import { TrashComponent } from './trash/trash.component';
 import { ArchiveComponent } from './archive/archive.component';
+import { CommonnoteComponent } from './commonnote/commonnote.component';
 
 
 
@@ -54,7 +55,8 @@ export const appRoutes: Routes = [
     NoteComponent,
     UpdateNoteComponent,
     TrashComponent,
-    ArchiveComponent
+    ArchiveComponent,
+    CommonnoteComponent
   ],
   imports: [
     BrowserModule,

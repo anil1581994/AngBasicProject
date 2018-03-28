@@ -17,6 +17,34 @@ export class NoteComponent implements OnInit {
   model:any={};
    //array to store note
   notes:Note[];
+  archiveImg="/assets/icons/archive.svg";
+  pinIcon="/assets/icons/pin.svg";
+  unPinIcon="/assets/icons/pinblue.svg";
+  colorBoard="/assets/icons/colorpalette.svg";
+
+  colors = [{
+    color: '#f26f75',
+    path: '/assets/icons/Red.png'
+  }, {
+    color: '#fcff77',
+    path: '/assets/icons/lightyellow.png'
+  }, {
+    color: '#80ff80',
+    path: '/assets/icons/green.png'
+  }, {
+    color: '#9ee0ff',
+    path: '/assets/icons/blue.png'
+  },  {
+    color: '#9966ff',
+    path: '/assets/icons/purple.png'
+  }, {
+    color: '#ff99cc',
+    path: '/assets/icons/pink.png'
+  }, {
+    color: '#a52a2a',
+    path: '/assets/icons/brown.png'
+  }
+  ];
  
   constructor(private commonService:HttputilService,private dialog: MatDialog) {
  
@@ -55,22 +83,7 @@ export class NoteComponent implements OnInit {
      this.notes=data.body;
       });
  }
-  //  deleteNote(noteId):void{
-  //     console.log(noteId);
-  //     this.commonService.deleteServiceData('note/deleteNote',noteId).subscribe(data=>{this.notes=data.body;
-  //       this.refreshNote();
-  //    });
-    
-  //   }
-//     updateNote():void{
-//       console.log("formValue",this.model);
-//      this.commonService.updateServiceData('note/updateNote',this.model)
-//       .subscribe(data=> {
-//        console.log(data)
-//        this.refreshNote();
-//       }) ;
-   
-// }
+  
    /* move trash */
   moveTrash(note):void{
         note.status=1;
@@ -79,5 +92,36 @@ export class NoteComponent implements OnInit {
            this.refreshNote();
         }) ;
     }
-   
+    archive(note):void{
+      note.status=2;
+      this.commonService.putServiceData('note/updateNote',note).subscribe(data=>{
+          console.log(data)
+         this.refreshNote();
+      }) ;
+  }
+  pinNote(note): void {
+    console.log("pin note", note);
+    note.status = 3;
+    this.commonService.putServiceData('note/updateNote', note).subscribe(response => {
+      console.log("unArchive note", response);
+      this.refreshNote();
+    });
+  };
+  unPinNote(note): void {
+    console.log("pin note", note);
+    note.status = 0;
+    this.commonService.putServiceData('note/updateNote', note).subscribe(response => {
+      console.log("unArchive note", response);
+      this.refreshNote();
+    });
+  };
+  //for color
+   updateNote(note): void {
+        console.log("color", note);
+        note.color = 0;
+        this.commonService.putServiceData('note/updateNote', note).subscribe(response => {
+         console.log("color note", response);
+         this.refreshNote();
+    });
+  };
 }
