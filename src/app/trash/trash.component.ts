@@ -9,29 +9,7 @@ import { Note } from '../Note';
 })
 export class TrashComponent implements OnInit {
   notes:Note[];
-  colors = [{
-    color: '#f26f75',
-    path: 'assets/icon/Red.png'
-  }, {
-    color: '#fcff77',
-    path: 'assets/icon/lightyellow.png'
-  }, {
-    color: '#80ff80',
-    path: '/assets/icon/green.png'
-  }, {
-    color: '#9ee0ff',
-    path: '/assets/icon/blue.png'
-  },  {
-    color: '#9966ff',
-    path: '/assets/icon/purple.png'
-  }, {
-    color: '#ff99cc',
-    path: '/assets/icon/pink.png'
-  }, {
-    color: '#a52a2a',
-    path: '/assets/icon/brown.png'
-  }
-  ];
+ 
 
 
   constructor(private commonService:HttputilService) { }

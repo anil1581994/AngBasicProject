@@ -5,5 +5,6 @@ export class Note {
       createDate:Date
       lastUpdateDate:Date
       status:number
+      color:String
 
 }

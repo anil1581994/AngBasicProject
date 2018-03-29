@@ -21,6 +21,7 @@ export class NoteComponent implements OnInit {
   pinIcon="/assets/icons/pin.svg";
   unPinIcon="/assets/icons/pinblue.svg";
   colorBoard="/assets/icons/colorpalette.svg";
+  reminderImg="/assets/icons/remender.svg";
 
   colors = [{
     color: '#f26f75',
@@ -52,10 +53,8 @@ export class NoteComponent implements OnInit {
    }
       
    ngOnInit() {
-
-    this.commonService.getServiceData('note/getAllNotes').subscribe(data=> {
-  
-    this.notes = data.body;
+          this.commonService.getServiceData('note/getAllNotes').subscribe(data=> {
+          this.notes = data.body;
                 });
  }
     openDialog(note) {
@@ -73,55 +72,62 @@ export class NoteComponent implements OnInit {
    console.log("formValue",this.model);
   this.commonService.postServiceData('note/createNote',this.model)
    .subscribe(data=> {
-    console.log("note created",data)
+    console.log("note created",data);
     this.refreshNote();
    }) ;
 
  }
- refreshNote():void{//getAllnotes
+ refreshNote():void{
    this.commonService.getServiceData('note/getAllNotes').subscribe(data=> {
      this.notes=data.body;
       });
  }
   
-   /* move trash */
-  moveTrash(note):void{
+   
+     moveTrash(note):void{
         note.status=1;
-        this.commonService.putServiceData('note/updateNote',note).subscribe(data=>{
-            console.log(data)
+         this.commonService.putServiceData('note/updateNote',note).subscribe(data=>{
+            console.log(data);
            this.refreshNote();
         }) ;
     }
     archive(note):void{
       note.status=2;
       this.commonService.putServiceData('note/updateNote',note).subscribe(data=>{
-          console.log(data)
+          console.log(data);
          this.refreshNote();
       }) ;
   }
   pinNote(note): void {
     console.log("pin note", note);
     note.status = 3;
-    this.commonService.putServiceData('note/updateNote', note).subscribe(response => {
-      console.log("unArchive note", response);
+    this.commonService.putServiceData('note/updateNote', note).subscribe(data => {
+      console.log("unArchive note", data);
       this.refreshNote();
     });
   };
   unPinNote(note): void {
     console.log("pin note", note);
     note.status = 0;
-    this.commonService.putServiceData('note/updateNote', note).subscribe(response => {
-      console.log("unArchive note", response);
+    this.commonService.putServiceData('note/updateNote', note).subscribe(data => {
+      console.log("unArchive note", data);
       this.refreshNote();
     });
   };
-  //for color
-   updateNote(note): void {
-        console.log("color", note);
-        note.color = 0;
-        this.commonService.putServiceData('note/updateNote', note).subscribe(response => {
-         console.log("color note", response);
-         this.refreshNote();
+
+  updateNoteColor(note,status): void {
+    console.log("change note color", note,status);
+    note.status = status;
+    this.commonService.putServiceData('note/updateNote', note).subscribe(data => {
+      console.log("color  response", data);
+      this.refreshNote();
     });
-  };
+};
+
+saveReminder(note,VAR):void{
+  if(VAR==''){
+
+  }
+}
+
 }

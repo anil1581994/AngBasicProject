@@ -1,17 +1,18 @@
 <!-- Hide card-->
+
 <div class="left-container">
   <div fxLayoutAlign="center center" (click)="show=!show" class="note-card">
     <mat-card fxFlex="600px" fxFlexAlign="center" class="title-css">
       <div contenteditable="true" data-text="Take a note..." class="editable"></div>
     </mat-card>
   </div>
+
   <!--show card-->
   <div fxLayout="row" fxLayoutAlign="center" *ngIf="show" class="note-card">
-
     <mat-card fxFlex="600px" fxFlexAlign="center" style="margin-top: -25%;">
-        <!-- <div style="margin-left: 90%;">
+      <!-- <div style="margin-left: 90%;">
             <img src="{{pinIcon}}"  (click)="pinNote(note)">
-        </div> -->
+        </div>  -->
       <mat-card-content>
         <div style="font-weight: bold; font-size: 17px; padding: 10px 15px;" contenteditable="true" data-text="Title" class="editable"
           name="Title" (input)="model.title=$event.target.innerHTML"></div>
@@ -31,79 +32,34 @@
   <!--pinNote -->
 
   <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="20px">
-  
-      <div *ngFor="let note of notes">
+
+    <div *ngFor="let note of notes">
       <div *ngIf="note.status===3">
         <!-- common mat card used for-->
         <!-- <app-commonnote></app-commonnote> -->
-       <mat-card class="note-card2" fxFlex="240px">
+        <mat-card class="note-card2" fxFlex="240px" [style.background]="note.color">
           <div style="margin-left: 90%;">
-              <img src="{{unPinIcon}}"  (click)="unPinNote(note)">
+            <img src="{{unPinIcon}}" (click)="unPinNote(note)">
           </div>
-            <div (click)="openDialog(note)">
-              <div [innerHTML]="note.title" class="editable"></div>
-              <div [innerHTML]="note.description"></div>
-            </div>
-            <div fxLayout="row">
-              <div>
-                <button mat-icon-button [matMenuTriggerFor]="menu">
-                  <mat-icon>more_vert</mat-icon>
-                </button>
-                <mat-menu #menu="matMenu">
-                  <button type="submit" mat-menu-item (click)="moveTrash(note)">
-                    <mat-icon>delete</mat-icon>
-                    <span>delete note</span>
-                  </button>
-                  <div></div>
-                
-                </mat-menu>
-              </div>
-    
-    
-              <div >
-                  <img style="margin-right: 10px;height: 20px;margin-top: 10px;" src="{{archiveImg}}" (click)=" archive(note)">
-                </div> 
-    
-            </div>
-        
-        </mat-card> 
-        </div>
-        </div>
-      </div>
-
-
-<!--open dialog as card -->
-
-<div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="20px">
-  
-  <div *ngFor="let note of notes">
-  <div *ngIf="note.status===0">
-    <!-- common mat card used for-->
-    <!-- <app-commonnote></app-commonnote> -->
-   <mat-card class="note-card2" fxFlex="240px">
-      <div style="margin-left: 90%;">
-          <img src="{{pinIcon}}"  (click)="pinNote(note)">
-      </div>
-        <div (click)="openDialog(note)">
-          <div [innerHTML]="note.title" class="editable"></div>
-          <div [innerHTML]="note.description"></div>
-        </div>
-        <div fxLayout="row">
-          <div>
-            <button mat-icon-button [matMenuTriggerFor]="menu">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu">
-              <button type="submit" mat-menu-item (click)="moveTrash(note)">
-                <mat-icon>delete</mat-icon>
-                <span>delete note</span>
+          <div (click)="openDialog(note)">
+            <div [innerHTML]="note.title" class="editable"></div>
+            <div [innerHTML]="note.description"></div>
+          </div>
+          <div fxLayout="row">
+            <div>
+              <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_vert</mat-icon>
               </button>
-              <div></div>
-            
-            </mat-menu>
-          </div>
+              <mat-menu #menu="matMenu">
+                <button type="submit" mat-menu-item (click)="moveTrash(note)">
+                  <mat-icon>delete</mat-icon>
+                  <span>delete note</span>
+                </button>
+                <div></div>
 
-             <div>
+              </mat-menu>
+            </div>
+            <div>
               <button mat-icon-button [matMenuTriggerFor]="color">
                 <mat-icon>color_lens</mat-icon>
               </button>
@@ -111,27 +67,80 @@
 
                 <div>
                   <a *ngFor="let color of colors">
-                    <img src="{{color.path}}">
+                    <img src="{{color.path}}" (click)="note.color=color.color;updateNoteColor(note,note.status)">
                   </a>
                 </div>
               </mat-menu>
             </div>
 
-           <div>
+            <div>
               <img style="margin-right: 10px;height: 20px;margin-top: 10px;" src="{{archiveImg}}" (click)=" archive(note)">
-            </div> 
-       <!-- 
-           <div >
-              <img style="margin-right: 10px;height: 20px;margin-top: 10px;" src="{{colorBoard}}" >
-            </div>  -->
-
-        </div>
-    
-    </mat-card> 
-    </div>
+            </div>
+            <div>
+              <img style="margin-right: 10px;height: 20px;margin-top: 10px;" src="{{reminderImg}}">
+            </div>
+          </div>
+        </mat-card>
+      </div>
     </div>
   </div>
-    <!-- moveTrash connector-->
-</div>
-  
 
+
+  <!--open dialog as card note div -->
+
+  <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="20px">
+
+    <div *ngFor="let note of notes">
+      <div *ngIf="note.status===0">
+        <!-- common mat card used for-->
+        <!-- <app-commonnote></app-commonnote> -->
+        <mat-card class="note-card2" fxFlex="240px" [style.background]="note.color">
+          <div style="margin-left: 90%;">
+            <img src="{{pinIcon}}" (click)="pinNote(note)">
+          </div>
+          <div (click)="openDialog(note)">
+            <div [innerHTML]="note.title" class="editable"></div>
+            <div [innerHTML]="note.description"></div>
+          </div>
+          <div fxLayout="row">
+            <div>
+              <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button type="submit" mat-menu-item (click)="moveTrash(note)">
+                  <mat-icon>delete</mat-icon>
+                  <span>delete note</span>
+                </button>
+                <div></div>
+
+              </mat-menu>
+            </div>
+
+            <div>
+              <button mat-icon-button [matMenuTriggerFor]="color">
+                <mat-icon>color_lens</mat-icon>
+              </button>
+              <mat-menu #color="matMenu">
+
+                <div>
+                  <a *ngFor="let color of colors">
+
+                    <img src="{{color.path}}" (click)="note.color=color.color;updateNoteColor(note,note.status)">
+                  </a>
+                </div>
+              </mat-menu>
+            </div>
+
+            <div>
+              <img style="margin-right: 10px;height: 20px;margin-top: 10px;" src="{{archiveImg}}" (click)=" archive(note)">
+            </div>
+            
+          </div>
+
+        </mat-card>
+      </div>
+    </div>
+  </div>
+  <!-- moveTrash connector-->
+</div>

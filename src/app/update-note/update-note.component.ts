@@ -27,18 +27,18 @@ export class UpdateNoteComponent implements OnInit {
   
   }
 
-  refreshNote():void{//getAllnotes
+  refreshNote():void{
     this.commonService.getServiceData('note/getAllNotes').subscribe(data=> {
       this.notes=data.body;
 
        });
   }
 
-  updateNote():void{//update note
+  updateNote():void{
     console.log("formValue",this.data);
    this.commonService.putServiceData('note/updateNote',this.data)
     .subscribe(data=> {
-     console.log(data)
+     console.log(data);
      this.refreshNote();
      this.dialogRef.close();
     }) ;
