@@ -6,5 +6,6 @@ export class Note {
       lastUpdateDate:Date
       status:number
       color:String
+      reminder:Date
 
 }

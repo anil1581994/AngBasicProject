@@ -13,6 +13,39 @@
           <mat-icon>refresh</mat-icon>
         </button>
       </div>
+     <!--<div class="login-design">
+      <button type="submit" mat-menu-item [matMenuTriggerFor]="login" (click)="getLogedUser()">
+        
+          <div mat-card-avatar class="example-header-image"></div>
+        
+      </button>
+    </div>
+
+    <mat-menu #login="matMenu">
+        <div fxLayout="column" fxLayoutGap="20px">
+      <div fxLayout="row" fxLayoutGap="30px">
+        <div>
+         
+            <div mat-card-avatar class="example-header-image"></div>
+          
+        </div>
+
+        <div>
+        
+            <b>fullname</b>
+            <a>userEmail</a>
+            <button mat-raised-button color="primary">My Account</button>
+         
+        </div>
+     </div>-->
+     <!--
+       <div fxLayout="row" fxLayoutGap="70px" class="rowDesign">
+          <div><button mat-raised-button color="primary">Add Account</button></div>
+          <div> <button type="submit" mat-raised-button color="primary" (click)="signOut()">Sign out</button></div>     
+      </div>
+     </div> -->
+
+      
       <a href="#" mat-button>Menu Item 1</a>
 
       <a href="#" mat-button>Menu Item 2</a>
@@ -24,43 +57,33 @@
 
     <mat-sidenav-container class="example-container">
 
-      <mat-sidenav mode="side" #sidenav opened>
-          <ul>
-              <li class="sidebar-item" fxLayout="row">
-                  <a href="home/note">Note</a>
-                 </li>
-            <li class="sidebar-item" fxLayout="row">
-             <a href="home/trash">Trash</a>
-            </li>
-            <li class="sidebar-item" fxLayout="row">
-                <a href="home/archive">Archive</a>
-               </li>
+      <mat-sidenav mode="side" #sidenav opened fxLayout="column">
+          <div fxLayout="column"> 
 
-            <li class="sidebar-item" fxLayout="row">
-              <span>Reminder</span>
-            </li>
-
-            <li class="sidebar-item" fxLayout="row">
-              <span>Labels</span>
-            </li>
-
-            <li class="sidebar-item" fxLayout="row">
-              <span>Archieve</span>
-            </li>
-            <li class="sidebar-item" fxLayout="row">
-              <span>Trash</span>
-            </li>
-            <li class="sidebar-item" fxLayout="row">
-              <span>app</span>
-            </li>
-          </ul>
+              <div>
+                <a href="/home/note" mat-button>
+                  <mat-icon>lightbulb_outline</mat-icon> Note</a>
+              </div>
+              <div>
+                <a href="/home/Reminders" mat-button>
+                  <img src="/assets/icons/remender.svg"> Reminders</a>
+              </div>
+              <div>
+                  <a href="/home/archive" mat-button>
+                    <mat-icon>archive</mat-icon> Archive</a>
+                </div>
+              <div>
+                <a href="/home/trash" mat-button>
+                  <img style="height:30px;margin-top: 10px;"  src="/assets/icons/trash.svg"> Trash</a>
+              </div>
+             </div>
+         
       </mat-sidenav>
-      <!-- <mat-sidenav-content><app-note style="overflow-y: hidden"></app-note></mat-sidenav-content> -->
+     
       
-    <mat-sidenav-content>
-      <router-outlet></router-outlet>
-      
-    </mat-sidenav-content>
+   <mat-sidenav-content>
+     <router-outlet></router-outlet>
+  </mat-sidenav-content>
     </mat-sidenav-container>
   </div>
 

@@ -22,6 +22,8 @@ export class NoteComponent implements OnInit {
   unPinIcon="/assets/icons/pinblue.svg";
   colorBoard="/assets/icons/colorpalette.svg";
   reminderImg="/assets/icons/remender.svg";
+  clockImg="/assets/icons/clock.png";
+  clearImg="/assets/icons/clear.svg";
 
   colors = [{
     color: '#f26f75',
@@ -124,10 +126,49 @@ export class NoteComponent implements OnInit {
     });
 };
 
-saveReminder(note,VAR):void{
-  if(VAR==''){
+reminderSave(note,day){
+    
+  if(day==='Today'){
+  var today =new Date();
+  today.setHours(20);
+  today.setMinutes(0);
+  today.setMilliseconds(0);
+  note.reminder= today;   
+  }
+  else if(day==='Tomorrow'){
+    var today =new Date();
+    today.setDate(today.getDate()+1);
+  today.setHours(8);
+  today.setMinutes(0);
+  today.setMilliseconds(0);
+  note.reminder= today;
+  }else if(day==='Next week'){
+    
+    var today =new Date();
+    today.setDate(today.getDate()+6);
+    today.setHours(8);
+    today.setMinutes(0);
+    today.setMilliseconds(0);
+    note.reminder= today;  
+  }else if(day==='null'){
+    note.reminder=null;
+  }else{
+    var dateObj = this.model.reminder;
+    // let validDate =this.convertDate(dateObj); 
+    var today = new Date(dateObj);
+    
+    // today.setDate(parseInt(newDt));
+    // console.log("Date obj ",today);
+    
+    note.reminder= today;
+    this.refreshNote();
 
   }
+     this.commonService.putServiceData('note/updateNote', note).subscribe(response => {
+     console.log("reminder  response", response);
+    this.refreshNote();
+    });
 }
+
 
 }

@@ -66,4 +66,9 @@ export class HttputilService {
       // return this.http.put(this.urlpath,model,this.httpOptions);
        return this.http.put(this.urlpath,model,this.httpOptions);
     }
+//     getLogedUser(path): Observable<CurrentUser>{
+//       this.urlpath = this.user_Url.concat(path);
+//       return this.http.get<CurrentUser>(this.urlpath,this.httpOptions);    
+// }
+
 }
