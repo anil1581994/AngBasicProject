@@ -46,3 +46,31 @@
     top: 0; /* Sets the sticky toolbar to be on top */
     z-index: 1000; /* Ensure that your app's content doesn't overlap the toolbar */
 }
+
+.profileicon-design{
+   margin-left:50%;
+}
+
+example-headermatool-image {
+  margin-left: 280%;
+  background-image: url('/assets/icons/userProfile2.svg');
+  background-size: cover;
+}
+
+.example-card {
+  top: 57px;
+  position: absolute;
+  right: 75px;
+  width: 315px;
+}
+
+.example-header-image {
+   
+  background-image: url('/assets/icons/userProfile2.svg');
+  /* user profile pic*/
+  background-size: cover;
+}
+
+
+
+

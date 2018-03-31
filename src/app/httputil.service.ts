@@ -28,6 +28,8 @@ export class HttputilService {
 
   }
   base_url = "http://localhost:8080/ToDo/";
+  user_Url="http://localhost:8080/ToDo/";
+  
 
  
   public urlpath : string;
@@ -66,9 +68,13 @@ export class HttputilService {
       // return this.http.put(this.urlpath,model,this.httpOptions);
        return this.http.put(this.urlpath,model,this.httpOptions);
     }
-//     getLogedUser(path): Observable<CurrentUser>{
+//     getLoggedUser(path): Observable<CurrentUser>{
 //       this.urlpath = this.user_Url.concat(path);
 //       return this.http.get<CurrentUser>(this.urlpath,this.httpOptions);    
 // }
 
+getLabelService(path): Observable<any>{
+  this.urlpath = this.base_url.concat(path);
+    return this.http.get<any>(this.urlpath,this.httpOptions);    
+}
 }

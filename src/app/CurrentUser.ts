@@ -5,6 +5,6 @@ export class CurrentUser {
     passWord: string;
     mobileNumber: string;
     isActive: boolean;
-    UUID: string;
+    randomID: string;
     token: string;
   }

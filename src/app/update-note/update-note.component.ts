@@ -17,6 +17,7 @@ export class UpdateNoteComponent implements OnInit {
   //array to store note
  notes:Note[];
 
+
   constructor(@Inject(MAT_DIALOG_DATA) private data: Note,
               private commonService:HttputilService,
               public dialogRef: MatDialogRef<UpdateNoteComponent>) { }

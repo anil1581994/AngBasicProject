@@ -1,0 +1,10 @@
+<div fxLayout="column" fxLayoutGap="20px">
+
+    <div><b>Edit labels :</b></div>
+    <div>
+       <mat-form-field >
+        <input matInput placeholder="Create new label" [(ngModel)]="model.labelTitle">
+       </mat-form-field>
+    </div>
+    <div><button type="submit" (click)="createLabel()" mat-raised-button>Done</button></div>
+  </div>
