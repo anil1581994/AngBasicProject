@@ -4,6 +4,7 @@ import 'rxjs/add/operator/map';
 import { ToDoResponse } from './ToDoResponse';
 import { Observable } from 'rxjs/Observable';
 import { Note } from './Note';
+import { LoggedUser } from './LoggedUser';
 
 import { Http, Response, RequestOptions, Headers } from '@angular/http';
 import { Options } from 'selenium-webdriver/chrome';
@@ -28,7 +29,7 @@ export class HttputilService {
 
   }
   base_url = "http://localhost:8080/ToDo/";
-  user_Url="http://localhost:8080/ToDo/";
+  ///user_Url="http://localhost:8080/ToDo/";
   
 
  
@@ -68,13 +69,17 @@ export class HttputilService {
       // return this.http.put(this.urlpath,model,this.httpOptions);
        return this.http.put(this.urlpath,model,this.httpOptions);
     }
-//     getLoggedUser(path): Observable<CurrentUser>{
-//       this.urlpath = this.user_Url.concat(path);
-//       return this.http.get<CurrentUser>(this.urlpath,this.httpOptions);    
-// }
-
-getLabelService(path): Observable<any>{
-  this.urlpath = this.base_url.concat(path);
+  
+   getLabelService(path): Observable<HttpResponse<any>>{
+     this.urlpath = this.base_url.concat(path);
+     this.addAuthorization();
     return this.http.get<any>(this.urlpath,this.httpOptions);    
-}
+   }
+  getLoggedUser(path): Observable<HttpResponse<any>>{
+    console.log(path);
+    this.urlpath = this.base_url.concat(path);
+    this.addAuthorization();   
+     return this.http.get<any>(this.urlpath,this.httpOptions);    
+  }
+
 }

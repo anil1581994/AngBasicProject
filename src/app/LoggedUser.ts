@@ -1,4 +1,4 @@
-export class CurrentUser {
+export class LoggedUser {
     id: number;
     name: string;
     email: string;

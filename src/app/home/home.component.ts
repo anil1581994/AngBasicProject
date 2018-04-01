@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { HttputilService } from '../httputil.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { Label } from '../Label';
+import { LoggedUser } from '../LoggedUser';
 import {LabelComponent} from '../label/label.component';
 @Component({
   selector: 'app-home',
@@ -10,12 +11,15 @@ import {LabelComponent} from '../label/label.component';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  CurrentUser;
+  LoggedUser;
+  model:any={};
   labels:Label[];
+  name:string;
+  email:string;
   constructor(private router:Router,private commonService:HttputilService,private dialog: MatDialog) { }
 
   ngOnInit() {
-    this.commonService.getServiceData('note/getAllLabels').subscribe(response=> {
+    this.commonService.getLabelService('note/getAllLabels').subscribe(response=> {
       this.labels = response.body;
             });
   
@@ -36,19 +40,20 @@ logout() {
       console.log("response",label);
         this.dialog.open(LabelComponent, 
            {
-             height: '400px',
-             width: '200px',
+             height:'200px',
+             width: '400px',
               });
       }
-     
-  //   getLoggedUser():void{
-  //     this.commonService.getLoggedUser('getUser').subscribe(res => {
-  //       this.CurrentUser= res;
-  //     });
-  // }
-  getAllLabels():void{
-    this.commonService.getLabelService('note/getAllLabels').subscribe(data=> {
-     this.labels=data.body;
+    
+   getAllLabels():void{
+    this.commonService.getLabelService('note/getAllLabels').subscribe(response=> {
+     this.labels=response.body;
        });
-  }
+    }
+    getLoggedUser():void{
+      this.commonService.getLoggedUser('user/loggeduser').subscribe(response => {
+         this.LoggedUser= response;
+         console.log(response);
+     });
+     }
 }

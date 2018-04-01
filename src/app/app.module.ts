@@ -87,7 +87,7 @@ export const appRoutes: Routes = [
   
     RouterModule.forRoot(appRoutes)
   ],
-  entryComponents:[UpdateNoteComponent],
+  entryComponents:[UpdateNoteComponent,LabelComponent],
   providers: [HttputilService,AuthGuard,AlwaysLogginAuthGuard],
   bootstrap: [AppComponent]
 })

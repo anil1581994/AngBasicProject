@@ -10,10 +10,12 @@ import { Label } from '../Label';
   styleUrls: ['./label.component.css']
 })
 export class LabelComponent implements OnInit {
-  model:any={};
+  model:any={};//get form data by 2way Binding
  
 
-constructor(private data: Label,
+
+
+constructor(@Inject(MAT_DIALOG_DATA) private data: Label,
   private commonService:HttputilService, public dialogRef: MatDialogRef<LabelComponent>) { }
 
   ngOnInit() {

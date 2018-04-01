@@ -66,7 +66,7 @@ export class NoteComponent implements OnInit {
          data: note,
          width:'600px'
         
-              });
+         });
   }
   
    
