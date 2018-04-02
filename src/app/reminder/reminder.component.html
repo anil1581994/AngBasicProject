@@ -1,0 +1,122 @@
+<div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="20px">
+
+    <div *ngFor="let note of notes">
+      <div *ngIf="note.status===0">
+        <!-- common mat card used for-->
+        <!-- <app-commonnote></app-commonnote> -->
+        <mat-card class="note-card2" fxFlex="240px" [style.background]="note.color">
+          <div style="margin-left: 90%;">
+            <img src="{{pinIcon}}" (click)="pinNote(note)">
+          </div>
+          <div (click)="openDialog(note)">
+            <div [innerHTML]="note.title" class="editable"></div>
+            <div [innerHTML]="note.description"></div>
+          </div>
+
+
+          <div *ngIf="note.reminder!=null">
+              <div mat-menu-item fxLayout="row" style="background-color: gainsboro;">
+                <div style="font-size: 12px;">
+                    <img style="margin-left: 8px;margin-top: 11px;" src="{{clockImg}">
+                  <label>{{note.reminder|date:'MMM dd,y, hh:mm a'}}</label>
+                </div>
+                <div>
+                  <img style="margin-left: 8px;margin-top: 11px;" src="{{clearImg}}" (click)="reminderSave(note,'null')">
+                </div>
+              </div>
+            </div>
+       
+            
+
+          <div fxLayout="row">
+            <div>
+              <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button type="submit" mat-menu-item (click)="moveTrash(note)">
+                  <mat-icon>delete</mat-icon>
+                  <span>delete note</span>
+                </button>
+                <div></div>
+
+              </mat-menu>
+            </div>
+             
+            <div>
+              <button mat-icon-button [matMenuTriggerFor]="color">
+                <mat-icon>color_lens</mat-icon>
+              </button>
+              <mat-menu #color="matMenu">
+
+                <div>
+                  <a *ngFor="let color of colors">
+
+                    <img src="{{color.path}}" (click)="note.color=color.color;updateNoteColor(note,note.status)">
+                  </a>
+                </div>
+              </mat-menu>
+            </div>
+
+            <div>
+              <img style="margin-right: 10px;height: 20px;margin-top: 10px;" src="{{archiveImg}}" (click)=" archive(note)">
+            </div>
+         
+              <div>
+                <button mat-icon-button [matMenuTriggerFor]="reminder">
+                  <img src="{{reminderImg}}">
+                </button>
+
+                <mat-menu #reminder="matMenu">
+                  <div>
+                    <button type="submit" mat-menu-item>
+                      <b>Reminder:</b>
+                    </button>
+                  </div>
+
+                  <div>
+                    <button type="submit" mat-menu-item (click)="reminderSave(note,'Today')">
+                      <span>Later today</span>
+                      <span>8:00PM</span>
+                    </button>
+                  </div>
+
+                  <div>
+                    <button type="submit" mat-menu-item (click)="reminderSave(note,'Tomorrow')">
+                      <span>Tomorrow</span>
+                      <span>8:00AM</span>
+                    </button>
+                  </div>
+
+                  <div>
+                    <button type="submit" mat-menu-item (click)="reminderSave(note,'Next week')">
+                      <span>Next week</span>
+                      <span>Mon, 8:00Am</span>
+                    </button>
+                  </div>
+
+                   <div>
+                    <button type="submit" mat-menu-item [matMenuTriggerFor]="calender">
+                      <span>Pick date & time</span>
+                    </button>
+                  </div>
+  
+                  <mat-menu #calender="matMenu">
+  
+                    Date Time:
+          
+                    <input [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" placeholder="Date Time" name="reminder" [(ngModel)]="model.reminder" reqiured>
+                    <owl-date-time #dt1></owl-date-time>
+
+                     <div>
+                      <button mat-button mat-raised-button color="primary" type="submit" (click)="reminderSave(note,'date picker')" style="font-size: 10px;">save</button>
+                    </div> 
+  
+                    </mat-menu>
+                   </mat-menu>
+              </div> 
+             </div> 
+              </mat-card>
+        </div>
+      </div>
+    </div>

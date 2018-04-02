@@ -11,15 +11,15 @@ import {LabelComponent} from '../label/label.component';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  LoggedUser;
+  public LoggedUser;
   model:any={};
   labels:Label[];
-  name:string;
-  email:string;
+  username:string;
+  useremail:string;
   constructor(private router:Router,private commonService:HttputilService,private dialog: MatDialog) { }
 
   ngOnInit() {
-    this.commonService.getLabelService('note/getAllLabels').subscribe(response=> {
+     this.commonService.getLabelService('note/getAllLabels').subscribe(response=> {
       this.labels = response.body;
             });
   
@@ -34,17 +34,15 @@ logout() {
 
     }
 
-
-
     openDialog(label) {
       console.log("response",label);
         this.dialog.open(LabelComponent, 
            {
-             height:'200px',
-             width: '400px',
+             height:'325px',
+             width: '300px',
               });
       }
-    
+      
    getAllLabels():void{
     this.commonService.getLabelService('note/getAllLabels').subscribe(response=> {
      this.labels=response.body;
@@ -52,8 +50,11 @@ logout() {
     }
     getLoggedUser():void{
       this.commonService.getLoggedUser('user/loggeduser').subscribe(response => {
-         this.LoggedUser= response;
-         console.log(response);
+        console.log("response",response.body);
+        this.username=response.body.name;
+        this.useremail=response.body.email;
+        this.LoggedUser= response;
+         
      });
      }
 }

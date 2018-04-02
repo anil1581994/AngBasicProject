@@ -26,7 +26,7 @@ model:any={};
  ngOnInit() {}
    logIn():void{
     console.log("sigInForm",this.model);
-     this.commonService.postServiceData('user/login',this.model)
+     this.commonService.postServiceData('login',this.model)
      .subscribe(response => {
         if(response.body.statusCode=== 100)
         {

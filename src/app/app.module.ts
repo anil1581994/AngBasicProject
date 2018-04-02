@@ -26,6 +26,7 @@ import { CommonnoteComponent } from './commonnote/commonnote.component';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { DatePipe } from '@angular/common';
 import { LabelComponent } from './label/label.component';
+import { ReminderComponent } from './reminder/reminder.component';
 
 
 
@@ -44,7 +45,9 @@ export const appRoutes: Routes = [
       { path: 'note', component: NoteComponent },
       { path: 'trash', component: TrashComponent },
       { path: 'archive', component: ArchiveComponent },
-      { path: 'label', component: LabelComponent }
+      { path: 'label', component: LabelComponent },
+      { path: 'reminder', component: ReminderComponent }
+
    
       ]
 }
@@ -61,7 +64,8 @@ export const appRoutes: Routes = [
     TrashComponent,
     ArchiveComponent,
     CommonnoteComponent,
-    LabelComponent
+    LabelComponent,
+    ReminderComponent
   ],
   imports: [
     BrowserModule,
@@ -83,8 +87,6 @@ export const appRoutes: Routes = [
     MatDialogModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
-    
-  
     RouterModule.forRoot(appRoutes)
   ],
   entryComponents:[UpdateNoteComponent,LabelComponent],

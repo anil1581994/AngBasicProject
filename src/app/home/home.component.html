@@ -25,19 +25,21 @@
       <!-- <button mat-button type="submit" (click)="logout()">Sign out</button> -->
       <!-- profile pic circle-->
       
-      <!-- <div class="profileicon-design" (click)="show=!show" matTooltip="Google Account"> 
+       <div class="profileicon-design" (click)="show=!show" matTooltip="Google Account"> 
        <img style="height:30px;margin-top: 10px;"src="/assets/icons/userProfile2.svg"  (click)="getLoggedUser()"> 
-      </div> -->
-       <div class="profileicon-design" (click)="show=!show" matTooltip="Google Account">
+      </div> 
+       <!-- <div class="profileicon-design" (click)="show=!show" matTooltip="Google Account">
           <a  (click)="getLoggedUser()" mat-button>
             <img  style="height:30px;margin-top: 10px;" src="/assets/icons/userProfile2.svg"></a>
-        </div>
+        </div> -->
        <div *ngIf="show" class="example-card">
           <mat-card>
               <mat-card-header>
                 <div mat-card-avatar class="example-header-image"></div>
-                <mat-card-title>{{model.name}}</mat-card-title>
-                <mat-card-subtitle>{{model.email}}</mat-card-subtitle>
+                 <mat-card-title><b>{{username}}</b></mat-card-title>
+                <mat-card-subtitle>{{useremail}}</mat-card-subtitle>
+                <!-- <p><b>{{useremail}}</b></p>
+                <p><b>{{username}}</b></p> -->
               </mat-card-header>
               
               
@@ -72,7 +74,7 @@
                   <mat-icon>lightbulb_outline</mat-icon> Note</a>
               </div>
               <div>
-                <a href="/home/Reminders" mat-button>
+                <a href="/home/reminder" mat-button>
                   <img src="/assets/icons/remender.svg"> Reminders</a>
               </div>
               <div>
@@ -84,7 +86,8 @@
                   <img style="height:30px;margin-top: 10px;"  src="/assets/icons/trash.svg"> Trash</a>
               </div>
               <div>
-                  <button mat-menu-item>
+                 
+                <button mat-menu-item>
                     <span>Labels</span>
                   </button>
             </div>

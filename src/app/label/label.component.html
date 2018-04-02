@@ -1,10 +1,12 @@
-<div fxLayout="column" fxLayoutGap="20px">
+<div fxLayout="column" fxLayoutGap="20px" style="left: 493.5px; top: 60.5px;">
 
-    <div><b>Edit labels :</b></div>
+    <div><b>Edit labels </b></div>
     <div>
-       <mat-form-field >
+       <!-- <mat-form-field > -->
         <input matInput placeholder="Create new label" [(ngModel)]="model.labelTitle">
-       </mat-form-field>
+       <!-- </mat-form-field> -->
     </div>
-    <div><button type="submit" (click)="createLabel()" mat-raised-button>Done</button></div>
+    <div flexLayout="row" fxLayoutAlign="end" >
+      <button type="submit" (click)="createLabel()" mat-raised-button style="margin-top: 160px;">Done</button>
+    </div>
   </div>
