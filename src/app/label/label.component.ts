@@ -11,6 +11,7 @@ import { Label } from '../Label';
 })
 export class LabelComponent implements OnInit {
   model:any={};//get form data by 2way Binding
+  labels:Label[];
  
 
 
@@ -19,6 +20,7 @@ constructor(@Inject(MAT_DIALOG_DATA) private data: Label,
   private commonService:HttputilService, public dialogRef: MatDialogRef<LabelComponent>) { }
 
   ngOnInit() {
+    
   }
   
    
@@ -31,7 +33,10 @@ constructor(@Inject(MAT_DIALOG_DATA) private data: Label,
      this.dialogRef.close();
       
     }) ;
- 
   }
-  
+  getAllLabels():void{
+    this.commonService.getLabelService('note/getAllLabels').subscribe(response=> {
+     this.labels=response.body;
+       });
+    }
 }

@@ -38,8 +38,7 @@
                 <div mat-card-avatar class="example-header-image"></div>
                  <mat-card-title><b>{{username}}</b></mat-card-title>
                 <mat-card-subtitle>{{useremail}}</mat-card-subtitle>
-                <!-- <p><b>{{useremail}}</b></p>
-                <p><b>{{username}}</b></p> -->
+               
               </mat-card-header>
               
               
@@ -89,6 +88,9 @@
                  
                 <button mat-menu-item>
                     <span>Labels</span>
+   
+                    <button mat-button type="submit" (click)="updateLabel()"style="margin-left:40%;"><b>EDIT</b></button>
+         
                   </button>
             </div>
             <div *ngFor="let label of labels">
@@ -107,8 +109,6 @@
                  </button>
               </div>
              </div>
-             
-         
       </mat-sidenav>
      
       
