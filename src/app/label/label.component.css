@@ -1,0 +1,11 @@
+.inline { 
+    display: inline; 
+   /* border: none;
+    margin:10px;*/
+    }
+    .editable {
+        word-wrap: break-word;
+        white-space: pre-wrap;
+        outline: none;
+          line-height: 20px;   
+     } 

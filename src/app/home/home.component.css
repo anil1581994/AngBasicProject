@@ -71,6 +71,7 @@ example-headermatool-image {
   background-size: cover;
 }
 
-
-
+.mat-drawer-content {
+  overflow: hidden;
+}
 

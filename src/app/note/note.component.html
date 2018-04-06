@@ -9,7 +9,7 @@
 
   <!--show card-->
   <div fxLayout="row" fxLayoutAlign="center" *ngIf="show" class="note-card">
-    <mat-card fxFlex="600px" fxFlexAlign="center" style="margin-top: -25%;">
+    <mat-card fxFlex="600px" fxFlexAlign="center" style="margin-top: -25%;" >
       <!-- <div style="margin-left: 90%;">
             <img src="{{pinIcon}}"  (click)="pinNote(note)">
         </div>  -->
@@ -37,7 +37,7 @@
       <div *ngIf="note.status===3">
         <!-- common mat card used for-->
         <!-- <app-commonnote></app-commonnote> -->
-        <mat-card class="note-card2" fxFlex="240px" [style.background]="note.color">
+        <mat-card class="note-card2" fxFlex="240px" [style.background]="note.color" class="openhide">
           <div style="margin-left: 90%;">
             <img src="{{unPinIcon}}" (click)="unPinNote(note)">
           </div>
@@ -45,7 +45,7 @@
             <div [innerHTML]="note.title" class="editable"></div>
             <div [innerHTML]="note.description"></div>
           </div>
-          <div fxLayout="row">
+          <div fxLayout="row" class="hideme">
             <div>
               <button mat-icon-button [matMenuTriggerFor]="menu">
                 <mat-icon>more_vert</mat-icon>
@@ -55,9 +55,7 @@
                   <mat-icon>delete</mat-icon>
                   <span>delete note</span>
                 </button>
-                <div></div>
-
-              </mat-menu>
+               </mat-menu>
             </div>
             <div>
               <button mat-icon-button [matMenuTriggerFor]="color">
@@ -102,7 +100,9 @@
             <div [innerHTML]="note.title" class="editable"></div>
             <div [innerHTML]="note.description"></div>
           </div>
-
+            <div>
+              <b>your label should be here</b>
+            </div>
 
           <div *ngIf="note.reminder!=null">
               <div mat-menu-item fxLayout="row" style="background-color: gainsboro;">
@@ -124,15 +124,17 @@
                 <mat-icon>more_vert</mat-icon>
               </button>
               <mat-menu #menu="matMenu">
-                <button type="submit" mat-menu-item (click)="moveTrash(note)">
-                  <mat-icon>delete</mat-icon>
-                  <span>delete note</span>
+                <button type="submit" mat-menu-item (click)="moveTrash(note)" [matMenuTriggerFor]="menu1">
+                 <span>delete note</span>
                 </button>
-                <div></div>
-
-              </mat-menu>
+                <mat-menu #menu1="matMenu">
+                    <button type="submit" mat-menu-item (click)="moveTrash(note)">
+                        <span>copy note</span>
+                       </button>
+                </mat-menu>
+               </mat-menu>
             </div>
-             
+         
             <div>
               <button mat-icon-button [matMenuTriggerFor]="color">
                 <mat-icon>color_lens</mat-icon>
@@ -206,7 +208,7 @@
                    </mat-menu>
               </div> 
              </div> 
-              </mat-card>
+         </mat-card>
         </div>
       </div>
     </div>

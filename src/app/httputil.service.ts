@@ -4,6 +4,7 @@ import 'rxjs/add/operator/map';
 import { ToDoResponse } from './ToDoResponse';
 import { Observable } from 'rxjs/Observable';
 import { Note } from './Note';
+import { Label } from './Label';
 import { LoggedUser } from './LoggedUser';
 
 import { Http, Response, RequestOptions, Headers } from '@angular/http';
@@ -30,12 +31,13 @@ export class HttputilService {
   }
   base_url = "http://localhost:8080/ToDo/";
   ///user_Url="http://localhost:8080/ToDo/";
-  
+  contentId:string;
 
  
   public urlpath : string;
 
   notes: Note[];
+  labels:Label[];
   token:string;
   
     private addAuthorization():void{
@@ -56,11 +58,11 @@ export class HttputilService {
     this.urlpath= this.base_url.concat(path);
     return this.http.get<any>( this.urlpath,this.httpOptions);
     }
-    deleteServiceData(path,noteId):Observable<HttpResponse<any>>{//delete note
+    deleteServiceData(path,contentId):Observable<HttpResponse<any>>{//delete note
       console.log(path);
       this.addAuthorization();
       this.urlpath=this.base_url.concat(path);//deleteNote
-     return this.http.delete<any>(this.urlpath+'/'+noteId,this.httpOptions);
+     return this.http.delete<any>(this.urlpath+'/'+contentId,this.httpOptions);
     }
     putServiceData(path,model) {//updateNote
        console.log(model);

@@ -16,7 +16,8 @@ export class HomeComponent implements OnInit {
   labels:Label[];
   username:string;
   useremail:string;
-  constructor(private router:Router,private commonService:HttputilService,private dialog: MatDialog) { }
+  constructor(private router:Router,private commonService:HttputilService,
+    private dialog: MatDialog) { }
 
   ngOnInit() {
      this.commonService.getLabelService('note/getAllLabels').subscribe(response=> {
@@ -41,6 +42,7 @@ logout() {
              height:'325px',
              width: '300px',
               });
+            
       }
       
    getAllLabels():void{

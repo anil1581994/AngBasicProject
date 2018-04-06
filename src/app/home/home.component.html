@@ -15,7 +15,7 @@
       </div>
    
           <!--profile design end-->
-      
+     
       <a href="#" mat-button>Menu Item 1</a>
 
       <a href="#" mat-button>Menu Item 2</a>
@@ -73,7 +73,7 @@
                   <mat-icon>lightbulb_outline</mat-icon> Note</a>
               </div>
               <div>
-                <a href="/home/reminder" mat-button>
+                <a mat-button  href="/home/reminder">
                   <img src="/assets/icons/remender.svg"> Reminders</a>
               </div>
               <div>
@@ -89,11 +89,11 @@
                 <button mat-menu-item>
                     <span>Labels</span>
    
-                    <button mat-button type="submit" (click)="updateLabel()"style="margin-left:40%;"><b>EDIT</b></button>
+                    <button mat-button type="submit" (click)="openDialog()"style="margin-left:40%;"><b>EDIT</b></button>
          
                   </button>
             </div>
-            <div *ngFor="let label of labels">
+              <div *ngFor="let label of labels">
                 <div>
                    <button mat-menu-item>
                        <mat-icon>label</mat-icon>
@@ -101,7 +101,7 @@
                    </button>
                 </div>
                 </div> 
-                <div>
+                <div> 
 
                  <button mat-menu-item  (click)="openDialog()">
                    <mat-icon>add</mat-icon>

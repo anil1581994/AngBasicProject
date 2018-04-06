@@ -24,7 +24,8 @@ model:any={};
   constructor(private commonService:HttputilService,private router:Router) {}
 
  ngOnInit() {}
-   logIn():void{
+   logIn():void
+   {
     console.log("sigInForm",this.model);
      this.commonService.postServiceData('login',this.model)
      .subscribe(response => {

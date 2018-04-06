@@ -4,6 +4,7 @@ import { Note } from '../Note';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {UpdateNoteComponent} from '../update-note/update-note.component';
+import { Label } from '../Label';
 
 
 @Component({
@@ -15,6 +16,7 @@ export class NoteComponent implements OnInit {
   fullImagePath: string;
   public show:boolean = false;
   model:any={};
+  labels: Label[];
    //array to store note
   notes:Note[];
   archiveImg="/assets/icons/archive.svg";
@@ -169,6 +171,16 @@ reminderSave(note,day){
     this.refreshNote();
     });
 }
+  //all curd opration label 
 
 
+
+
+  addlabelToNote(noteId,labelId): void 
+  {
+     console.log("note updating with label");
+     this.commonService.putServiceData('note/addLabelToNote',noteId,).subscribe(data => {
+      console.log("color  response", data);
+      });
+     };
 }
