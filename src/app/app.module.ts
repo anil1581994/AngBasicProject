@@ -27,6 +27,10 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { DatePipe } from '@angular/common';
 import { LabelComponent } from './label/label.component';
 import { ReminderComponent } from './reminder/reminder.component';
+import {MatChipInputEvent} from '@angular/material';
+import {ENTER, COMMA} from '@angular/cdk/keycodes';
+
+
 
 
 
@@ -87,6 +91,7 @@ export const appRoutes: Routes = [
     MatDialogModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
+    
     RouterModule.forRoot(appRoutes)
   ],
   entryComponents:[UpdateNoteComponent,LabelComponent],

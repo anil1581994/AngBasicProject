@@ -5,6 +5,9 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {UpdateNoteComponent} from '../update-note/update-note.component';
 import { Label } from '../Label';
+import {MatChipInputEvent} from '@angular/material';
+import {ENTER, COMMA} from '@angular/cdk/keycodes';
+
 
 
 @Component({
@@ -19,6 +22,12 @@ export class NoteComponent implements OnInit {
   labels: Label[];
    //array to store note
   notes:Note[];
+  //chip logic
+  visible: boolean = true;
+  selectable: boolean = true;
+  removable: boolean = true;
+  addOnBlur: boolean = true;
+
   archiveImg="/assets/icons/archive.svg";
   pinIcon="/assets/icons/pin.svg";
   unPinIcon="/assets/icons/pinblue.svg";
@@ -71,7 +80,37 @@ export class NoteComponent implements OnInit {
          });
   }
   
-   
+   // Enter, comma==>logic
+  separatorKeysCodes = [ENTER, COMMA];
+
+  fruits = [
+    { name: 'Lemon' },
+    { name: 'Lime' },
+    { name: 'Apple' },
+  ];
+  add(event: MatChipInputEvent): void {
+    let input = event.input;
+    let value = event.value;
+
+    // Add our fruit
+    if ((value || '').trim()) {
+      this.fruits.push({ name: value.trim() });
+    }
+
+    // Reset the input value
+    if (input) {
+      input.value = '';
+    }
+  }
+
+  remove(fruit: any): void {
+    let index = this.fruits.indexOf(fruit);
+
+    if (index >= 0) {
+      this.fruits.splice(index, 1);
+    }
+  }
+
    createNote():void{
    console.log("formValue",this.model);
   this.commonService.postServiceData('note/createNote',this.model)
@@ -172,14 +211,19 @@ reminderSave(note,day){
     });
 }
   //all curd opration label 
+//how can i add labelId
 
 
 
+addLabelToNote(noteId,labelId): void{
 
-  addlabelToNote(noteId,labelId): void 
-  {
      console.log("note updating with label");
-     this.commonService.putServiceData('note/addLabelToNote',noteId,).subscribe(data => {
+     this.commonService.putServiceData('note/addLabelToNote',noteId,
+     {
+       params:{
+         labelId:labelId
+        }
+    }).subscribe(data => {
       console.log("color  response", data);
       });
      };

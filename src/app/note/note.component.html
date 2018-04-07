@@ -1,15 +1,16 @@
 <!-- Hide card-->
 
 <div class="left-container">
-  <div fxLayoutAlign="center center" (click)="show=!show" class="note-card">
+  <div fxLayoutAlign="center center" (click)="show=!show" class="note-card" *ngIf="!show">
     <mat-card fxFlex="600px" fxFlexAlign="center" class="title-css">
       <div contenteditable="true" data-text="Take a note..." class="editable"></div>
     </mat-card>
   </div>
-
+ 
+ 
   <!--show card-->
   <div fxLayout="row" fxLayoutAlign="center" *ngIf="show" class="note-card">
-    <mat-card fxFlex="600px" fxFlexAlign="center" style="margin-top: -25%;" >
+    <mat-card fxFlex="600px" fxFlexAlign="center" style="margin-top: -5%;">
       <!-- <div style="margin-left: 90%;">
             <img src="{{pinIcon}}"  (click)="pinNote(note)">
         </div>  -->
@@ -29,85 +30,102 @@
 
     </mat-card>
   </div>
+ 
+ 
+ 
+ 
   <!--pinNote -->
-
-  <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="20px">
-
-    <div *ngFor="let note of notes">
-      <div *ngIf="note.status===3">
-        <!-- common mat card used for-->
-        <!-- <app-commonnote></app-commonnote> -->
-        <mat-card class="note-card2" fxFlex="240px" [style.background]="note.color" class="openhide">
-          <div style="margin-left: 90%;">
-            <img src="{{unPinIcon}}" (click)="unPinNote(note)">
-          </div>
-          <div (click)="openDialog(note)">
-            <div [innerHTML]="note.title" class="editable"></div>
-            <div [innerHTML]="note.description"></div>
-          </div>
-          <div fxLayout="row" class="hideme">
-            <div>
-              <button mat-icon-button [matMenuTriggerFor]="menu">
-                <mat-icon>more_vert</mat-icon>
-              </button>
-              <mat-menu #menu="matMenu">
-                <button type="submit" mat-menu-item (click)="moveTrash(note)">
-                  <mat-icon>delete</mat-icon>
-                  <span>delete note</span>
+  <div>
+    <h3>Pinned</h3>
+    <!-- <div fxLayout="row wrap" > -->
+        <div fxLayout="row wrap" fxLayoutAlign="space-around" >
+      <div *ngFor="let note of notes" >
+        <div *ngIf="note.status===3" >
+          <!-- common mat card used for-->
+          <!-- <app-commonnote></app-commonnote> -->
+          <mat-card class="note-card2" fxFlex="240px"  [style.background]="note.color" class="openhide">
+            <div style="margin-left: 90%;">
+              <img src="{{unPinIcon}}" (click)="unPinNote(note)">
+            </div>
+            <div (click)="openDialog(note)">
+              <div [innerHTML]="note.title" class="editable"></div>
+              <div [innerHTML]="note.description"></div>
+            </div>
+            <div fxLayout="row" class="hideme">
+              <div>
+                <button mat-icon-button [matMenuTriggerFor]="menu" class="images">
+                  <mat-icon>more_vert</mat-icon>
                 </button>
-               </mat-menu>
-            </div>
-            <div>
-              <button mat-icon-button [matMenuTriggerFor]="color">
-                <mat-icon>color_lens</mat-icon>
-              </button>
-              <mat-menu #color="matMenu">
+                <mat-menu #menu="matMenu">
+                  <button type="submit" class="images" mat-menu-item (click)="moveTrash(note)">
+                    <mat-icon>delete</mat-icon>
+                    <span>delete note</span>
+                  </button>
+                </mat-menu>
+              </div>
+              <div>
+                <button mat-icon-button [matMenuTriggerFor]="color" class="images">
+                  <mat-icon>color_lens</mat-icon>
+                </button>
+                <mat-menu #color="matMenu">
 
-                <div>
-                  <a *ngFor="let color of colors">
-                    <img src="{{color.path}}" (click)="note.color=color.color;updateNoteColor(note,note.status)">
-                  </a>
-                </div>
-              </mat-menu>
-            </div>
+                  <div>
+                    <a *ngFor="let color of colors">
+                      <img src="{{color.path}}" (click)="note.color=color.color;updateNoteColor(note,note.status)">
+                    </a>
+                  </div>
+                </mat-menu>
+              </div>
 
-            <div>
-              <img style="margin-right: 10px;height: 20px;margin-top: 10px;" src="{{archiveImg}}" (click)=" archive(note)">
+              <div>
+                <img style="margin-right: 10px;height: 20px;margin-top: 10px;" src="{{archiveImg}}" (click)=" archive(note)" class="images">
+              </div>
+              <div>
+                <img style="margin-right: 10px;height: 20px;margin-top: 10px;" src="{{reminderImg}}" class="images">
+              </div>
             </div>
-            <div>
-              <img style="margin-right: 10px;height: 20px;margin-top: 10px;" src="{{reminderImg}}">
-            </div>
-          </div>
-        </mat-card>
+          </mat-card>
+        </div>
       </div>
     </div>
-  </div>
+    </div>
 
 
-  <!--open dialog as card note div -->
+    <div fxLayout="column" fxLayoutAlign="space-between" >
+    <!--open dialog as card note div -->
+    <div fxLayout="row wrap" fxLayoutAlign="space-around">
 
-  <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="20px">
-
-    <div *ngFor="let note of notes">
-      <div *ngIf="note.status===0">
-        <!-- common mat card used for-->
-        <!-- <app-commonnote></app-commonnote> -->
-        <mat-card class="note-card2" fxFlex="240px" [style.background]="note.color">
-          <div style="margin-left: 90%;">
-            <img src="{{pinIcon}}" (click)="pinNote(note)">
-          </div>
-          <div (click)="openDialog(note)">
-            <div [innerHTML]="note.title" class="editable"></div>
-            <div [innerHTML]="note.description"></div>
-          </div>
-            <div>
+      <div *ngFor="let note of notes">
+        <div *ngIf="note.status===0">
+          <!-- common mat card used for-->
+          <!-- <app-commonnote></app-commonnote> -->
+          <mat-card class="note-card2" fxFlex="240px" [style.background]="note.color" class="openhide">
+            <div style="margin-left: 90%;" class="images">
+              <img src="{{pinIcon}}" (click)="pinNote(note)">
+            </div>
+            <div (click)="openDialog(note)">
+              <div [innerHTML]="note.title" class="editable"></div>
+              <div [innerHTML]="note.description"></div>
+            </div>
+            <div *ngFor="let label of note.labels" >
               <b>your label should be here</b>
+              <p>{{label.labelTitle}}</p>
+              
+              <!-- <mat-form-field class="demo-chip-list">
+                <mat-chip-list #chipList>
+                  <mat-chip *ngFor="let label of labels" [selectable]="selectable" [removable]="removable" (remove)="remove(label)">
+                    {{label.labelTitle}}
+                    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                  </mat-chip>
+
+                </mat-chip-list> 
+              </mat-form-field>-->
             </div>
 
-          <div *ngIf="note.reminder!=null">
+            <div *ngIf="note.reminder!=null">
               <div mat-menu-item fxLayout="row" style="background-color: gainsboro;">
                 <div style="font-size: 12px;">
-                    <img style="margin-left: 8px;margin-top: 11px;" src="{{clockImg}">
+                  <img style="margin-left: 8px;margin-top: 11px;" src="{{clockImg}">
                   <label>{{note.reminder|date:'MMM dd,y, hh:mm a'}}</label>
                 </div>
                 <div>
@@ -115,47 +133,46 @@
                 </div>
               </div>
             </div>
-       
-            
 
-          <div fxLayout="row">
-            <div>
-              <button mat-icon-button [matMenuTriggerFor]="menu">
-                <mat-icon>more_vert</mat-icon>
-              </button>
-              <mat-menu #menu="matMenu">
-                <button type="submit" mat-menu-item (click)="moveTrash(note)" [matMenuTriggerFor]="menu1">
-                 <span>delete note</span>
-                </button>
-                <mat-menu #menu1="matMenu">
-                    <button type="submit" mat-menu-item (click)="moveTrash(note)">
-                        <span>copy note</span>
-                       </button>
-                </mat-menu>
-               </mat-menu>
-            </div>
-         
-            <div>
-              <button mat-icon-button [matMenuTriggerFor]="color">
-                <mat-icon>color_lens</mat-icon>
-              </button>
-              <mat-menu #color="matMenu">
 
-                <div>
-                  <a *ngFor="let color of colors">
 
-                    <img src="{{color.path}}" (click)="note.color=color.color;updateNoteColor(note,note.status)">
-                  </a>
-                </div>
-              </mat-menu>
-            </div>
+            <div fxLayout="row" class="hideme">
 
-            <div>
-              <img style="margin-right: 10px;height: 20px;margin-top: 10px;" src="{{archiveImg}}" (click)=" archive(note)">
-            </div>
-         
               <div>
-                <button mat-icon-button [matMenuTriggerFor]="reminder">
+                <button mat-icon-button [matMenuTriggerFor]="menu" class="images">
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                  <button type="submit" mat-menu-item (click)="moveTrash(note)">
+                    <span>delete note</span>
+                  </button>
+                  <button type="submit" mat-menu-item (click)="addLabelToNote(note.noteId,label.labelId)">
+                    <span>add label</span>
+                  </button>
+                </mat-menu>
+              </div>
+
+              <div>
+                <button mat-icon-button [matMenuTriggerFor]="color" class="images">
+                  <mat-icon>color_lens</mat-icon>
+                </button>
+                <mat-menu #color="matMenu">
+
+                  <div>
+                    <a *ngFor="let color of colors">
+
+                      <img src="{{color.path}}" (click)="note.color=color.color;updateNoteColor(note,note.status)">
+                    </a>
+                  </div>
+                </mat-menu>
+              </div>
+
+              <div>
+                <img style="margin-right: 10px;height: 20px;margin-top: 10px;" class="images" [src]="archiveImg" (click)=" archive(note)">
+              </div>
+
+              <div>
+                <button mat-icon-button [matMenuTriggerFor]="reminder" class="images">
                   <img src="{{reminderImg}}">
                 </button>
 
@@ -187,30 +204,32 @@
                     </button>
                   </div>
 
-                   <div>
+                  <div>
                     <button type="submit" mat-menu-item [matMenuTriggerFor]="calender">
                       <span>Pick date & time</span>
                     </button>
                   </div>
-  
+
                   <mat-menu #calender="matMenu">
-  
+
                     Date Time:
-          
-                    <input [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" placeholder="Date Time" name="reminder" [(ngModel)]="model.reminder" reqiured>
+
+                    <input [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" placeholder="Date Time" name="reminder" [(ngModel)]="model.reminder"
+                      reqiured>
                     <owl-date-time #dt1></owl-date-time>
 
-                     <div>
+                    <div>
                       <button mat-button mat-raised-button color="primary" type="submit" (click)="reminderSave(note,'date picker')" style="font-size: 10px;">save</button>
-                    </div> 
-  
-                    </mat-menu>
-                   </mat-menu>
-              </div> 
-             </div> 
-         </mat-card>
+                    </div>
+
+                  </mat-menu>
+                </mat-menu>
+              </div>
+            </div>
+          </mat-card>
         </div>
       </div>
     </div>
+    </div>
 
-   </div> 
+  </div>

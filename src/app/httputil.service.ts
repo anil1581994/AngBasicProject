@@ -3,26 +3,34 @@ import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 import { ToDoResponse } from './ToDoResponse';
 import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
+
 import { Note } from './Note';
 import { Label } from './Label';
 import { LoggedUser } from './LoggedUser';
 
 import { Http, Response, RequestOptions, Headers } from '@angular/http';
 import { Options } from 'selenium-webdriver/chrome';
-import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpResponse, HttpHeaders, HttpParams } from '@angular/common/http';
+import { PARAMETERS } from '@angular/core/src/util/decorators';
 
 
 
 @Injectable()
 export class HttputilService {
  
+
+    //Hamid Added
+  private allLabelSubject = new Subject<any>();
+
   model:any={};
   
   httpOptions = {
     headers: {
       'content-type':  'application/json'
     },
-  observe:  'response' as 'response'
+  observe:  'response' as 'response',
+  params : {}
   };
   
   constructor(private http: HttpClient) 
@@ -64,20 +72,39 @@ export class HttputilService {
       this.urlpath=this.base_url.concat(path);//deleteNote
      return this.http.delete<any>(this.urlpath+'/'+contentId,this.httpOptions);
     }
-    putServiceData(path,model) {//updateNote
+    putServiceData(path,model,option?) {//updateNote..option is optional param some api
        console.log(model);
        this.addAuthorization();
        this.urlpath= this.base_url.concat(path);
       // return this.http.put(this.urlpath,model,this.httpOptions);
+      if(option){
+        for (const index in option) {
+          if (option.hasOwnProperty(index)) {
+            this.httpOptions[index] = option[index];
+          }
+        }
+      }
+      // this.httpOptions.params={"labelId":10};      
        return this.http.put(this.urlpath,model,this.httpOptions);
     }
   
-   getLabelService(path): Observable<HttpResponse<any>>{
-     this.urlpath = this.base_url.concat(path);
-     
-     this.addAuthorization();
-    return this.http.get<any>(this.urlpath,this.httpOptions);    
+    //Hamid Added
+    loadAllLabel():void{
+      let path = "note/getAllLabels";
+      this.urlpath = this.base_url.concat(path);
+      this.addAuthorization();
+      this.http.get<any>(this.urlpath,this.httpOptions)
+        .toPromise().then((res)=>{
+        this.allLabelSubject.next(res);
+        });
+    }
+
+    //Hamid Added
+   getAllLabel(): Observable<HttpResponse<any>>{
+     this.loadAllLabel();
+    return this.allLabelSubject.asObservable(); 
    }
+
   getLoggedUser(path): Observable<HttpResponse<any>>{
     console.log(path);
     this.urlpath = this.base_url.concat(path);

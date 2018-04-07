@@ -3,10 +3,11 @@
     <div><b>Edit labels </b></div>
     <div>
          <div class='inline'>
-             <img style="margin-right: 10px;height: 17px;margin-top: 10px;" src="{{clearImg}}" (click)="deleteLabel(label.labelId)">
+             <img style="margin-right: 10px;height: 17px;margin-top: 10px;" src="{{clearImg}}" matTooltip="cancel" (click)="deleteLabel(label.labelId)">
+             
              <!-- <div contenteditable="true" data-text="Take a note..." class="editable"></div> -->
                <input style="outline: none;border:none;" contenteditable="true" matInput placeholder="Create new label" [(ngModel)]="model.labelTitle">
-              <img style="margin-right: 10px;height: 17px;margin-top: 10px;" src="{{checkImg}}" (click)=" createLabel(label)">
+              <img style="margin-right: 10px;height: 17px;margin-top: 10px;"matTooltip="create label" src="{{checkImg}}" (click)=" createLabel(label)">
              </div> 
              <ul>
               <li *ngFor="let label of labels"> 

@@ -20,10 +20,7 @@ export class HomeComponent implements OnInit {
     private dialog: MatDialog) { }
 
   ngOnInit() {
-     this.commonService.getLabelService('note/getAllLabels').subscribe(response=> {
-      this.labels = response.body;
-            });
-  
+    this.getAllLabels();
   }
 //navigate to login page after logout
 
@@ -35,18 +32,20 @@ logout() {
 
     }
 
-    openDialog(label) {
-      console.log("response",label);
+    openLabelDialog(label) {
         this.dialog.open(LabelComponent, 
            {
              height:'325px',
              width: '300px',
-              });
+             data : {
+               labels : this.labels
+             }
+            });
             
       }
       
    getAllLabels():void{
-    this.commonService.getLabelService('note/getAllLabels').subscribe(response=> {
+    this.commonService.getAllLabel().subscribe(response=> {
      this.labels=response.body;
        });
     }

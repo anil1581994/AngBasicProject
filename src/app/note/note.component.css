@@ -32,3 +32,13 @@
   .openhide:hover .hideme{
     visibility:visible;
   }
+  .demo-chip-list {
+    width: 100%;
+  }
+   .images{
+    opacity: 0.5
+  }
+  .images:hover{
+    opacity:1.5;
+    cursor: pointer
+  }
