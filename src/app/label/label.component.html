@@ -9,12 +9,12 @@
                <input style="outline: none;border:none;" contenteditable="true" matInput placeholder="Create new label" [(ngModel)]="model.labelTitle">
               <img style="margin-right: 10px;height: 17px;margin-top: 10px;"matTooltip="create label" src="{{checkImg}}" (click)=" createLabel(label)">
              </div> 
-             <ul>
+              <ul>
               <li *ngFor="let label of labels"> 
                 {{label.labelTitle}}
               </li>
-              </ul>
-    </div>
+              </ul> 
+           </div>
     <div flexLayout="row" fxLayoutAlign="end" >
       <button type="submit" (click)="createLabel()" mat-raised-button style="margin-top: 160px;">Done</button>
     </div>

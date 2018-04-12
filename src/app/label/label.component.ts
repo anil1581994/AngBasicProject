@@ -30,8 +30,10 @@ export class LabelComponent implements OnInit {
 
 
 
-  constructor(@Inject(MAT_DIALOG_DATA) private data: any,
-    private commonService: HttputilService, public dialogRef: MatDialogRef<LabelComponent>) { 
+  constructor(@Inject(MAT_DIALOG_DATA)
+   private data: any,
+    private commonService: HttputilService, public dialogRef: MatDialogRef<LabelComponent>,private dialog: MatDialog) 
+    { 
 
       this.labels = data.labels;
     }
@@ -41,9 +43,10 @@ export class LabelComponent implements OnInit {
    }
 
 
-  ngOnInit() {    
+  ngOnInit() 
+  {    
   }
-
+ 
  createLabel(): void {
     console.log("formValue", this.model);
     this.commonService.postServiceData('note/createlabel', this.model)

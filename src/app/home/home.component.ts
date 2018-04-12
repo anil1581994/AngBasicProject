@@ -5,6 +5,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { Label } from '../Label';
 import { LoggedUser } from '../LoggedUser';
 import {LabelComponent} from '../label/label.component';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -31,19 +32,19 @@ logout() {
      this.router.navigate(['/login']);
 
     }
-
+  //at side navbar
     openLabelDialog(label) {
-        this.dialog.open(LabelComponent, 
+       this.dialog.open(LabelComponent, 
            {
-             height:'325px',
-             width: '300px',
+            height:'325px',
+              width: '300px',
              data : {
                labels : this.labels
-             }
+           }
             });
-            
-      }
+          }
       
+
    getAllLabels():void{
     this.commonService.getAllLabel().subscribe(response=> {
      this.labels=response.body;

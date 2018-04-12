@@ -7,6 +7,9 @@ import {UpdateNoteComponent} from '../update-note/update-note.component';
 import { Label } from '../Label';
 import {MatChipInputEvent} from '@angular/material';
 import {ENTER, COMMA} from '@angular/cdk/keycodes';
+import {LabelComponent} from '../label/label.component';
+
+
 
 
 
@@ -16,17 +19,77 @@ import {ENTER, COMMA} from '@angular/cdk/keycodes';
   styleUrls: ['./note.component.css']
 })
 export class NoteComponent implements OnInit {
-  fullImagePath: string;
-  public show:boolean = false;
-  model:any={};
-  labels: Label[];
-   //array to store note
-  notes:Note[];
-  //chip logic
+
+   //chip logic
+   public checked: boolean = false;
   visible: boolean = true;
   selectable: boolean = true;
   removable: boolean = true;
   addOnBlur: boolean = true;
+  //opeartion status for to add and remove label
+  public operation: boolean = false;
+
+
+
+
+
+
+   
+
+  labels: Label[];//for pipe
+
+  add(event: MatChipInputEvent): void 
+  {
+    let input = event.input;
+    let value = event.value;
+
+    // Add our label
+    if ((value || '').trim()) {
+     // this.labels.push({labels.});
+    }
+
+    // Reset the input value
+    if (input) 
+    {
+      input.value = '';
+    }
+  }
+
+  removeLabel(label: any): void {
+    let index = this.labels.indexOf(label);
+
+    if (index >= 0) {
+      this.labels.splice(index, 1);
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  fullImagePath: string;
+ // public show:boolean = false;
+  model:any={};
+
+   //array to store note
+  notes:Note[];
+  //chip logic
+  public show: boolean = false;
+  showButton(){
+    this.show=true;
+    }
+    outSideClick(){
+      
+    }
 
   archiveImg="/assets/icons/archive.svg";
   pinIcon="/assets/icons/pin.svg";
@@ -61,14 +124,14 @@ export class NoteComponent implements OnInit {
   ];
  
   constructor(private commonService:HttputilService,private dialog: MatDialog) {
- 
-  
+    // this.labels
    }
       
    ngOnInit() {
           this.commonService.getServiceData('note/getAllNotes').subscribe(data=> {
           this.notes = data.body;
                 });
+                this.getAllLabels();
  }
     openDialog(note) {
   console.log("data",note);
@@ -79,38 +142,11 @@ export class NoteComponent implements OnInit {
         
          });
   }
+ 
+  // selectOption:void(){
+  //    console.log("lodg data",data);
+  //  }
   
-   // Enter, comma==>logic
-  separatorKeysCodes = [ENTER, COMMA];
-
-  fruits = [
-    { name: 'Lemon' },
-    { name: 'Lime' },
-    { name: 'Apple' },
-  ];
-  add(event: MatChipInputEvent): void {
-    let input = event.input;
-    let value = event.value;
-
-    // Add our fruit
-    if ((value || '').trim()) {
-      this.fruits.push({ name: value.trim() });
-    }
-
-    // Reset the input value
-    if (input) {
-      input.value = '';
-    }
-  }
-
-  remove(fruit: any): void {
-    let index = this.fruits.indexOf(fruit);
-
-    if (index >= 0) {
-      this.fruits.splice(index, 1);
-    }
-  }
-
    createNote():void{
    console.log("formValue",this.model);
   this.commonService.postServiceData('note/createNote',this.model)
@@ -123,6 +159,7 @@ export class NoteComponent implements OnInit {
  refreshNote():void{
    this.commonService.getServiceData('note/getAllNotes').subscribe(data=> {
      this.notes=data.body;
+     console.log("notes",data);
       });
  }
   
@@ -213,18 +250,31 @@ reminderSave(note,day){
   //all curd opration label 
 //how can i add labelId
 
+ getAllLabels():void{
+    this.commonService.getAllLabel().subscribe(response=> {
+     this.labels=response.body;
+       });
+    }
 
-
-addLabelToNote(noteId,labelId): void{
+    addRemoveLabelToNote(noteId,labelId,operation): void{
 
      console.log("note updating with label");
-     this.commonService.putServiceData('note/addLabelToNote',noteId,
+     this.commonService.putServiceData('note/addLabelToNote/'+noteId+'/'+labelId+'/'+operation,
      {
        params:{
-         labelId:labelId
+         labelId:labelId,
+         noteId:noteId,
+         operation:operation
+
         }
     }).subscribe(data => {
       console.log("color  response", data);
       });
      };
+
+    doSomething(event,labelId, noteId)
+    {
+      this.addRemoveLabelToNote(noteId,labelId,event);
+      console.log(noteId,labelId,event);
+     }
 }

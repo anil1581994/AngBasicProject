@@ -18,7 +18,7 @@
  .note-card2 {
     max-width: 600px;
     /* margin-left: 500px; */
-    margin-top: 20px;
+    margin: 20px;
     word-wrap: break-word;
      
   }
@@ -42,3 +42,8 @@
     opacity:1.5;
     cursor: pointer
   }
+  .label-design{
+    width: 200px;
+    top: 28px;
+    margin-left: 503px;
+    }

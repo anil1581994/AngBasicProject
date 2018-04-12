@@ -69,19 +69,19 @@
           <div fxLayout="column"> 
 
               <div>
-                <a href="/home/note" mat-button>
+                <a routerLink="/home/note" mat-button>
                   <mat-icon>lightbulb_outline</mat-icon> Note</a>
               </div>
               <div>
-                <a mat-button  href="/home/reminder">
+                <a mat-button  routerLink="/home/reminder">
                   <img src="/assets/icons/remender.svg"> Reminders</a>
               </div>
               <div>
-                  <a href="/home/archive" mat-button>
+                  <a routerLink="/home/archive" mat-button>
                     <mat-icon>archive</mat-icon> Archive</a>
                 </div>
               <div>
-                <a href="/home/trash" mat-button>
+                <a routerLink="/home/trash" mat-button>
                   <img style="height:30px;margin-top: 10px;"  src="/assets/icons/trash.svg"> Trash</a>
               </div>
               <div>
@@ -93,14 +93,14 @@
          
                   </button>
             </div>
-              <div *ngFor="let label of labels">
+               <div *ngFor="let label of labels">
                 <div>
                    <button mat-menu-item>
                        <mat-icon>label</mat-icon>
                        <span>{{label.labelTitle}}</span>
                    </button>
                 </div>
-                </div> 
+                </div>  
                 <div> 
 
                  <button mat-menu-item  (click)="openLabelDialog()">

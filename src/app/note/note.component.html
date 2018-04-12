@@ -6,8 +6,8 @@
       <div contenteditable="true" data-text="Take a note..." class="editable"></div>
     </mat-card>
   </div>
- 
- 
+
+
   <!--show card-->
   <div fxLayout="row" fxLayoutAlign="center" *ngIf="show" class="note-card">
     <mat-card fxFlex="600px" fxFlexAlign="center" style="margin-top: -5%;">
@@ -30,20 +30,20 @@
 
     </mat-card>
   </div>
- 
- 
- 
- 
+
+
+
+
   <!--pinNote -->
   <div>
     <h3>Pinned</h3>
     <!-- <div fxLayout="row wrap" > -->
-        <div fxLayout="row wrap" fxLayoutAlign="space-around" >
-      <div *ngFor="let note of notes" >
-        <div *ngIf="note.status===3" >
+    <div fxLayout="row wrap" fxLayoutAlign="center">
+      <div *ngFor="let note of notes">
+        <div *ngIf="note.status===3">
           <!-- common mat card used for-->
           <!-- <app-commonnote></app-commonnote> -->
-          <mat-card class="note-card2" fxFlex="240px"  [style.background]="note.color" class="openhide">
+          <mat-card class="note-card2" fxFlex="240px" [style.background]="note.color" class="openhide">
             <div style="margin-left: 90%;">
               <img src="{{unPinIcon}}" (click)="unPinNote(note)">
             </div>
@@ -88,10 +88,10 @@
         </div>
       </div>
     </div>
-    </div>
+  </div>
 
 
-    <div fxLayout="column" fxLayoutAlign="space-between" >
+  <div fxLayout="column" fxLayoutAlign="space-between">
     <!--open dialog as card note div -->
     <div fxLayout="row wrap" fxLayoutAlign="space-around">
 
@@ -107,20 +107,24 @@
               <div [innerHTML]="note.title" class="editable"></div>
               <div [innerHTML]="note.description"></div>
             </div>
-            <div *ngFor="let label of note.labels" >
-              <b>your label should be here</b>
-              <p>{{label.labelTitle}}</p>
-              
-              <!-- <mat-form-field class="demo-chip-list">
-                <mat-chip-list #chipList>
-                  <mat-chip *ngFor="let label of labels" [selectable]="selectable" [removable]="removable" (remove)="remove(label)">
-                    {{label.labelTitle}}
-                    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-                  </mat-chip>
 
-                </mat-chip-list> 
-              </mat-form-field>-->
-            </div>
+            <div>
+              <div *ngIf="note.labels!=null">
+                <div *ngFor="let label of note.labels">
+                  <mat-chip-list>
+                    <div fxLayout="row" fxLayoutGap="5px">
+                      <div>
+                        <mat-chip>{{label.labelTitle}}
+                          <img src="{{clearImg}}"  (click)="doSomething(false, label.labelId, note.noteId)">
+                        </mat-chip>
+                      </div>
+                    </div>
+                  </mat-chip-list>
+                </div>
+              </div>
+             </div>
+
+
 
             <div *ngIf="note.reminder!=null">
               <div mat-menu-item fxLayout="row" style="background-color: gainsboro;">
@@ -142,15 +146,46 @@
                 <button mat-icon-button [matMenuTriggerFor]="menu" class="images">
                   <mat-icon>more_vert</mat-icon>
                 </button>
+
                 <mat-menu #menu="matMenu">
                   <button type="submit" mat-menu-item (click)="moveTrash(note)">
                     <span>delete note</span>
-                  </button>
-                  <button type="submit" mat-menu-item (click)="addLabelToNote(note.noteId,label.labelId)">
-                    <span>add label</span>
-                  </button>
+                    </button>
+                 
+                     <div>
+                      <button type="submit" mat-menu-item [matMenuTriggerFor]="label" (click)="getAllLabels()" > 
+                      <span> Add label</span>
+                      </button>
+                      </div> 
+                        <mat-menu #label="matMenu">
+                        <div fxLayout="column" fxLayoutGap="20px">
+                      <div>
+                        <b>label note</b>
+                      </div>
+                      <div>
+                        <mat-form-field>
+                        <input matInput placeholder="Enter label name">
+                        </mat-form-field>
+                      </div>
+
+                       <div *ngIf="labels!=null">
+                        <div *ngFor="let label of labels">
+                          <label>
+                            <input type="checkbox" 
+                             name="labels" 
+                             value="{{label.labelTitle}}"
+                             [(ngModel)]="label.checked" 
+                             (ngModelChange)="doSomething($event, label.labelId, note.noteId)"/>
+                              {{label.labelTitle}}
+                          </label>
+                        </div>
+                      </div>
+
+                    </div>
+                  </mat-menu>
                 </mat-menu>
               </div>
+
 
               <div>
                 <button mat-icon-button [matMenuTriggerFor]="color" class="images">
@@ -228,8 +263,37 @@
             </div>
           </mat-card>
         </div>
+        <!-- <div *ngIf="show">
+          <mat-card style="width:200px;
+            top: -240px;
+            margin-left: 503px;">
+            <div fxLayout="column" fxLayoutGap="20px">
+              <div>
+                <b>label note</b>
+              </div>
+              <div>
+                <mat-form-field>
+                
+                  <input matInput placeholder="Enter label name">
+                </mat-form-field>
+              </div>
+
+              <div *ngIf="labels!=null">
+                <div *ngFor="let label of labels">
+                   <label>
+                    <input type="checkbox" name="labels" value="{{label.labelTitle}}" [(ngModel)]="label.checked" (ngModelChange)="doSomething($event, label.labelId, note.noteId)"
+                    /> {{label.labelTitle}}
+                  </label>
+                </div>
+              </div>
+            </div>
+          </mat-card>
+        </div>-->
       </div>
     </div>
-    </div>
+
+
 
   </div>
+
+</div>

@@ -29,6 +29,12 @@ import { LabelComponent } from './label/label.component';
 import { ReminderComponent } from './reminder/reminder.component';
 import {MatChipInputEvent} from '@angular/material';
 import {ENTER, COMMA} from '@angular/cdk/keycodes';
+import { TopNavBarComponent } from './top-nav-bar/top-nav-bar.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatChipsModule} from '@angular/material/chips';
+
+
+
 
 
 
@@ -69,7 +75,10 @@ export const appRoutes: Routes = [
     ArchiveComponent,
     CommonnoteComponent,
     LabelComponent,
-    ReminderComponent
+    ReminderComponent,
+    TopNavBarComponent
+  
+    
   ],
   imports: [
     BrowserModule,
@@ -91,6 +100,8 @@ export const appRoutes: Routes = [
     MatDialogModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
+    MatCheckboxModule,
+    MatChipsModule,
     
     RouterModule.forRoot(appRoutes)
   ],
