@@ -53,6 +53,8 @@ export class HttputilService {
         this.httpOptions.headers['Authorization'] = localStorage.getItem('Authorization');
       }
     }
+    // ------------------------------------------------------------------
+
     postServiceData(path,model): Observable<HttpResponse<any>>{ //login,register,createNote
       console.log(path,model);
       this.addAuthorization();
@@ -60,12 +62,16 @@ export class HttputilService {
       console.log(this.urlpath);
       return this.http.post<any>(this.urlpath,model,this.httpOptions);
     }
+    // ----------------------------------------------------------------
+
     getServiceData(path): Observable<HttpResponse<any>>{ //getnotes,
     console.log(path);
     this.addAuthorization();
     this.urlpath= this.base_url.concat(path);
     return this.http.get<any>( this.urlpath,this.httpOptions);
     }
+    //--------------------------------------------------------------------
+    
     deleteServiceData(path,contentId):Observable<HttpResponse<any>>{//delete note
       console.log(path);
       this.addAuthorization();
