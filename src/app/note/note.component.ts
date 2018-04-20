@@ -8,6 +8,11 @@ import { Label } from '../Label';
 import {MatChipInputEvent} from '@angular/material';
 import {ENTER, COMMA} from '@angular/cdk/keycodes';
 import {LabelComponent} from '../label/label.component';
+import{NoteService}from '../note/note.service';
+import {CollaboratorComponent} from '../collaborator/collaborator.component';
+import { LoggedUser } from '../LoggedUser';
+import { NoteFilter } from '../note-filter.pipe';
+import {Collaborator}from "../Collaborator";
 
 
 
@@ -28,57 +33,11 @@ export class NoteComponent implements OnInit {
   addOnBlur: boolean = true;
   //opeartion status for to add and remove label
   public operation: boolean = false;
-
-
-
-
-
-
-   
-
   labels: Label[];//for pipe
-
-  add(event: MatChipInputEvent): void 
-  {
-    let input = event.input;
-    let value = event.value;
-
-    // Add our label
-    if ((value || '').trim()) {
-     // this.labels.push({labels.});
-    }
-
-    // Reset the input value
-    if (input) 
-    {
-      input.value = '';
-    }
-  }
-
-  removeLabel(label: any): void {
-    let index = this.labels.indexOf(label);
-
-    if (index >= 0) {
-      this.labels.splice(index, 1);
-    }
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  fullImagePath: string;
+   fullImagePath: string;
  // public show:boolean = false;
   model:any={};
+  collaborators:Collaborator[];
 
    //array to store note
   notes:Note[];
@@ -87,10 +46,11 @@ export class NoteComponent implements OnInit {
   showButton(){
     this.show=true;
     }
-    outSideClick(){
-      
-    }
-
+    username:string;
+    useremail:string;
+    collaboratorName:string;//
+    ownerId:number
+    
   archiveImg="/assets/icons/archive.svg";
   pinIcon="/assets/icons/pin.svg";
   unPinIcon="/assets/icons/pinblue.svg";
@@ -98,6 +58,8 @@ export class NoteComponent implements OnInit {
   reminderImg="/assets/icons/remender.svg";
   clockImg="/assets/icons/clock.png";
   clearImg="/assets/icons/clear.svg";
+  collaborator="/assets/icons/collaborator.svg";
+  shareduser="/assets/icons/shareduser.svg";
 
   colors = [{
     color: '#f26f75',
@@ -123,57 +85,82 @@ export class NoteComponent implements OnInit {
   }
   ];
  
-  constructor(private commonService:HttputilService,private dialog: MatDialog) {
+  constructor(private noteService:NoteService,private dialog: MatDialog) {
     // this.labels
    }
       
    ngOnInit() {
-          this.commonService.getServiceData('note/getAllNotes').subscribe(data=> {
+          this.noteService.getAllNotes().subscribe(data=> {
           this.notes = data.body;
                 });
                 this.getAllLabels();
- }
-    openDialog(note) {
-  console.log("data",note);
-    this.dialog.open(UpdateNoteComponent, 
-       {
-         data: note,
-         width:'600px'
-        
-         });
+             }
+    openDialog(note) 
+    {
+         console.log("data",note);
+         this.dialog.open(UpdateNoteComponent, 
+         {
+          data: note,
+          width:'600px'
+          });
   }
  
-  // selectOption:void(){
-  //    console.log("lodg data",data);
-  //  }
+  //collaboartor dialog box..(note,ownerId)
+  openCollaboratorDialog(note,ownerId) {
+   // console.log("data",note);
+      this.dialog.open(CollaboratorComponent, 
+         {
+           data:{ note,ownerId},
+          height:'250px',
+          width:'600px'
+           });
+    }
+   
   
    createNote():void{
    console.log("formValue",this.model);
-  this.commonService.postServiceData('note/createNote',this.model)
+  //this.commonService.postServiceData('note/createNote',this.model)
+  this.noteService.createNoteService(this.model)
    .subscribe(data=> {
     console.log("note created",data);
     this.refreshNote();
    }) ;
 
  }
- refreshNote():void{
-   this.commonService.getServiceData('note/getAllNotes').subscribe(data=> {
-     this.notes=data.body;
-     console.log("notes",data);
-      });
- }
+//  refreshNote():void{
+//   this.noteService.getAllNotes()
+//   .toPromise()
+//   .then(data=>{
+//     this.notes = data.body;
+//       });
+//  }
   
    
+
+// refreshNote(): void {
+//   this.noteServiceObj.getNotes()
+//   .toPromise()
+//   .then(response => {
+//   this.notes = response;
+//   });
+  
+ refreshNote():void{
+   this.noteService.getAllNotes().subscribe(data=> {
+    this.notes=data.body;
+       console.log("notes",data);
+        });
+  }
+  
      moveTrash(note):void{
         note.status=1;
-         this.commonService.putServiceData('note/updateNote',note).subscribe(data=>{
+         this.noteService.updateNote('note/updateNote',note).subscribe(data=>{
             console.log(data);
            this.refreshNote();
         }) ;
     }
     archive(note):void{
       note.status=2;
-      this.commonService.putServiceData('note/updateNote',note).subscribe(data=>{
+      this.noteService.updateNote('note/updateNote',note).subscribe(data=>{
           console.log(data);
          this.refreshNote();
       }) ;
@@ -181,7 +168,7 @@ export class NoteComponent implements OnInit {
   pinNote(note): void {
     console.log("pin note", note);
     note.status = 3;
-    this.commonService.putServiceData('note/updateNote', note).subscribe(data => {
+    this.noteService.updateNote('note/updateNote', note).subscribe(data => {
       console.log("unArchive note", data);
       this.refreshNote();
     });
@@ -189,7 +176,7 @@ export class NoteComponent implements OnInit {
   unPinNote(note): void {
     console.log("pin note", note);
     note.status = 0;
-    this.commonService.putServiceData('note/updateNote', note).subscribe(data => {
+    this.noteService.updateNote('note/updateNote', note).subscribe(data => {
       console.log("unArchive note", data);
       this.refreshNote();
     });
@@ -198,7 +185,7 @@ export class NoteComponent implements OnInit {
   updateNoteColor(note,status): void {
     console.log("change note color", note,status);
     note.status = status;
-    this.commonService.putServiceData('note/updateNote', note).subscribe(data => {
+    this.noteService.updateNote('note/updateNote', note).subscribe(data => {
       console.log("color  response", data);
       this.refreshNote();
     });
@@ -242,7 +229,7 @@ reminderSave(note,day){
     this.refreshNote();
 
   }
-     this.commonService.putServiceData('note/updateNote', note).subscribe(response => {
+     this.noteService.updateNote('note/updateNote', note).subscribe(response => {
      console.log("reminder  response", response);
     this.refreshNote();
     });
@@ -250,16 +237,16 @@ reminderSave(note,day){
   //all curd opration label 
 //how can i add labelId
 
- getAllLabels():void{
-    this.commonService.getAllLabel().subscribe(response=> {
-     this.labels=response.body;
-       });
+   getAllLabels():void{
+    this.noteService.getAllLabel().subscribe(response=> {
+        this.labels = response.body;
+      });
     }
 
     addRemoveLabelToNote(noteId,labelId,operation): void{
 
      console.log("note updating with label");
-     this.commonService.putServiceData('note/addLabelToNote/'+noteId+'/'+labelId+'/'+operation,
+     this.noteService.updateNote('note/addLabelToNote/'+noteId+'/'+labelId+'/'+operation,
      {
        params:{
          labelId:labelId,
@@ -277,4 +264,5 @@ reminderSave(note,day){
       this.addRemoveLabelToNote(noteId,labelId,event);
       console.log(noteId,labelId,event);
      }
+    
 }

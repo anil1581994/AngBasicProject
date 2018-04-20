@@ -32,6 +32,11 @@ import {ENTER, COMMA} from '@angular/cdk/keycodes';
 import { TopNavBarComponent } from './top-nav-bar/top-nav-bar.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatChipsModule} from '@angular/material/chips';
+import{UserService} from './login/user.service';
+import{NoteService} from './note/note.service';
+import { NoteFilter } from './note-filter.pipe';
+import{CollaboratorService} from './collaborator/collaborator.service';
+import { CollaboratorComponent } from './collaborator/collaborator.component';
 
 
 
@@ -76,7 +81,9 @@ export const appRoutes: Routes = [
     CommonnoteComponent,
     LabelComponent,
     ReminderComponent,
-    TopNavBarComponent
+    TopNavBarComponent,
+    NoteFilter,
+    CollaboratorComponent
   
     
   ],
@@ -105,8 +112,8 @@ export const appRoutes: Routes = [
     
     RouterModule.forRoot(appRoutes)
   ],
-  entryComponents:[UpdateNoteComponent,LabelComponent],
-  providers: [HttputilService,AuthGuard,AlwaysLogginAuthGuard],
+  entryComponents:[UpdateNoteComponent,LabelComponent,CollaboratorComponent],
+  providers: [HttputilService,AuthGuard,AlwaysLogginAuthGuard,UserService,NoteService,CollaboratorService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

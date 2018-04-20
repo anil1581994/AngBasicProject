@@ -17,6 +17,11 @@ export class HomeComponent implements OnInit {
   labels:Label[];
   username:string;
   useremail:string;
+
+  public grid:boolean = false;
+  public buttonName:any = 'Show';
+
+
   constructor(private router:Router,private commonService:HttputilService,
     private dialog: MatDialog) { }
 
@@ -58,5 +63,9 @@ logout() {
         this.LoggedUser= response;
          
      });
+     }
+     show()
+     {
+      this. grid= false;
      }
 }

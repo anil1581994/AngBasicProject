@@ -13,109 +13,111 @@
           <mat-icon>refresh</mat-icon>
         </button>
       </div>
-   
-          <!--profile design end-->
-     
+
+
+
       <a href="#" mat-button>Menu Item 1</a>
 
       <a href="#" mat-button>Menu Item 2</a>
 
       <a href="#" mat-button>Menu Item 3</a>
+<div>
+<i class="material-icons">view_quilt</i>
+<i class="material-icons">view_stream</i>
+</div>
+      <div class="profileicon-design" (click)="show=!show" matTooltip="Google Account">
+        <img style="height:30px;margin-top: 10px;" src="/assets/icons/userProfile2.svg" (click)="getLoggedUser()">
+      </div>
 
-      <!-- <button mat-button type="submit" (click)="logout()">Sign out</button> -->
-      <!-- profile pic circle-->
-      
-       <div class="profileicon-design" (click)="show=!show" matTooltip="Google Account"> 
-       <img style="height:30px;margin-top: 10px;"src="/assets/icons/userProfile2.svg"  (click)="getLoggedUser()"> 
-      </div> 
-       <!-- <div class="profileicon-design" (click)="show=!show" matTooltip="Google Account">
-          <a  (click)="getLoggedUser()" mat-button>
-            <img  style="height:30px;margin-top: 10px;" src="/assets/icons/userProfile2.svg"></a>
-        </div> -->
-       <div *ngIf="show" class="example-card">
-          <mat-card>
-              <mat-card-header>
-                <div mat-card-avatar class="example-header-image"></div>
-                 <mat-card-title><b>{{username}}</b></mat-card-title>
-                <mat-card-subtitle>{{useremail}}</mat-card-subtitle>
-               
-              </mat-card-header>
-              
-              
-              <mat-card-content>
-               <div style="margin-left:30%" fxLayout="row" fxLayoutAlign="right">
-                <button mat-raised-button color="primary">My Account</button>
-                </div>
-              </mat-card-content>
-              <mat-card-actions>
-                <div>
-                <div style="max-height:0px;">
-                  
+      <div *ngIf="show" class="example-card">
+        <mat-card>
+          <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>
+              <b>{{username}}</b>
+            </mat-card-title>
+            <mat-card-subtitle>{{useremail}}</mat-card-subtitle>
+
+          </mat-card-header>
+
+
+          <mat-card-content>
+            <div style="margin-left:30%" fxLayout="row" fxLayoutAlign="right">
+              <button mat-raised-button color="primary">My Account</button>
+            </div>
+          </mat-card-content>
+          <mat-card-actions>
+            <div>
+              <div style="max-height:0px;">
+
                 <button mat-button>Add account</button>
-                  </div>
-                
-                <div  style="margin-left:72%;"fxLayout="row" fxLayoutAlign="right">
-               <button mat-button type="submit" (click)="logout()">Sign out</button>
-                </div>
-                </div>
-              </mat-card-actions>
-            </mat-card>
-          </div>
- </mat-toolbar>
+              </div>
+
+              <div style="margin-left:72%;" fxLayout="row" fxLayoutAlign="right">
+                <button mat-button type="submit" (click)="logout()">Sign out</button>
+              </div>
+            </div>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </mat-toolbar>
 
     <mat-sidenav-container class="example-container">
 
       <mat-sidenav mode="side" #sidenav opened fxLayout="column">
-          <div fxLayout="column"> 
+        <div fxLayout="column">
 
-              <div>
-                <a routerLink="/home/note" mat-button>
-                  <mat-icon>lightbulb_outline</mat-icon> Note</a>
-              </div>
-              <div>
-                <a mat-button  routerLink="/home/reminder">
-                  <img src="/assets/icons/remender.svg"> Reminders</a>
-              </div>
-              <div>
-                  <a routerLink="/home/archive" mat-button>
-                    <mat-icon>archive</mat-icon> Archive</a>
-                </div>
-              <div>
-                <a routerLink="/home/trash" mat-button>
-                  <img style="height:30px;margin-top: 10px;"  src="/assets/icons/trash.svg"> Trash</a>
-              </div>
-              <div>
-                 
-                <button mat-menu-item>
-                    <span>Labels</span>
-   
-                    <button mat-button type="submit" (click)="openLabelDialog()"style="margin-left:40%;"><b>EDIT</b></button>
-         
-                  </button>
+          <div>
+            <a routerLink="/home/note" mat-button>
+              <mat-icon>lightbulb_outline</mat-icon> Note</a>
+          </div>
+          <div>
+            <a mat-button routerLink="/home/reminder">
+              <img src="/assets/icons/remender.svg"> Reminders</a>
+          </div>
+          <div>
+            <a routerLink="/home/archive" mat-button>
+              <mat-icon>archive</mat-icon> Archive</a>
+          </div>
+          <div>
+            <a routerLink="/home/trash" mat-button>
+              <img style="height:30px;margin-top: 10px;" src="/assets/icons/trash.svg"> Trash</a>
+          </div>
+          <div>
+
+            <button mat-menu-item>
+              <span>Labels</span>
+
+              <button mat-button type="submit" (click)="openLabelDialog()" style="margin-left:40%;">
+                <b>EDIT</b>
+              </button>
+
+            </button>
+          </div>
+          <div *ngFor="let label of labels">
+            <div>
+              <button mat-menu-item>
+                <mat-icon>label</mat-icon>
+                <span>{{label.labelTitle}}</span>
+              </button>
             </div>
-               <div *ngFor="let label of labels">
-                <div>
-                   <button mat-menu-item>
-                       <mat-icon>label</mat-icon>
-                       <span>{{label.labelTitle}}</span>
-                   </button>
-                </div>
-                </div>  
-                <div> 
+          </div>
+          <div>
 
-                 <button mat-menu-item  (click)="openLabelDialog()">
-                   <mat-icon>add</mat-icon>
-                   <span>Create new lable</span>
-                 </button>
-              </div>
-             </div>
+            <button mat-menu-item (click)="openLabelDialog()">
+              <mat-icon>add</mat-icon>
+              <span>Create new lable</span>
+            </button>
+          </div>
+        </div>
       </mat-sidenav>
-     
-      
-   <mat-sidenav-content>
-     <router-outlet></router-outlet>
-  </mat-sidenav-content>
+
+
+      <mat-sidenav-content>
+        <router-outlet></router-outlet>
+      </mat-sidenav-content>
     </mat-sidenav-container>
   </div>
 
 </div>
+

@@ -1,14 +1,13 @@
 .note-card {
     max-width: 600px;
     margin-left: 400px;
-   
     margin-top: 50px
   }
    .editable {
     word-wrap: break-word;
     white-space: pre-wrap;
     outline: none;
-      line-height: 20px;   
+   line-height: 20px;   
  } 
  
  [contenteditable=true]:empty:before {
@@ -18,7 +17,7 @@
  .note-card2 {
     max-width: 600px;
     /* margin-left: 500px; */
-    margin: 20px;
+    /* margin: 20px; */
     word-wrap: break-word;
      
   }
@@ -46,4 +45,7 @@
     width: 200px;
     top: 28px;
     margin-left: 503px;
+    }
+    .mat-div{
+      margin-top:20px;
     }

@@ -1,0 +1,49 @@
+.note-card {
+    max-width: 600px;
+    margin-left: 400px;
+   
+    margin-top: 50px
+  }
+   .editable {
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    outline: none;
+      line-height: 20px;   
+ } 
+ 
+ [contenteditable=true]:empty:before {
+     content: attr(data-text);;
+    
+ }  
+ .note-card2 {
+    max-width: 600px;
+    /* margin-left: 500px; */
+    margin: 20px;
+    word-wrap: break-word;
+     
+  }
+   .left-container
+  {
+    height: 1932px;
+  } 
+  .hideme{
+    visibility: hidden;
+  }
+  .openhide:hover .hideme{
+    visibility:visible;
+  }
+  .demo-chip-list {
+    width: 100%;
+  }
+   .images{
+    opacity: 0.5
+  }
+  .images:hover{
+    opacity:1.5;
+    cursor: pointer
+  }
+  .label-design{
+    width: 200px;
+    top: 28px;
+    margin-left: 503px;
+    }

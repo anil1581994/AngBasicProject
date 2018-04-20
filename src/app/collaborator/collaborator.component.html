@@ -1,0 +1,48 @@
+
+<div fxLayout="column">
+  <b>Collaborators</b>
+
+   <div fxFlex="row" fxLayoutGap="20px" fxLayoutAlign="start end" >
+        <div fxLayout="column">
+        <mat-icon (click)="getLoggedUser()">person_add</mat-icon>
+        </div>
+      <div fxLayout="column">
+         <div><b>{{username}}</b><span class="owner">(Owner)</span></div>
+         <div><b>{{useremail}}</b></div>
+       </div>
+    </div>
+  <!--shared user with removable icon..removeCollaborator()-->
+  <div *ngIf="data.collaborators!=null" fxLayout="column" fxLayoutGap="10px">
+    <div *ngFor="let collaborator of data.collaborators">
+        <div fxLayout="row" fxLayoutGap="10px">
+            <div mat-card-avatar class="example-header-image"></div>
+            <div fxLayout="column">
+                 <div [innerHTML]="collaborator.name"></div> 
+                 <div [innerHTML]="collaborator.email"></div>
+                <!-- <div [innerHTML]="collaborator.sharedUserId"></div> -->
+            </div>
+
+            <div>
+                <mat-icon (click)="removeCollaborator(collaborator.email)">clear</mat-icon>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+  <div fxFlex="row" fxLayoutGap="20px" fxLayoutAlign="start end" >
+      <div>
+       <mat-icon>person_add</mat-icon>
+      </div>
+      <div fxLayout="column">
+      <input matInput placeholder="Person or email to share with" [(ngModel)]="model.sharedUserId">
+     </div>
+  </div>
+
+
+  <div fxFlex="row" fxLayoutAlign="end" fxLayoutGap="30px" style="margin-top: 160px;">
+    <!-- <button type="submit" mat-raised-button  (click)="reomveCollaborator()"><b>CANCEL</b></button> -->
+    <button type="submit" mat-raised-button  (click)="addCollaborator()"><b>SAVE</b></button>
+  </div>
+
+</div>

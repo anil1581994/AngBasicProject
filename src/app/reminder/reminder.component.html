@@ -2,8 +2,7 @@
 
     <div *ngFor="let note of notes">
       <div *ngIf="note.status===0">
-        <!-- common mat card used for-->
-        <!-- <app-commonnote></app-commonnote> -->
+       
         <mat-card class="note-card2" fxFlex="240px" [style.background]="note.color">
           <div style="margin-left: 90%;">
             <img src="{{pinIcon}}" (click)="pinNote(note)">
@@ -112,7 +111,8 @@
                       <button mat-button mat-raised-button color="primary" type="submit" (click)="reminderSave(note,'date picker')" style="font-size: 10px;">save</button>
                     </div> 
   
-                    </mat-menu>
+                    </mat-menu> 
+
                    </mat-menu>
               </div> 
              </div> 

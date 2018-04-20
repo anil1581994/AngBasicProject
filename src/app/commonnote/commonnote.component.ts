@@ -1,6 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Input } from '@angular/core';
 import { HttputilService } from '../httputil.service';
 import { Note } from '../Note';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import{NoteService}from '../note/note.service';
+import {UpdateNoteComponent} from '../update-note/update-note.component';
 
 @Component({
   selector: 'app-commonnote',
@@ -8,16 +12,21 @@ import { Note } from '../Note';
   styleUrls: ['./commonnote.component.css']
 })
 export class CommonnoteComponent implements OnInit {
-  notes:Note[];
+
+  @Input() note:Note;
+  
   archiveImg="/assets/icons/archive.svg";
 
-  constructor(private commonService:HttputilService) { }
+  constructor(private noteService:NoteService,private dialog: MatDialog) { }
 
   ngOnInit() {
-    this.commonService.getServiceData('note/getAllNotes').subscribe(data=> {
-  
-      this.notes = data.body;
-                  });
   }
-   
+    openDialog(note) {
+    console.log("data",note);
+    this.dialog.open(UpdateNoteComponent, 
+    {
+     data: note,
+     width:'600px'
+     });
+    }
 }

@@ -1,0 +1,9 @@
+.owner{
+    font-style: italic;
+    
+}
+
+.example-header-image {
+    background-image: url('assets/icons/userProfile2.svg');
+    background-size: cover;
+}

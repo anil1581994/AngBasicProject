@@ -1,19 +1,16 @@
 <!-- Hide card-->
-
-<div class="left-container">
-  <div fxLayoutAlign="center center" (click)="show=!show" class="note-card" *ngIf="!show">
-    <mat-card fxFlex="600px" fxFlexAlign="center" class="title-css">
+  <div class="left-container">
+     <div fxLayoutAlign="center center" (click)="show=!show" class="note-card" *ngIf="!show">
+      <mat-card fxFlex="600px" fxFlexAlign="center" class="title-css">
       <div contenteditable="true" data-text="Take a note..." class="editable"></div>
-    </mat-card>
-  </div>
+      </mat-card>
+     </div>
 
 
   <!--show card-->
   <div fxLayout="row" fxLayoutAlign="center" *ngIf="show" class="note-card">
-    <mat-card fxFlex="600px" fxFlexAlign="center" style="margin-top: -5%;">
-      <!-- <div style="margin-left: 90%;">
-            <img src="{{pinIcon}}"  (click)="pinNote(note)">
-        </div>  -->
+    <mat-card fxFlex="600px" fxFlexAlign="center">
+     
       <mat-card-content>
         <div style="font-weight: bold; font-size: 17px; padding: 10px 15px;" contenteditable="true" data-text="Title" class="editable"
           name="Title" (input)="model.title=$event.target.innerHTML"></div>
@@ -33,17 +30,12 @@
 
 
 
-
   <!--pinNote -->
-  <div>
-    <h3>Pinned</h3>
-    <!-- <div fxLayout="row wrap" > -->
-    <div fxLayout="row wrap" fxLayoutAlign="center">
-      <div *ngFor="let note of notes">
-        <div *ngIf="note.status===3">
-          <!-- common mat card used for-->
-          <!-- <app-commonnote></app-commonnote> -->
-          <mat-card class="note-card2" fxFlex="240px" [style.background]="note.color" class="openhide">
+   
+    <div fxLayout="row wrap"  fxLayoutAlign="center"  fxLayoutGap="20px">
+      <div *ngFor="let note of notes| noteFilter :{ status : 3}" fxFlex="320px">
+       
+          <mat-card class="note-card2" [style.background]="note.color" class="openhide">
             <div style="margin-left: 90%;">
               <img src="{{unPinIcon}}" (click)="unPinNote(note)">
             </div>
@@ -76,6 +68,9 @@
                   </div>
                 </mat-menu>
               </div>
+              <div>
+                <img style="margin-right: 10px;height: 20px;margin-top: 10px;" class="images" src="{{collaborator}}">
+              </div>
 
               <div>
                 <img style="margin-right: 10px;height: 20px;margin-top: 10px;" src="{{archiveImg}}" (click)=" archive(note)" class="images">
@@ -85,21 +80,19 @@
               </div>
             </div>
           </mat-card>
-        </div>
+        
       </div>
     </div>
-  </div>
 
 
-  <div fxLayout="column" fxLayoutAlign="space-between">
-    <!--open dialog as card note div -->
-    <div fxLayout="row wrap" fxLayoutAlign="space-around">
+ <!--UnpinNote -->
+  <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="20px">
+  
+     <div fxLayout="row wrap"  fxLayoutAlign="space-between center"  class="mat-div" fxFlex="900px"> 
 
-      <div *ngFor="let note of notes">
-        <div *ngIf="note.status===0">
-          <!-- common mat card used for-->
-          <!-- <app-commonnote></app-commonnote> -->
-          <mat-card class="note-card2" fxFlex="240px" [style.background]="note.color" class="openhide">
+      <div *ngFor="let note of notes|noteFilter :{ status : 0}">
+        
+          <mat-card class="note-card2" fxFlex="240px" [style.background]="note.color"  class="openhide">
             <div style="margin-left: 90%;" class="images">
               <img src="{{pinIcon}}" (click)="pinNote(note)">
             </div>
@@ -107,8 +100,34 @@
               <div [innerHTML]="note.title" class="editable"></div>
               <div [innerHTML]="note.description"></div>
             </div>
-
-            <div>
+            
+                 <div *ngIf="note.ownerId==0"> 
+                   <div *ngIf="note.collaborators!=null">
+                     <div *ngFor="let collaborator of note.collaborators">
+                       <div fxLayout="row" fxLayoutGap="5px">
+                         <div>
+                           <mat-chip-list>
+                               <mat-chip>{{collaborator.name}}</mat-chip>
+                               <mat-chip>{{collaborator.email}}</mat-chip>
+                              </mat-chip-list>
+                         </div>
+                       </div>
+                     </div>
+                   </div>
+                  </div>
+     
+                 <div *ngIf="note.collaboratorName!=null">
+                   <div fxLayout="row" fxLayoutGap="5px">
+                     <div>
+                       <mat-chip-list>
+                         <mat-chip>
+                           <b>Shared from:</b>{{note.collaboratorName}}</mat-chip>
+                       </mat-chip-list>
+                     </div>
+                   </div>
+                  </div>
+                  
+              <div>
               <div *ngIf="note.labels!=null">
                 <div *ngFor="let label of note.labels">
                   <mat-chip-list>
@@ -123,7 +142,6 @@
                 </div>
               </div>
              </div>
-
 
 
             <div *ngIf="note.reminder!=null">
@@ -185,7 +203,9 @@
                   </mat-menu>
                 </mat-menu>
               </div>
-
+              <div>
+                <img style="margin-right: 10px;height: 20px;margin-top: 10px;" matTooltip="collaborator" class="images" src="{{collaborator}}"  (click)="openCollaboratorDialog(note)">
+              </div>
 
               <div>
                 <button mat-icon-button [matMenuTriggerFor]="color" class="images">
@@ -205,13 +225,13 @@
               <div>
                 <img style="margin-right: 10px;height: 20px;margin-top: 10px;" class="images" [src]="archiveImg" (click)=" archive(note)">
               </div>
-
-              <div>
+           
+               <div>
                 <button mat-icon-button [matMenuTriggerFor]="reminder" class="images">
                   <img src="{{reminderImg}}">
                 </button>
 
-                <mat-menu #reminder="matMenu">
+                 <mat-menu #reminder="matMenu">
                   <div>
                     <button type="submit" mat-menu-item>
                       <b>Reminder:</b>
@@ -258,42 +278,12 @@
                     </div>
 
                   </mat-menu>
+                  
                 </mat-menu>
               </div>
             </div>
           </mat-card>
-        </div>
-        <!-- <div *ngIf="show">
-          <mat-card style="width:200px;
-            top: -240px;
-            margin-left: 503px;">
-            <div fxLayout="column" fxLayoutGap="20px">
-              <div>
-                <b>label note</b>
-              </div>
-              <div>
-                <mat-form-field>
-                
-                  <input matInput placeholder="Enter label name">
-                </mat-form-field>
-              </div>
-
-              <div *ngIf="labels!=null">
-                <div *ngFor="let label of labels">
-                   <label>
-                    <input type="checkbox" name="labels" value="{{label.labelTitle}}" [(ngModel)]="label.checked" (ngModelChange)="doSomething($event, label.labelId, note.noteId)"
-                    /> {{label.labelTitle}}
-                  </label>
-                </div>
-              </div>
-            </div>
-          </mat-card>
-        </div>-->
-      </div>
-    </div>
-
-
-
-  </div>
-
-</div>
+     </div>
+    </div> 
+ </div>
+ </div>

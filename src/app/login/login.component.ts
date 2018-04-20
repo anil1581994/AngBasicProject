@@ -3,6 +3,8 @@ import { NgForm, FormControl, FormGroupDirective, Validators,FormsModule} from '
 import { ErrorStateMatcher } from '@angular/material/core';
 import { FormGroup} from '@angular/forms';
 import { HttputilService } from '../httputil.service';
+import{UserService}from '../login/user.service';
+
 import { ToDoResponse } from '../ToDoResponse';
 import { Router } from '@angular/router';
 
@@ -21,19 +23,20 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 export class LoginComponent implements OnInit {
 model:any={};
 
-  constructor(private commonService:HttputilService,private router:Router) {}
+ // constructor(private commonService:HttputilService,private router:Router) {}
+    constructor(private userService: UserService,private router:Router) {}
 
  ngOnInit() {}
    logIn():void
    {
     console.log("sigInForm",this.model);
-     this.commonService.postServiceData('login',this.model)
+     this.userService.getUserService('login',this.model)
      .subscribe(response => {
         if(response.body.statusCode=== 100)
         {
          
           localStorage.setItem('Authorization',response.headers.get("Authorization"));
-            // alert(response.headers.get("token"));
+             alert("loginsuccesfullyy");
           this.router.navigate(['/home'])
         } else if(response.body.statusCode !== 100){
             alert(response.body.msg);
