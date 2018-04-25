@@ -15,7 +15,7 @@ export class AuthGuard implements CanActivate {
         this.router.navigate(['/login']);
         return false;
     }
-     //parent routing
+     //child routing
      canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         if (localStorage.getItem('Authorization')) {
        

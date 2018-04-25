@@ -22,7 +22,9 @@ export class HttputilService {
 
     //Hamid Added
   private allLabelSubject = new Subject<any>();
+  private viewSubject = new Subject<any>();
 
+  status:boolean = true; 
   model:any={};
   
   httpOptions = {
@@ -42,6 +44,19 @@ export class HttputilService {
   // base_url = "http://localhost:8080/ToDo/";
   ///user_Url="http://localhost:8080/ToDo/";
   contentId:string;
+
+
+
+
+  toggleView(){
+   this.status = !this.status;
+   this.viewSubject.next(this.status);
+   }
+
+  getStatus(){
+   setTimeout(this.toggleView);
+   return this.viewSubject.asObservable();
+  }
 
  
   public urlpath : string;
@@ -118,5 +133,17 @@ export class HttputilService {
     this.addAuthorization();   
      return this.http.get<any>(this.urlpath,this.httpOptions);    
   }
+ //--------------------------------------------------------------------------------
+ facebooklogin(path):Observable<any>{
+  return this.http.post<any>(path,{ observe: 'response' });
+}
+
+getUrlInfo(path,model):Observable<HttpResponse<any>>{
+  console.log(path);
+  this.addAuthorization();
+  this.urlpath= this.base_url.concat(path);
+  return this.http.post<any>( this.urlpath, model,this.httpOptions);
+}
+
 
 }

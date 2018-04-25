@@ -29,7 +29,10 @@ export class HomeComponent implements OnInit {
     this.getAllLabels();
   }
 //navigate to login page after logout
-
+changeCSS()
+{
+  this.commonService.toggleView();
+}
 logout() {
   console.log("in logout method");
    var token=localStorage.removeItem('Authorization');

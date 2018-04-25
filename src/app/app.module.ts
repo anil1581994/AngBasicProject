@@ -37,12 +37,38 @@ import{NoteService} from './note/note.service';
 import { NoteFilter } from './note-filter.pipe';
 import{CollaboratorService} from './collaborator/collaborator.service';
 import { CollaboratorComponent } from './collaborator/collaborator.component';
+import { AuthHttp, AuthConfig } from 'angular2-jwt';
+import { AuthServiceConfig, GoogleLoginProvider, FacebookLoginProvider, 
+  LinkedInLoginProvider  } from 'angularx-social-login';
+import { SocialLoginModule } from 'angularx-social-login';
+import { Http ,HttpModule} from '@angular/http'
 
 
 
 
 
 
+export function getAuthHttp(http: Http) {
+  return new AuthHttp(new AuthConfig({
+    headerName: 'x-auth-token',
+    noTokenScheme: true,
+    noJwtError: true,
+    globalHeaders: [{'Accept': 'application/json'}],
+    tokenGetter: (() => localStorage.getItem('id_token')),
+  }), http);
+}
+
+const config = new AuthServiceConfig([
+  {
+    id: FacebookLoginProvider.PROVIDER_ID,
+    provider: new FacebookLoginProvider('188389985217960')
+  }
+]);
+
+
+  export function provideConfig() {
+  return config;
+}
 
 
 //import {FormControl, FormGroup, FormArray, Validators} from '@angular/forms';
@@ -88,6 +114,8 @@ export const appRoutes: Routes = [
     
   ],
   imports: [
+    SocialLoginModule.initialize(config),
+    SocialLoginModule,
     BrowserModule,
     MatInputModule,
     MatFormFieldModule,
@@ -109,11 +137,12 @@ export const appRoutes: Routes = [
     OwlNativeDateTimeModule,
     MatCheckboxModule,
     MatChipsModule,
+    HttpModule,
     
     RouterModule.forRoot(appRoutes)
   ],
   entryComponents:[UpdateNoteComponent,LabelComponent,CollaboratorComponent],
-  providers: [HttputilService,AuthGuard,AlwaysLogginAuthGuard,UserService,NoteService,CollaboratorService],
+  providers: [HttputilService,AuthGuard,AlwaysLogginAuthGuard,UserService,NoteService,CollaboratorService,{ provide: AuthHttp, useFactory: getAuthHttp, deps: [Http] }, { provide: AuthServiceConfig, useFactory: provideConfig}],
   bootstrap: [AppComponent]
 })
 export class AppModule {

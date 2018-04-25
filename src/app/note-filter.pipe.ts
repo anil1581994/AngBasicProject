@@ -10,13 +10,16 @@ export class NoteFilter implements PipeTransform {
     if(!noteArray) return [];
     
     return noteArray.filter((noteObj) => {
-      if (args) {
+      if (args) 
+      {
         var flag = true;
-        for (var index in args) {
-          if (noteObj[index] != args[index]) {
+        for (var index in args) //for each
+        {
+          if (noteObj[index] != args[index]) 
+           {
             flag = false;
             break;
-          }
+           }
         }
         return flag;
       }

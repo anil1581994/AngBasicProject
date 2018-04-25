@@ -17,6 +17,7 @@
 
         <div style="font-size: 14px; padding: 12px 15px 15px 15px;" contenteditable="true" data-text="Take a note..." class="editable "
           name="description" (input)="model.description=$event.target.innerHTML"></div>
+          <div name="url" (input)="model.url=$event.target.innerHTML"></div>
       </mat-card-content>
 
       <mat-card-actions>
@@ -33,7 +34,7 @@
   <!--pinNote -->
    
     <div fxLayout="row wrap"  fxLayoutAlign="center"  fxLayoutGap="20px">
-      <div *ngFor="let note of notes| noteFilter :{ status : 3}" fxFlex="320px">
+      <div *ngFor="let note of notes| noteFilter :{ status : 3}" class={{statusClass}} fxFlex="320px">
        
           <mat-card class="note-card2" [style.background]="note.color" class="openhide">
             <div style="margin-left: 90%;">
@@ -42,6 +43,7 @@
             <div (click)="openDialog(note)">
               <div [innerHTML]="note.title" class="editable"></div>
               <div [innerHTML]="note.description"></div>
+              <div name="url" (input)="model.url=$event.target.innerHTML"></div>
             </div>
             <div fxLayout="row" class="hideme">
               <div>
@@ -90,7 +92,7 @@
   
      <div fxLayout="row wrap"  fxLayoutAlign="space-between center"  class="mat-div" fxFlex="900px"> 
 
-      <div *ngFor="let note of notes|noteFilter :{ status : 0}">
+      <div *ngFor="let note of notes|noteFilter :{ status : 0}" class={{statusClass}}>
         
           <mat-card class="note-card2" fxFlex="240px" [style.background]="note.color"  class="openhide">
             <div style="margin-left: 90%;" class="images">
@@ -99,6 +101,7 @@
             <div (click)="openDialog(note)">
               <div [innerHTML]="note.title" class="editable"></div>
               <div [innerHTML]="note.description"></div>
+           
             </div>
             
                  <div *ngIf="note.ownerId==0"> 
@@ -115,7 +118,8 @@
                      </div>
                    </div>
                   </div>
-     
+                
+       
                  <div *ngIf="note.collaboratorName!=null">
                    <div fxLayout="row" fxLayoutGap="5px">
                      <div>
@@ -282,6 +286,10 @@
                 </mat-menu>
               </div>
             </div>
+              <!-- <div (input)="model.url=$event.target.innerHTML">  
+              
+            </div>  -->
+          
           </mat-card>
      </div>
     </div> 

@@ -40,4 +40,14 @@ export class NoteService {
         {
             return this.httpservice.getLoggedUser(url);
         }
+
+     getStatus():Observable<HttpResponse<any>>
+     {
+        return this.httpservice.getStatus();
+     }
+     getUrlData(model: any):Observable<HttpResponse<any>>
+     {  
+         let url="note/getUrl"
+         return this.httpservice.getUrlInfo(url,model);
+     }
 }

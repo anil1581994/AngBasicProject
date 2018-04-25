@@ -34,6 +34,12 @@
   <div class="example-container" fxLayout="row" fxLayoutAlign="center">
        <button mat-raised-button color="primary" type="submit" class="save_button" [disabled]="!emailControl.valid || !passwordControl.valid">login</button>
 </div>
+
  </form>
+ <div style="margin-left: 63px;margin-top: 10px;">
+  <button type="submit" mat-raised-button color="primary" (click)="fbLogin()">Login with facebook</button>
+</div>
+
 </mat-card>
+
 </div>

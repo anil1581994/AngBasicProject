@@ -36,7 +36,7 @@ model:any={};
         {
          
           localStorage.setItem('Authorization',response.headers.get("Authorization"));
-             alert("loginsuccesfullyy");
+             alert("login succesfully");
           this.router.navigate(['/home'])
         } else if(response.body.statusCode !== 100){
             alert(response.body.msg);
@@ -45,6 +45,13 @@ model:any={};
     //  console.log("sigInForm",this.data);
 
    }
+   fbLogin() {
+    this.userService.login()
+                     .then(() => {
+    this.router.navigate(['/home']);
+  });
+ }
+
    // email validation pattern using validators
     emailControl = new FormControl('', [
     Validators.required,
@@ -57,4 +64,5 @@ model:any={};
     Validators.pattern('[A-Za-z0-9]{8}')
   ]);
   match = new MyErrorStateMatcher();
+ 
 }

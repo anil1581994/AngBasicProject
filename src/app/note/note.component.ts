@@ -50,7 +50,7 @@ export class NoteComponent implements OnInit {
     useremail:string;
     collaboratorName:string;//
     ownerId:number
-    
+  statusClass : string=localStorage.getItem('cssclass');
   archiveImg="/assets/icons/archive.svg";
   pinIcon="/assets/icons/pin.svg";
   unPinIcon="/assets/icons/pinblue.svg";
@@ -94,7 +94,25 @@ export class NoteComponent implements OnInit {
           this.notes = data.body;
                 });
                 this.getAllLabels();
+
+                this.changeGridCss();
              }
+
+            changeGridCss()
+      {
+
+             this.noteService.getStatus().subscribe((status)=>{
+              this.statusClass = status? "list-view":"grid-view";
+             
+              if(status){   
+               localStorage.setItem('cssclass','list-view');     
+              }else{
+                localStorage.setItem('cssclass','grid-view');
+              }
+       
+       });
+      }
+
     openDialog(note) 
     {
          console.log("data",note);
@@ -265,4 +283,24 @@ reminderSave(note,day){
       console.log(noteId,labelId,event);
      }
     
+    //  handleInputChange(event,url,noteId){
+    //   this.getUrlData(event,url,noteId);
+    //   console.log(event,url);
+    //  }
+
+    //  getUrlData(event,url,noteId){
+    //  this.noteService.getUrlData(this.model);
+    //  }
+    
+
+     getUrlData():void{
+    console.log("formValue",this.model);
+  
+   this.noteService.getUrlData(this.model)
+    .subscribe(data=> {
+     console.log("url",data);
+     this.refreshNote();
+    }) ;
+ 
+  }
 }
