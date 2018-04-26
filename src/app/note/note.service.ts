@@ -47,7 +47,7 @@ export class NoteService {
      }
      getUrlData(model: any):Observable<HttpResponse<any>>
      {  
-         let url="note/getUrl"
+         let url="note/getUrls"
          return this.httpservice.getUrlInfo(url,model);
      }
 }

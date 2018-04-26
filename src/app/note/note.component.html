@@ -101,8 +101,10 @@
             <div (click)="openDialog(note)">
               <div [innerHTML]="note.title" class="editable"></div>
               <div [innerHTML]="note.description"></div>
-           
             </div>
+            <div>
+            <div name="url" (input)="model.url=$event.target.innerHTML" (onClick)="getUrlData()"></div>
+             </div>
             
                  <div *ngIf="note.ownerId==0"> 
                    <div *ngIf="note.collaborators!=null">
@@ -286,9 +288,11 @@
                 </mat-menu>
               </div>
             </div>
-              <!-- <div (input)="model.url=$event.target.innerHTML">  
-              
-            </div>  -->
+               <div>  
+                  <div *ngFor="let url of Urls">
+                    <img align='left' src="url.urlImage">
+              </div>  
+              </div>
           
           </mat-card>
      </div>

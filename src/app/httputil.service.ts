@@ -54,7 +54,7 @@ export class HttputilService {
    }
 
   getStatus(){
-   setTimeout(this.toggleView);
+   setTimeout(this.toggleView.bind(this));
    return this.viewSubject.asObservable();
   }
 
@@ -138,7 +138,7 @@ export class HttputilService {
   return this.http.post<any>(path,{ observe: 'response' });
 }
 
-getUrlInfo(path,model):Observable<HttpResponse<any>>{
+ getUrlInfo(path,model):Observable<HttpResponse<any>>{//in response,urlTitle,urlImage
   console.log(path);
   this.addAuthorization();
   this.urlpath= this.base_url.concat(path);

@@ -41,7 +41,8 @@ import { AuthHttp, AuthConfig } from 'angular2-jwt';
 import { AuthServiceConfig, GoogleLoginProvider, FacebookLoginProvider, 
   LinkedInLoginProvider  } from 'angularx-social-login';
 import { SocialLoginModule } from 'angularx-social-login';
-import { Http ,HttpModule} from '@angular/http'
+import { Http ,HttpModule} from '@angular/http';
+import { AsyncPipe } from './async.pipe'
 
 
 
@@ -109,7 +110,8 @@ export const appRoutes: Routes = [
     ReminderComponent,
     TopNavBarComponent,
     NoteFilter,
-    CollaboratorComponent
+    CollaboratorComponent,
+    AsyncPipe
   
     
   ],

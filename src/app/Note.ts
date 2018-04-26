@@ -1,5 +1,6 @@
 import { Label } from "./Label";
 import {Collaborator}from "./Collaborator";
+import {UrlData} from "./UrlData";
 
 export class Note {
         noteId:number;
@@ -15,4 +16,5 @@ export class Note {
         ownerId:number
         sharedUserId:string
         collaborators:Collaborator[]
+        Urls:UrlData[]
 }

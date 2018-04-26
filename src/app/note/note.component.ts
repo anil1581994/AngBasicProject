@@ -13,7 +13,7 @@ import {CollaboratorComponent} from '../collaborator/collaborator.component';
 import { LoggedUser } from '../LoggedUser';
 import { NoteFilter } from '../note-filter.pipe';
 import {Collaborator}from "../Collaborator";
-
+import {UrlData} from "../UrlData";
 
 
 
@@ -38,6 +38,8 @@ export class NoteComponent implements OnInit {
  // public show:boolean = false;
   model:any={};
   collaborators:Collaborator[];
+  //url data extraction
+  urls:UrlData[]
 
    //array to store note
   notes:Note[];
@@ -94,7 +96,7 @@ export class NoteComponent implements OnInit {
           this.notes = data.body;
                 });
                 this.getAllLabels();
-
+                this.getUrlData();
                 this.changeGridCss();
              }
 
@@ -292,12 +294,39 @@ reminderSave(note,day){
     //  this.noteService.getUrlData(this.model);
     //  }
     
+    ValidateUrl():any[]
+    {
+     let urls=[];
+     let str="http://www.thehindu.com,https://timesofindia.indiatimes.com/city/pune/imd-data-shows-maha-hottest-state-in-april-so-far/articleshow/63917182.cms,https://timesofindia.indiatimes.com/city/pune/imd-data-shows-maha-hottest-state-in-april-so-far/articleshow/63917182.cms";
+     var urlRegEx = /(^|\s)((https?:\/\/)?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)/gi;
+      
+    //  return str.match(urlRegEx).map((str)=>str.trim());
+      str.replace(urlRegEx,strObj => {
+        urls.push(strObj);
+        return strObj;
+      });
+      return urls;
+
+    //   if(urlRegEx.test(str))//return true if match
+    //  {
+      
+    //      urls.push(str);//add into the array
+    //      console.log(urls);
+    //      alert('valid url');
+     
+    //  }else{
+    //     alert('Invalid URL');
+    //  }
+    //     console.log(urls);
+    //     return urls;
+       
+    }
 
      getUrlData():void{
-    console.log("formValue",this.model);
-  
-   this.noteService.getUrlData(this.model)
-    .subscribe(data=> {
+       this.urls=this.ValidateUrl();
+       console.log("formValue",this.urls);
+      this.noteService.getUrlData(this.urls)
+     .subscribe(data=> {
      console.log("url",data);
      this.refreshNote();
     }) ;
