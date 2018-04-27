@@ -1,5 +1,5 @@
 # Todo Application
-
+It is software application which records your todo keep in database
 
 ## Development server
 
