@@ -297,7 +297,7 @@ reminderSave(note,day){
     ValidateUrl():any[]
     {
      let urls=[];
-     let str="http://www.thehindu.com,https://timesofindia.indiatimes.com/city/pune/imd-data-shows-maha-hottest-state-in-april-so-far/articleshow/63917182.cms,https://timesofindia.indiatimes.com/city/pune/imd-data-shows-maha-hottest-state-in-april-so-far/articleshow/63917182.cms";
+     let str="https://timesofindia.indiatimes.com/world/uk/uk-parliamentary-committee-grills-facebook-executive/articleshow/63929359.cms","https://timesofindia.indiatimes.com/world/rest-of-world/kim-jong-un-crosses-into-south-korea-shakes-hands-with-moon-jae-in/articleshow/63933612.cms","https://timesofindia.indiatimes.com/world/south-asia/bangladesh-official-says-no-rush-for-free-trade-pact-with-china/articleshow/63897855.cms";
      var urlRegEx = /(^|\s)((https?:\/\/)?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)/gi;
       
     //  return str.match(urlRegEx).map((str)=>str.trim());
@@ -323,9 +323,10 @@ reminderSave(note,day){
     }
 
      getUrlData():void{
-       this.urls=this.ValidateUrl();
-       console.log("formValue",this.urls);
-      this.noteService.getUrlData(this.urls)
+      // this.urls=this.ValidateUrl();
+      // console.log("formValue",this.urls);
+     // this.noteService.getUrlData(this.urls)
+      this.noteService.getUrlData(this.model.url)
      .subscribe(data=> {
      console.log("url",data);
      this.refreshNote();

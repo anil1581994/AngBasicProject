@@ -103,7 +103,7 @@
               <div [innerHTML]="note.description"></div>
             </div>
             <div>
-            <div name="url" (input)="model.url=$event.target.innerHTML" (onClick)="getUrlData()"></div>
+            <div name="url" (input)="model.url=$event.target.innerHTML"></div>
              </div>
             
                  <div *ngIf="note.ownerId==0"> 
