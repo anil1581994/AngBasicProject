@@ -138,7 +138,7 @@ export class HttputilService {
   return this.http.post<any>(path,{ observe: 'response' });
 }
 
- getUrlInfo(path,model):Observable<HttpResponse<any>>{//in response,urlTitle,urlImage
+ getUrlInfo(path,model):Observable<HttpResponse<any>>{//in response,urlTitle,urlImage converrt hhtp to array[]
   console.log(path);
   this.addAuthorization();
   this.urlpath= this.base_url.concat(path);

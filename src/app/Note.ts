@@ -17,4 +17,6 @@ export class Note {
         sharedUserId:string
         collaborators:Collaborator[]
         Urls:UrlData[]
+        //imageUrl:string
+        image:string
 }

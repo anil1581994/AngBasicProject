@@ -40,10 +40,12 @@
             <div style="margin-left: 90%;">
               <img src="{{unPinIcon}}" (click)="unPinNote(note)">
             </div>
-            <div (click)="openDialog(note)">
+             <div  *ngIf="note.image"(click)="openDialog(note)">
+              <img class="image-class" [src]='"/assets/icons/"+note.image'/>
+                    
               <div [innerHTML]="note.title" class="editable"></div>
               <div [innerHTML]="note.description"></div>
-              <div name="url" (input)="model.url=$event.target.innerHTML"></div>
+              <!-- <div name="url" (input)="model.url=$event.target.innerHTML"></div> -->
             </div>
             <div fxLayout="row" class="hideme">
               <div>
@@ -98,7 +100,9 @@
             <div style="margin-left: 90%;" class="images">
               <img src="{{pinIcon}}" (click)="pinNote(note)">
             </div>
-            <div (click)="openDialog(note)">
+               <div (click)="openDialog(note)">
+                <img class="image-class" [src]='"/assets/icons/"+note.image'/>
+
               <div [innerHTML]="note.title" class="editable"></div>
               <div [innerHTML]="note.description"></div>
             </div>
@@ -287,13 +291,17 @@
                   
                 </mat-menu>
               </div>
+              <div class="images" style="margin-right: 10px;height: 20px;margin-top: 10px;">
+                <mat-icon>photo</mat-icon>
+                  <input type="file" accept="image/*" (change)="uploadImageToNote($event,note)"/>
+                  <!-- <input type="file"
+                  id="file"
+                  (change)="uploadImageToNote($event.target.files)"> -->
+                  
+               </div>
+
             </div>
-               <div>  
-                  <div *ngFor="let url of Urls">
-                    <img align='left' src="url.urlImage">
-              </div>  
-              </div>
-          
+               
           </mat-card>
      </div>
     </div> 

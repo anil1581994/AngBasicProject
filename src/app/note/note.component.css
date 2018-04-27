@@ -57,3 +57,10 @@
     .grid-view{
       margin-top: 15px;
     }
+
+.image-class{
+  margin-left: -24px;
+  margin-top: -24px;
+  width: 240px;
+  max-height:150px;
+  }

@@ -50,4 +50,5 @@ export class NoteService {
          let url="note/getUrls"
          return this.httpservice.getUrlInfo(url,model);
      }
+   
 }

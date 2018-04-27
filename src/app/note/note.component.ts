@@ -40,7 +40,8 @@ export class NoteComponent implements OnInit {
   collaborators:Collaborator[];
   //url data extraction
   urls:UrlData[]
-
+   image:string;
+   imageUrl:string
    //array to store note
   notes:Note[];
   //chip logic
@@ -96,7 +97,7 @@ export class NoteComponent implements OnInit {
           this.notes = data.body;
                 });
                 this.getAllLabels();
-                this.getUrlData();
+               // this.getUrlData();
                 this.changeGridCss();
              }
 
@@ -262,6 +263,25 @@ reminderSave(note,day){
         this.labels = response.body;
       });
     }
+     uploadImageToNote(event,note) {
+   
+     var imageName = event.target.files[0].name;
+      note.image=imageName;
+      console.log(this.image);
+      var pattern = /image-*/;
+    
+      this.uploadImage(note);
+
+    
+     }
+
+     uploadImage(note): void {
+       this.noteService.updateNote('note/uploadImage',note)
+         .subscribe(response => {
+          console.log("Image response :",response);
+        });
+        }
+      
 
     addRemoveLabelToNote(noteId,labelId,operation): void{
 
@@ -297,10 +317,10 @@ reminderSave(note,day){
     ValidateUrl():any[]
     {
      let urls=[];
-     let str="https://timesofindia.indiatimes.com/world/uk/uk-parliamentary-committee-grills-facebook-executive/articleshow/63929359.cms","https://timesofindia.indiatimes.com/world/rest-of-world/kim-jong-un-crosses-into-south-korea-shakes-hands-with-moon-jae-in/articleshow/63933612.cms","https://timesofindia.indiatimes.com/world/south-asia/bangladesh-official-says-no-rush-for-free-trade-pact-with-china/articleshow/63897855.cms";
+     let str="https://timesofindia.indiatimes.com/world/south-asia/bangladesh-official-says-no-rush-for-free-trade-pact-with-china/articleshow/63897855.cms";
      var urlRegEx = /(^|\s)((https?:\/\/)?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)/gi;
       
-    //  return str.match(urlRegEx).map((str)=>str.trim());
+    //  return str.match(urlRegEx).map((str)=>str.trim().join(,));
       str.replace(urlRegEx,strObj => {
         urls.push(strObj);
         return strObj;
