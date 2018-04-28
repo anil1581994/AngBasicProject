@@ -32,13 +32,12 @@
 
 
   <!--pinNote -->
-   
     <div fxLayout="row wrap"  fxLayoutAlign="center"  fxLayoutGap="20px">
       <div *ngFor="let note of notes| noteFilter :{ status : 3}" class={{statusClass}} fxFlex="320px">
        
           <mat-card class="note-card2" [style.background]="note.color" class="openhide">
             <div style="margin-left: 90%;">
-              <img src="{{unPinIcon}}" (click)="unPinNote(note)">
+              <img [src]="unPinIcon" (click)="unPinNote(note)">
             </div>
              <div  *ngIf="note.image"(click)="openDialog(note)">
               <img class="image-class" [src]='"/assets/icons/"+note.image'/>
@@ -100,16 +99,13 @@
             <div style="margin-left: 90%;" class="images">
               <img src="{{pinIcon}}" (click)="pinNote(note)">
             </div>
-               <div (click)="openDialog(note)">
-                <img class="image-class" [src]='"/assets/icons/"+note.image'/>
+               <div (click)="openDialog(note)" (click)="getUrlData()">
+                  <img class="image-class" [src]='"/assets/icons/"+note.image'/>
 
-              <div [innerHTML]="note.title" class="editable"></div>
-              <div [innerHTML]="note.description"></div>
-            </div>
-            <div>
-            <div name="url" (input)="model.url=$event.target.innerHTML"></div>
-             </div>
-            
+                  <div [innerHTML]="note.title" class="editable"></div>
+                  <div [innerHTML]="note.description | linkify"></div>
+               </div>
+
                  <div *ngIf="note.ownerId==0"> 
                    <div *ngIf="note.collaborators!=null">
                      <div *ngFor="let collaborator of note.collaborators">
@@ -294,14 +290,23 @@
               <div class="images" style="margin-right: 10px;height: 20px;margin-top: 10px;">
                 <mat-icon>photo</mat-icon>
                   <input type="file" accept="image/*" (change)="uploadImageToNote($event,note)"/>
-                  <!-- <input type="file"
-                  id="file"
-                  (change)="uploadImageToNote($event.target.files)"> -->
-                  
-               </div>
+                 
+                 </div>
 
             </div>
-               
+            
+            <div *ngFor="let linkObj of note.urlPromise | async" style="margin-left:-4vh;" >
+              <div fxLayout="row" style="width:100px">
+                <div fxFlex="column" fxFlexAlign="start" style="margin-left:0" >
+                    <img [src]="linkObj.ulrImage" align='left' hspace='8' vspace='8' width='56px' height='56px'>
+                </div>
+                <div fxFlex="column" style="width:150px">
+                <div><b> {{linkObj.urlTitle}}</b></div>
+                <div>{{linkObj.urlDomain}}</div>
+              </div>
+            </div>
+          </div>
+             
           </mat-card>
      </div>
     </div> 

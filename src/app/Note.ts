@@ -1,7 +1,7 @@
 import { Label } from "./Label";
 import {Collaborator}from "./Collaborator";
 import {UrlData} from "./UrlData";
-
+import { Observable } from "rxjs";
 export class Note {
         noteId:number;
         title:string
@@ -17,6 +17,7 @@ export class Note {
         sharedUserId:string
         collaborators:Collaborator[]
         Urls:UrlData[]
+        urlPromise ?: Observable<any>
         //imageUrl:string
         image:string
 }

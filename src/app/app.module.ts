@@ -42,7 +42,7 @@ import { AuthServiceConfig, GoogleLoginProvider, FacebookLoginProvider,
   LinkedInLoginProvider  } from 'angularx-social-login';
 import { SocialLoginModule } from 'angularx-social-login';
 import { Http ,HttpModule} from '@angular/http';
-import { AsyncPipe } from './async.pipe'
+import { LinkifyPipe } from './linkify.pipe'
 
 
 
@@ -111,7 +111,7 @@ export const appRoutes: Routes = [
     TopNavBarComponent,
     NoteFilter,
     CollaboratorComponent,
-    AsyncPipe
+    LinkifyPipe
   
     
   ],
