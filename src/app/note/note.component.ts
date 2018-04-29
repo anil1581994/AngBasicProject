@@ -150,23 +150,7 @@ export class NoteComponent implements OnInit {
       });
 
   }
-  //  refreshNote():void{
-  //   this.noteService.getAllNotes()
-  //   .toPromise()
-  //   .then(data=>{
-  //     this.notes = data.body;
-  //       });
-  //  }
-
-
-
-  // refreshNote(): void {
-  //   this.noteServiceObj.getNotes()
-  //   .toPromise()
-  //   .then(response => {
-  //   this.notes = response;
-  //   });
-
+  
   refreshNote(): void {
     this.noteService.getAllNotes().subscribe(data => {
       this.notes = data.body.map(noteObj =>{
@@ -311,19 +295,7 @@ doSomething(event, labelId, noteId) {
   console.log(noteId, labelId, event);
 }
 
-ValidateUrl(): any[] {
-  let urls = [];
-  let str = "https://timesofindia.indiatimes.com/world/south-asia/bangladesh-official-says-no-rush-for-free-trade-pact-with-china/articleshow/63897855.cms";
-  var urlRegEx = /(^|\s)((https?:\/\/)?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)/gi;
 
-  //  return str.match(urlRegEx).map((str)=>str.trim().join(,));
-  str.replace(urlRegEx, strObj => {
-    urls.push(strObj);
-    return strObj;
-  });
-  return urls;
-
-}
 
 getScrapData(description : string): Observable<any> {
       let url = this.urlify(description);
@@ -342,9 +314,5 @@ getScrapData(description : string): Observable<any> {
   return text.match(urlRegex);
   
 }
-
-
-
-
 
 }

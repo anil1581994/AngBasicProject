@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class NoteFilter implements PipeTransform {
 
 
-  transform(noteArray: Array<any>, args?: any): any {
+  transform(noteArray: Array<any>, args?: any): any { //option =rags
     if(!noteArray) return [];
     
     return noteArray.filter((noteObj) => {
@@ -29,3 +29,4 @@ export class NoteFilter implements PipeTransform {
 
 
 }
+
