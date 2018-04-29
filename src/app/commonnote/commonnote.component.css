@@ -1,49 +1,66 @@
 .note-card {
-    max-width: 600px;
-    margin-left: 400px;
+  max-width: 600px;
+  margin-left: 400px;
+  margin-top: 50px
+}
+ .editable {
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  outline: none;
+ line-height: 20px;   
+} 
+
+[contenteditable=true]:empty:before {
+   content: attr(data-text);;
+  
+}  
+.note-card2 {
+  /*max-width: 600px;*/
+  /* margin-left: 500px; */
+  /* margin: 20px; */
+  word-wrap: break-word;
    
-    margin-top: 50px
+}
+ .left-container
+{
+  height: 1932px;
+} 
+.hideme{
+  visibility: hidden;
+}
+.openhide:hover .hideme{
+  visibility:visible;
+}
+.demo-chip-list {
+  width: 100%;
+}
+ .images{
+  opacity: 0.5
+}
+.images:hover{
+  opacity:1.5;
+  cursor: pointer
+}
+.label-design{
+  width: 200px;
+  top: 28px;
+  margin-left: 503px;
   }
-   .editable {
-    word-wrap: break-word;
-    white-space: pre-wrap;
-    outline: none;
-      line-height: 20px;   
- } 
- 
- [contenteditable=true]:empty:before {
-     content: attr(data-text);;
-    
- }  
- .note-card2 {
-    max-width: 600px;
-    /* margin-left: 500px; */
-    margin: 20px;
-    word-wrap: break-word;
-     
+  .mat-div{
+    margin-top:20px;
   }
-   .left-container
-  {
-    height: 1932px;
-  } 
-  .hideme{
-    visibility: hidden;
+
+  .list-view{
+    width: 69%;
+    margin-top: 15px;
   }
-  .openhide:hover .hideme{
-    visibility:visible;
+  .grid-view{
+    margin-top: 15px;
   }
-  .demo-chip-list {
-    width: 100%;
-  }
-   .images{
-    opacity: 0.5
-  }
-  .images:hover{
-    opacity:1.5;
-    cursor: pointer
-  }
-  .label-design{
-    width: 200px;
-    top: 28px;
-    margin-left: 503px;
-    }
+
+.image-class{
+margin-left: -24px;
+margin-top: -24px;
+width: 240px;
+max-height:150px;
+}

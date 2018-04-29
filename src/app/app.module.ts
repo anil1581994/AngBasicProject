@@ -42,7 +42,10 @@ import { AuthServiceConfig, GoogleLoginProvider, FacebookLoginProvider,
   LinkedInLoginProvider  } from 'angularx-social-login';
 import { SocialLoginModule } from 'angularx-social-login';
 import { Http ,HttpModule} from '@angular/http';
-import { LinkifyPipe } from './linkify.pipe'
+import { LinkifyPipe } from './linkify.pipe';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { ReturnToRegisterComponent } from './return-to-register/return-to-register.component'
 
 
 
@@ -89,11 +92,11 @@ export const appRoutes: Routes = [
       { path: 'archive', component: ArchiveComponent },
       { path: 'label', component: LabelComponent },
       { path: 'reminder', component: ReminderComponent }
-
-   
-      ]
-}
- 
+ ]
+},
+ { path: 'forgot', component: ForgotPasswordComponent },
+ { path: 'forgotpasswordStatus', component: ReturnToRegisterComponent },
+ { path: 'resetpassword', component: ResetPasswordComponent }
 ];
 @NgModule({
   declarations: [
@@ -111,7 +114,10 @@ export const appRoutes: Routes = [
     TopNavBarComponent,
     NoteFilter,
     CollaboratorComponent,
-    LinkifyPipe
+    LinkifyPipe,
+    ForgotPasswordComponent,
+    ResetPasswordComponent,
+    ReturnToRegisterComponent
   
     
   ],

@@ -1,0 +1,15 @@
+.returncontainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    }
+    .returncontainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    }
+    h2{
+    
+    text-align: center; 
+    color: black
+    }

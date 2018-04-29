@@ -5,6 +5,11 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import{NoteService}from '../note/note.service';
 import {UpdateNoteComponent} from '../update-note/update-note.component';
+import { CollaboratorComponent } from '../collaborator/collaborator.component';
+import { Label } from '../Label';
+import { LinkifyPipe } from '../linkify.pipe';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';//hamid added
 
 @Component({
   selector: 'app-commonnote',
@@ -14,19 +19,238 @@ import {UpdateNoteComponent} from '../update-note/update-note.component';
 export class CommonnoteComponent implements OnInit {
 
   @Input() note:Note;
+  labels: Label[];//for pipe
+  fullImagePath: string;
+  // public show:boolean = false;
+  model: any = {};
+  image: string;
+  notes: Note[];
+  statusClass: string = localStorage.getItem('cssclass');
   
   archiveImg="/assets/icons/archive.svg";
 
   constructor(private noteService:NoteService,private dialog: MatDialog) { }
 
   ngOnInit() {
+    this.refreshNote();
+    // this.noteService.getAllNotes().subscribe(data => {
+    //   this.notes = data.body;
+      
+    // });
+    this.getAllLabels();
+    
+    this.changeGridCss();
   }
-    openDialog(note) {
-    console.log("data",note);
-    this.dialog.open(UpdateNoteComponent, 
+
+  changeGridCss() {
+
+    this.noteService.getStatus().subscribe((status) => {
+      this.statusClass = status ? "list-view" : "grid-view";
+
+      if (status) {
+        localStorage.setItem('cssclass', 'list-view');
+      } else {
+        localStorage.setItem('cssclass', 'grid-view');
+      }
+
+    });
+  }
+
+  openDialog(note) {
+    console.log("data", note);
+    this.dialog.open(UpdateNoteComponent,
+      {
+        data: note,
+        width: '600px'
+      });
+  }
+
+  //collaboartor dialog box..(note,ownerId)
+  openCollaboratorDialog(note, ownerId) {
+    // console.log("data",note);
+    this.dialog.open(CollaboratorComponent,
+      {
+        data: { note, ownerId },
+        height: '250px',
+        width: '600px'
+      });
+  }
+
+
+  createNote(): void {
+    console.log("formValue", this.model);
+    //this.commonService.postServiceData('note/createNote',this.model)
+    this.noteService.createNoteService(this.model)
+      .subscribe(data => {
+        console.log("note created", data);
+        this.refreshNote();
+      });
+
+  }
+  
+  refreshNote(): void {
+    this.noteService.getAllNotes().subscribe(data => {
+      this.notes = data.body.map(noteObj =>{
+        if(this.urlify(noteObj.description))
+        noteObj.urlPromise = this.getScrapData(noteObj.description).map(res=>{
+          return res.body;
+        });
+        return noteObj;
+      })
+    });
+  }
+
+moveTrash(note): void {
+  note.status = 1;
+  this.noteService.updateNote('note/updateNote', note).subscribe(data => {
+    console.log(data);
+    this.refreshNote();
+  });
+}
+archive(note): void {
+  note.status = 2;
+  this.noteService.updateNote('note/updateNote', note).subscribe(data => {
+    console.log(data);
+    this.refreshNote();
+  });
+}
+pinNote(note): void {
+  console.log("pin note", note);
+  note.status = 3;
+  this.noteService.updateNote('note/updateNote', note).subscribe(data => {
+    console.log("unArchive note", data);
+    this.refreshNote();
+  });
+};
+unPinNote(note): void {
+  console.log("pin note", note);
+  note.status = 0;
+  this.noteService.updateNote('note/updateNote', note).subscribe(data => {
+    console.log("unArchive note", data);
+    this.refreshNote();
+  });
+};
+
+updateNoteColor(note, status): void {
+  console.log("change note color", note, status);
+  note.status = status;
+  this.noteService.updateNote('note/updateNote', note).subscribe(data => {
+    console.log("color  response", data);
+    this.refreshNote();
+  });
+};
+
+reminderSave(note, day) {
+
+  if (day === 'Today') {
+    var today = new Date();
+    today.setHours(20);
+    today.setMinutes(0);
+    today.setMilliseconds(0);
+    note.reminder = today;
+  }
+  else if (day === 'Tomorrow') {
+    var today = new Date();
+    today.setDate(today.getDate() + 1);
+    today.setHours(8);
+    today.setMinutes(0);
+    today.setMilliseconds(0);
+    note.reminder = today;
+  } else if (day === 'Next week') {
+
+    var today = new Date();
+    today.setDate(today.getDate() + 6);
+    today.setHours(8);
+    today.setMinutes(0);
+    today.setMilliseconds(0);
+    note.reminder = today;
+  } else if (day === 'null') {
+    note.reminder = null;
+  } else {
+    var dateObj = this.model.reminder;
+    // let validDate =this.convertDate(dateObj); 
+    var today = new Date(dateObj);
+
+    // today.setDate(parseInt(newDt));
+    // console.log("Date obj ",today);
+
+    note.reminder = today;
+    this.refreshNote();
+
+  }
+  this.noteService.updateNote('note/updateNote', note).subscribe(response => {
+    console.log("reminder  response", response);
+    this.refreshNote();
+  });
+}
+//all curd opration label 
+//how can i add labelId
+
+getAllLabels(): void {
+  this.noteService.getAllLabel().subscribe(response => {
+    this.labels = response.body;
+  });
+}
+uploadImageToNote(event, note) {
+
+  var imageName = event.target.files[0].name;
+  note.image = imageName;
+  console.log(this.image);
+  var pattern = /image-*/;
+
+  this.uploadImage(note);
+
+
+}
+
+uploadImage(note): void {
+  this.noteService.updateNote('note/uploadImage', note)
+    .subscribe(response => {
+      console.log("Image response :", response);
+    });
+}
+
+
+addRemoveLabelToNote(noteId, labelId, operation): void {
+
+  console.log("note updating with label");
+  this.noteService.updateNote('note/addLabelToNote/' + noteId + '/' + labelId + '/' + operation,
     {
-     data: note,
-     width:'600px'
-     });
-    }
+      params: {
+        labelId: labelId,
+        noteId: noteId,
+        operation: operation
+
+      }
+    }).subscribe(data => {
+      console.log("color  response", data);
+    });
+};
+
+doSomething(event, labelId, noteId) {
+  this.addRemoveLabelToNote(noteId, labelId, event);
+  console.log(noteId, labelId, event);
+}
+
+
+
+getScrapData(description : string): Observable<any> {
+      let url = this.urlify(description);
+    if(!url){
+      let subjectObj =  new Subject<any>();
+      // setTimeout(subjectObj.next.bind(null,[]));
+      return subjectObj.asObservable();
+    } 
+    return this.noteService.getUrlData(url)
+
+
+}
+
+ urlify(text) :Array<string> {
+  var urlRegex = /(^|\s)((https?:\/\/)?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)/gi;
+  return text.match(urlRegex);
+  
+}
+
+
 }

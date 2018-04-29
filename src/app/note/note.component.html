@@ -34,8 +34,8 @@
   <!--pinNote -->
     <div fxLayout="row wrap"  fxLayoutAlign="center"  fxLayoutGap="20px">
       <div *ngFor="let note of notes| noteFilter :{ status : 3}" class={{statusClass}} fxFlex="320px">
-       
-          <mat-card class="note-card2" [style.background]="note.color" class="openhide">
+       <!-- <app-commonnote [notes]="note"></app-commonnote> -->
+           <mat-card class="note-card2" [style.background]="note.color" class="openhide">
             <div style="margin-left: 90%;">
               <img [src]="unPinIcon" (click)="unPinNote(note)">
             </div>
@@ -44,7 +44,7 @@
                     
               <div [innerHTML]="note.title" class="editable"></div>
               <div [innerHTML]="note.description"></div>
-              <!-- <div name="url" (input)="model.url=$event.target.innerHTML"></div> -->
+          
             </div>
             <div fxLayout="row" class="hideme">
               <div>
@@ -82,7 +82,7 @@
                 <img style="margin-right: 10px;height: 20px;margin-top: 10px;" src="{{reminderImg}}" class="images">
               </div>
             </div>
-          </mat-card>
+          </mat-card> 
         
       </div>
     </div>
@@ -94,221 +94,8 @@
      <div fxLayout="row wrap"  fxLayoutAlign="space-between center"  class="mat-div" fxFlex="900px"> 
 
       <div *ngFor="let note of notes|noteFilter :{ status : 0}" class={{statusClass}}>
-        
-          <mat-card class="note-card2" fxFlex="240px" [style.background]="note.color"  class="openhide">
-            <div style="margin-left: 90%;" class="images">
-              <img src="{{pinIcon}}" (click)="pinNote(note)">
-            </div>
-               <div (click)="openDialog(note)" (click)="getUrlData()">
-                  <img class="image-class" [src]='"/assets/icons/"+note.image'/>
-
-                  <div [innerHTML]="note.title" class="editable"></div>
-                  <div [innerHTML]="note.description | linkify"></div>
-               </div>
-
-                 <div *ngIf="note.ownerId==0"> 
-                   <div *ngIf="note.collaborators!=null">
-                     <div *ngFor="let collaborator of note.collaborators">
-                       <div fxLayout="row" fxLayoutGap="5px">
-                         <div>
-                           <mat-chip-list>
-                               <mat-chip>{{collaborator.name}}</mat-chip>
-                               <mat-chip>{{collaborator.email}}</mat-chip>
-                              </mat-chip-list>
-                         </div>
-                       </div>
-                     </div>
-                   </div>
-                  </div>
-                
-       
-                 <div *ngIf="note.collaboratorName!=null">
-                   <div fxLayout="row" fxLayoutGap="5px">
-                     <div>
-                       <mat-chip-list>
-                         <mat-chip>
-                           <b>Shared from:</b>{{note.collaboratorName}}</mat-chip>
-                       </mat-chip-list>
-                     </div>
-                   </div>
-                  </div>
-                  
-              <div>
-              <div *ngIf="note.labels!=null">
-                <div *ngFor="let label of note.labels">
-                  <mat-chip-list>
-                    <div fxLayout="row" fxLayoutGap="5px">
-                      <div>
-                        <mat-chip>{{label.labelTitle}}
-                          <img src="{{clearImg}}"  (click)="doSomething(false, label.labelId, note.noteId)">
-                        </mat-chip>
-                      </div>
-                    </div>
-                  </mat-chip-list>
-                </div>
-              </div>
-             </div>
-
-
-            <div *ngIf="note.reminder!=null">
-              <div mat-menu-item fxLayout="row" style="background-color: gainsboro;">
-                <div style="font-size: 12px;">
-                  <img style="margin-left: 8px;margin-top: 11px;" src="{{clockImg}">
-                  <label>{{note.reminder|date:'MMM dd,y, hh:mm a'}}</label>
-                </div>
-                <div>
-                  <img style="margin-left: 8px;margin-top: 11px;" src="{{clearImg}}" (click)="reminderSave(note,'null')">
-                </div>
-              </div>
-            </div>
-
-
-
-            <div fxLayout="row" class="hideme">
-
-              <div>
-                <button mat-icon-button [matMenuTriggerFor]="menu" class="images">
-                  <mat-icon>more_vert</mat-icon>
-                </button>
-
-                <mat-menu #menu="matMenu">
-                  <button type="submit" mat-menu-item (click)="moveTrash(note)">
-                    <span>delete note</span>
-                    </button>
-                 
-                     <div>
-                      <button type="submit" mat-menu-item [matMenuTriggerFor]="label" (click)="getAllLabels()" > 
-                      <span> Add label</span>
-                      </button>
-                      </div> 
-                        <mat-menu #label="matMenu">
-                        <div fxLayout="column" fxLayoutGap="20px">
-                      <div>
-                        <b>label note</b>
-                      </div>
-                      <div>
-                        <mat-form-field>
-                        <input matInput placeholder="Enter label name">
-                        </mat-form-field>
-                      </div>
-
-                       <div *ngIf="labels!=null">
-                        <div *ngFor="let label of labels">
-                          <label>
-                            <input type="checkbox" 
-                             name="labels" 
-                             value="{{label.labelTitle}}"
-                             [(ngModel)]="label.checked" 
-                             (ngModelChange)="doSomething($event, label.labelId, note.noteId)"/>
-                              {{label.labelTitle}}
-                          </label>
-                        </div>
-                      </div>
-
-                    </div>
-                  </mat-menu>
-                </mat-menu>
-              </div>
-              <div>
-                <img style="margin-right: 10px;height: 20px;margin-top: 10px;" matTooltip="collaborator" class="images" src="{{collaborator}}"  (click)="openCollaboratorDialog(note)">
-              </div>
-
-              <div>
-                <button mat-icon-button [matMenuTriggerFor]="color" class="images">
-                  <mat-icon>color_lens</mat-icon>
-                </button>
-                <mat-menu #color="matMenu">
-
-                  <div>
-                    <a *ngFor="let color of colors">
-
-                      <img src="{{color.path}}" (click)="note.color=color.color;updateNoteColor(note,note.status)">
-                    </a>
-                  </div>
-                </mat-menu>
-              </div>
-
-              <div>
-                <img style="margin-right: 10px;height: 20px;margin-top: 10px;" class="images" [src]="archiveImg" (click)=" archive(note)">
-              </div>
-           
-               <div>
-                <button mat-icon-button [matMenuTriggerFor]="reminder" class="images">
-                  <img src="{{reminderImg}}">
-                </button>
-
-                 <mat-menu #reminder="matMenu">
-                  <div>
-                    <button type="submit" mat-menu-item>
-                      <b>Reminder:</b>
-                    </button>
-                  </div>
-
-                  <div>
-                    <button type="submit" mat-menu-item (click)="reminderSave(note,'Today')">
-                      <span>Later today</span>
-                      <span>8:00PM</span>
-                    </button>
-                  </div>
-
-                  <div>
-                    <button type="submit" mat-menu-item (click)="reminderSave(note,'Tomorrow')">
-                      <span>Tomorrow</span>
-                      <span>8:00AM</span>
-                    </button>
-                  </div>
-
-                  <div>
-                    <button type="submit" mat-menu-item (click)="reminderSave(note,'Next week')">
-                      <span>Next week</span>
-                      <span>Mon, 8:00Am</span>
-                    </button>
-                  </div>
-
-                  <div>
-                    <button type="submit" mat-menu-item [matMenuTriggerFor]="calender">
-                      <span>Pick date & time</span>
-                    </button>
-                  </div>
-
-                  <mat-menu #calender="matMenu">
-
-                    Date Time:
-
-                    <input [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" placeholder="Date Time" name="reminder" [(ngModel)]="model.reminder"
-                      reqiured>
-                    <owl-date-time #dt1></owl-date-time>
-
-                    <div>
-                      <button mat-button mat-raised-button color="primary" type="submit" (click)="reminderSave(note,'date picker')" style="font-size: 10px;">save</button>
-                    </div>
-
-                  </mat-menu>
-                  
-                </mat-menu>
-              </div>
-              <div class="images" style="margin-right: 10px;height: 20px;margin-top: 10px;">
-                <mat-icon>photo</mat-icon>
-                  <input type="file" accept="image/*" (change)="uploadImageToNote($event,note)"/>
-                 
-                 </div>
-
-            </div>
-            
-            <div *ngFor="let linkObj of note.urlPromise | async" style="margin-left:-4vh;" >
-              <div fxLayout="row" style="width:100px">
-                <div fxFlex="column" fxFlexAlign="start" style="margin-left:0" >
-                    <img [src]="linkObj.ulrImage" align='left' hspace='8' vspace='8' width='56px' height='56px'>
-                </div>
-                <div fxFlex="column" style="width:150px">
-                <div><b> {{linkObj.urlTitle}}</b></div>
-                <div>{{linkObj.urlDomain}}</div>
-              </div>
-            </div>
-          </div>
-             
-          </mat-card>
-     </div>
-    </div> 
+        <app-commonnote [note]="note"></app-commonnote>
+      </div>
+      </div> 
  </div>
  </div>
