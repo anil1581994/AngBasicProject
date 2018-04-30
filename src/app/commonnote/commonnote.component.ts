@@ -28,6 +28,15 @@ export class CommonnoteComponent implements OnInit {
   statusClass: string = localStorage.getItem('cssclass');
   
   archiveImg="/assets/icons/archive.svg";
+  reminderImg = "/assets/icons/remender.svg";
+  pinIcon = "/assets/icons/pin.svg";
+  unPinIcon = "/assets/icons/pinblue.svg";
+  colorBoard = "/assets/icons/colorpalette.svg";
+  clockImg = "/assets/icons/clock.png";
+  clearImg = "/assets/icons/clear.svg";
+  collaborator = "/assets/icons/collaborator.svg";
+  shareduser = "/assets/icons/shareduser.svg";
+
 
   constructor(private noteService:NoteService,private dialog: MatDialog) { }
 

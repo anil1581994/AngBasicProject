@@ -17,10 +17,11 @@ export class CollaboratorService {
     }
 
   
-    createCollaborator( model: any):Observable<HttpResponse<any>>
+    createCollaborator(url:string, model: any):Observable<HttpResponse<any>>
     {
-        let url = "note/addCollaborator";
-        return this.httpservice.postServiceData(url,model);
+        //let url = "note/addCollaborator";
+      //  return this.httpservice.postServiceData(url,model);
+      return this.httpservice.postServiceData(url,model);
     }
     deleteCollaborator(model: any):Observable<HttpResponse<any>>
     {

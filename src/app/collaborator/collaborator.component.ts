@@ -42,12 +42,26 @@ export class CollaboratorComponent implements OnInit {
        
    });
    }
+  //  shareNotes(){
+  //   this.model.noteId=this.data.noteId;
+  //   console.log(this.model);
+  //   var query = 'addcollaborator?sharedUserEmail=' + this.model.sharedUser + '&noteId=' + this.model.noteId;
+  //   this.userService.registerUser(query, {}).subscribe(response=>{
+    
+  //   console.log('successfull');
+  //   })
+  //   }
+   
+    
     addCollaborator():void{
       this.model.noteId = this.data.noteId;
     
       console.log(this.data.noteId);
-     console.log(this.model.noteId);
-        this.collaboratorService.createCollaborator(this.model)
+      console.log(this.model.noteId);
+      var query = 'note/addCollaborator?sharedUserId=' + this.model.sharedUserId + '&noteId=' + this.model.noteId;
+
+      this.collaboratorService.createCollaborator(query, {})
+       // this.collaboratorService.createCollaborator(this.model)
        .subscribe(response=>{
        console.log(response.body.status);
        if(response.body.status===1)

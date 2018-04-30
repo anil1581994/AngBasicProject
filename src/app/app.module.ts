@@ -45,7 +45,8 @@ import { Http ,HttpModule} from '@angular/http';
 import { LinkifyPipe } from './linkify.pipe';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
-import { ReturnToRegisterComponent } from './return-to-register/return-to-register.component'
+import { ReturnToRegisterComponent } from './return-to-register/return-to-register.component';
+import { TruncatePipe } from './truncate.pipe'
 
 
 
@@ -117,7 +118,8 @@ export const appRoutes: Routes = [
     LinkifyPipe,
     ForgotPasswordComponent,
     ResetPasswordComponent,
-    ReturnToRegisterComponent
+    ReturnToRegisterComponent,
+    TruncatePipe
   
     
   ],

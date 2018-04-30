@@ -154,6 +154,7 @@ export class NoteComponent implements OnInit {
   refreshNote(): void {
     this.noteService.getAllNotes().subscribe(data => {
       this.notes = data.body.map(noteObj =>{
+        console.log(noteObj);
         if(this.urlify(noteObj.description))
         noteObj.urlPromise = this.getScrapData(noteObj.description).map(res=>{
           return res.body;
