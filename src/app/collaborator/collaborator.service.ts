@@ -23,9 +23,11 @@ export class CollaboratorService {
       //  return this.httpservice.postServiceData(url,model);
       return this.httpservice.postServiceData(url,model);
     }
-    deleteCollaborator(model: any):Observable<HttpResponse<any>>
+    deleteCollaborator(url:string):Observable<HttpResponse<any>>
     {
-        let url = "note/removeCollborator";
-        return this.httpservice.deleteServiceData(url,model);
+      //  let url = "note/removeCollborator";
+       // let url = 'note/removeCollborator?sharedUserId=' + this.model.sharedUserId + '&noteId=' + this.model.noteId;
+
+        return this.httpservice.deleteServiceData(url);
     }
 }

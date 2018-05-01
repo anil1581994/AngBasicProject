@@ -91,7 +91,8 @@ export class HttputilService {
       console.log(path);
       this.addAuthorization();
       this.urlpath=this.base_url.concat(path);//deleteNote
-     return this.http.delete<any>(this.urlpath+'/'+contentId,this.httpOptions);
+    // return this.http.delete<any>(this.urlpath+'/'+contentId,this.httpOptions);
+     return this.http.delete<any>(this.urlpath,this.httpOptions);
     }
     //--------------------------------------------------------------------------
     putServiceData(path,model,option?) {//updateNote..option is optional param some api
