@@ -79,14 +79,14 @@ export class CollaboratorComponent implements OnInit {
    }
   
    removeCollaborator(sharedUserId): void { //shaerdUserId,noteId  collaborator
-    this.model.noteId = this.data.noteId;
-    this.model.sharedUserId = sharedUserId;
+     this.model.noteId = this.data.noteId;
+     this.model.sharedUserId = sharedUserId;
     console.log(this.model);
     var query = 'note/removeCollborator?sharedUserId=' + this.model.sharedUserId + '&noteId=' + this.model.noteId;
     this.collaboratorService.deleteCollaborator(query).subscribe(data => {
     this.collaborators = data.body;
 
-    });
+     });
 
-  }
+   }
 }

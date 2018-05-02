@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, Inject, Input, Output, EventEmitter, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { HttputilService } from '../httputil.service';
 import { Note } from '../Note';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -17,6 +17,8 @@ import { UrlData } from "../UrlData";
 import { LinkifyPipe } from '../linkify.pipe';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';//hamid added
+import {FormGroup, FormControl, FormBuilder} from '@angular/forms'
+
 
 
 
@@ -26,8 +28,13 @@ import { Subject } from 'rxjs/Subject';//hamid added
   styleUrls: ['./note.component.css']
 })
 export class NoteComponent implements OnInit {
+  //search
+  noteForm: FormGroup;
+  inputFormControl:FormControl;
+  searchText: string;
+  //subscription: Subscription;
 
-  //chip logic
+  //matchip logic
   public checked: boolean = false;
   visible: boolean = true;
   selectable: boolean = true;
@@ -46,7 +53,7 @@ export class NoteComponent implements OnInit {
   imageUrl: string
   //array to store note
   notes: Note[];
-  //chip logic
+  //matchipchip logic
   public show: boolean = false;
   showButton() {
     this.show = true;
@@ -90,18 +97,19 @@ export class NoteComponent implements OnInit {
   }
   ];
 
-  constructor(private noteService: NoteService, private dialog: MatDialog) {
+  constructor(private commonService:HttputilService,private noteService: NoteService, private dialog: MatDialog) {
     // this.labels
+
+    commonService.searchObservable$.subscribe(
+      formData => {
+       this.searchText = formData;
+        console.log("in  note component, ", formData);
+    });
   }
 
   ngOnInit() {
     this.refreshNote();
-    // this.noteService.getAllNotes().subscribe(data => {
-    //   this.notes = data.body;
-      
-    // });
     this.getAllLabels();
-    
     this.changeGridCss();
   }
 
@@ -128,9 +136,8 @@ export class NoteComponent implements OnInit {
       });
   }
 
-  //collaboartor dialog box..(note,ownerId)
+  
   openCollaboratorDialog(note, ownerId) {
-    // console.log("data",note);
     this.dialog.open(CollaboratorComponent,
       {
         data: { note, ownerId },
@@ -142,14 +149,12 @@ export class NoteComponent implements OnInit {
 
   createNote(): void {
     console.log("formValue", this.model);
-    //this.commonService.postServiceData('note/createNote',this.model)
     this.noteService.createNoteService(this.model)
       .subscribe(data => {
         console.log("note created", data);
         this.refreshNote();
       });
-
-  }
+}
   
   refreshNote(): void {
     this.noteService.getAllNotes().subscribe(data => {
@@ -232,12 +237,7 @@ reminderSave(note, day) {
     note.reminder = null;
   } else {
     var dateObj = this.model.reminder;
-    // let validDate =this.convertDate(dateObj); 
     var today = new Date(dateObj);
-
-    // today.setDate(parseInt(newDt));
-    // console.log("Date obj ",today);
-
     note.reminder = today;
     this.refreshNote();
 
@@ -247,8 +247,7 @@ reminderSave(note, day) {
     this.refreshNote();
   });
 }
-//all curd opration label 
-//how can i add labelId
+
 
 getAllLabels(): void {
   this.noteService.getAllLabel().subscribe(response => {
@@ -300,20 +299,18 @@ doSomething(event, labelId, noteId) {
 
 getScrapData(description : string): Observable<any> {
       let url = this.urlify(description);
-    if(!url){
-      let subjectObj =  new Subject<any>();
-      // setTimeout(subjectObj.next.bind(null,[]));
-      return subjectObj.asObservable();
-    } 
-    return this.noteService.getUrlData(url)
-
-
-}
+    if(!url)
+    {
+        let subjectObj =  new Subject<any>();
+       return subjectObj.asObservable();
+     } 
+    return this.noteService.getUrlData(url)}
 
  urlify(text) :Array<string> {
   var urlRegex = /(^|\s)((https?:\/\/)?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)/gi;
-  return text.match(urlRegex);
-  
-}
+ return text.match(urlRegex);
+  }
+
+
 
 }

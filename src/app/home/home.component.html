@@ -11,9 +11,19 @@
 
        <div fxLayout="row" fxFlex="60">
           <mat-icon>search</mat-icon>
-          <input [(ngModel)]="searchText"  [routerLink]="['/search']" type='text' placeholder="Search ..."/> 
-    
-
+          <!-- <input [(ngModel)]="searchText"  [routerLink]="['/search']" type='text' placeholder="Search ..."/> 
+         -->
+          <!-- <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">  -->
+                       
+         <form [formGroup]="homeForm">
+           <input type='text' placeholder="Search ..." [formControl]="inputFormControl">  
+         </form> 
+         
+          <!-- <ul>
+          <li *ngFor="let c of characters | searchFilter : searchText">
+            {{c}}
+          </li>
+        </ul>  -->
        </div>
 
       <div fxLayout="row" fxFlex="20" fxLayoutAlign="end">

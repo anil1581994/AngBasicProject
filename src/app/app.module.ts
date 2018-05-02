@@ -46,7 +46,8 @@ import { LinkifyPipe } from './linkify.pipe';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ReturnToRegisterComponent } from './return-to-register/return-to-register.component';
-import { TruncatePipe } from './truncate.pipe'
+import { TruncatePipe } from './truncate.pipe';
+import { SearchFilterPipe } from './search-filter.pipe'
 
 
 
@@ -119,7 +120,8 @@ export const appRoutes: Routes = [
     ForgotPasswordComponent,
     ResetPasswordComponent,
     ReturnToRegisterComponent,
-    TruncatePipe
+    TruncatePipe,
+    SearchFilterPipe
   
     
   ],

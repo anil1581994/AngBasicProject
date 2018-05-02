@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttputilService } from '../httputil.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { Label } from '../Label';
 import { LoggedUser } from '../LoggedUser';
 import {LabelComponent} from '../label/label.component';
+import {FormsModule, FormGroup, FormControl, FormBuilder} from '@angular/forms'
 
 @Component({
   selector: 'app-home',
@@ -17,17 +18,38 @@ export class HomeComponent implements OnInit {
   labels:Label[];
   username:string;
   useremail:string;
+  homeForm: FormGroup;
+  inputFormControl: FormControl;
+  // subscription: Subscription;
+  
 
   public grid:boolean = false;
   public buttonName:any = 'Show';
 
 
-  constructor(private router:Router,private commonService:HttputilService,
-    private dialog: MatDialog) { }
+  constructor(private builder: FormBuilder,private router:Router,private commonService:HttputilService,
+    private dialog: MatDialog) {
 
-  ngOnInit() {
-    this.getAllLabels();
-  }
+    this.inputFormControl = new FormControl();
+    this.homeForm = this.builder.group({
+    inputFormControl: this.inputFormControl //get home html input
+    }); 
+     }
+     
+     ngOnInit(){
+      this.getAllLabels();
+      this.searchText();//search api
+     }
+
+
+   //to search my text
+    searchText(){
+      this.homeForm.valueChanges.subscribe(
+        (formData) => {
+          this.commonService.onDataChangeInSearch(formData.inputFormControl);
+        });
+    }
+ 
 //navigate to login page after logout
 changeCSS()
 {

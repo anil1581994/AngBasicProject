@@ -9,6 +9,7 @@
                   </div>
                   <div [innerHTML]="note.title" class="editable"></div>
                   <div style="word-wrap: break-word" [innerHTML]="note.description | linkify"></div>
+                 
                </div>
 
                  <div *ngIf="note.ownerId!=null"> 

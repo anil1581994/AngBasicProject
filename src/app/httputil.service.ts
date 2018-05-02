@@ -23,6 +23,11 @@ export class HttputilService {
     //Hamid Added
   private allLabelSubject = new Subject<any>();
   private viewSubject = new Subject<any>();
+  //search
+  private searchSubjcet=new Subject<any>();//ap
+  searchObservable$=this.searchSubjcet.asObservable();//emitts data continousaly
+  
+  
 
   status:boolean = true; 
   model:any={};
@@ -45,7 +50,11 @@ export class HttputilService {
   ///user_Url="http://localhost:8080/ToDo/";
   contentId:string;
 
-
+  onDataChangeInSearch(data: any) {//ap
+    console.log(data)
+    this.searchSubjcet.next(data);
+  }
+  
 
 
   toggleView(){
@@ -87,7 +96,7 @@ export class HttputilService {
     }
     //--------------------------------------------------------------------
     
-    deleteServiceData(path,contentId):Observable<HttpResponse<any>>{//delete note
+    deleteServiceData(path,contentId?):Observable<HttpResponse<any>>{//delete note
       console.log(path);
       this.addAuthorization();
       this.urlpath=this.base_url.concat(path);//deleteNote
@@ -138,13 +147,13 @@ export class HttputilService {
  facebooklogin(path):Observable<any>{
   return this.http.post<any>(path,{ observe: 'response' });
 }
-
+//------------------------------------------------------------------------------
  getUrlInfo(path,model):Observable<HttpResponse<any>>{//in response,urlTitle,urlImage converrt hhtp to array[]
   console.log(path);
   this.addAuthorization();
   this.urlpath= this.base_url.concat(path);
   return this.http.post<any>( this.urlpath, model,this.httpOptions);
-}
+ }
 
 
 }
