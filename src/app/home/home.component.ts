@@ -14,6 +14,7 @@ import {FormsModule, FormGroup, FormControl, FormBuilder} from '@angular/forms'
 })
 export class HomeComponent implements OnInit {
   public LoggedUser;
+ // color='red';
   model:any={};
   labels:Label[];
   username:string;
@@ -46,6 +47,7 @@ export class HomeComponent implements OnInit {
     searchText(){
       this.homeForm.valueChanges.subscribe(
         (formData) => {
+          console.log(formData.inputFormControl);
           this.commonService.onDataChangeInSearch(formData.inputFormControl);
         });
     }

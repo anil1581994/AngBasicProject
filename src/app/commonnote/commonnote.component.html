@@ -3,7 +3,7 @@
             <div style="margin-left: 90%;" class="images">
               <img src="{{unPinIcon}}" (click)="unPinNote(note)">
             </div>
-               <div (click)="openDialog(note)" (click)="getUrlData()">
+               <div (click)="openDialog(note)">
                   <div  *ngIf="note.image">
                   <img class="image-class" [src]='"/assets/icons/"+note.image'/>
                   </div>
@@ -204,7 +204,7 @@
             <div *ngFor="let linkObj of note.urlPromise | async" style="margin-left:-4vh;" >
               <div fxLayout="row" style="width:100px">
                 <div fxFlex="column" fxFlexAlign="start" style="margin-left:0" >
-                    <img [src]="linkObj.ulrImage" align='left' hspace='8' vspace='8' width='56px' height='56px'>
+                    <img [src]="linkObj.urlImage" align='left' hspace='8' vspace='8' width='56px' height='56px'>
                 </div>
                 <div fxFlex="column" style="width:150px">
                 <div style="word-wrap: break-word"><b> {{linkObj.urlTitle|truncate:40}}</b></div>

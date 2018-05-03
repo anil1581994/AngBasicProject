@@ -47,7 +47,9 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ReturnToRegisterComponent } from './return-to-register/return-to-register.component';
 import { TruncatePipe } from './truncate.pipe';
-import { SearchFilterPipe } from './search-filter.pipe'
+import { SearchFilterPipe } from './search-filter.pipe';
+import { ColorChangerDirective } from './color-changer.directive';
+
 
 
 
@@ -121,7 +123,9 @@ export const appRoutes: Routes = [
     ResetPasswordComponent,
     ReturnToRegisterComponent,
     TruncatePipe,
-    SearchFilterPipe
+    SearchFilterPipe,
+    ColorChangerDirective,
+    
   
     
   ],

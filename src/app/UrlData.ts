@@ -1,7 +1,7 @@
 export class UrlData{
   
  urlTitle:String
- ulrImage:String
+ urlImage:String
  urlDomain:String
 	 
 }

@@ -162,8 +162,11 @@ export class NoteComponent implements OnInit {
         console.log(noteObj);
         if(this.urlify(noteObj.description))
         noteObj.urlPromise = this.getScrapData(noteObj.description).map(res=>{
+          console.log(res);
           return res.body;
+         
         });
+        console.log(noteObj);
         return noteObj;
       })
     });
@@ -304,13 +307,13 @@ getScrapData(description : string): Observable<any> {
         let subjectObj =  new Subject<any>();
        return subjectObj.asObservable();
      } 
-    return this.noteService.getUrlData(url)}
+    return this.noteService.getUrlData(url)
+  }
 
  urlify(text) :Array<string> {
   var urlRegex = /(^|\s)((https?:\/\/)?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)/gi;
  return text.match(urlRegex);
   }
-
 
 
 }
