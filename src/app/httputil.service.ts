@@ -96,7 +96,15 @@ export class HttputilService {
     }
     //--------------------------------------------------------------------
     
-    deleteServiceData(path,contentId?):Observable<HttpResponse<any>>{//delete note
+    deleteServiceData(path,contentId?):Observable<HttpResponse<any>>{//delete note,remove collaborator
+      console.log(path);
+      this.addAuthorization();
+      this.urlpath=this.base_url.concat(path);//deleteNote
+    // return this.http.delete<any>(this.urlpath+'/'+contentId,this.httpOptions);
+     return this.http.delete<any>(this.urlpath+'/'+contentId,this.httpOptions);
+    }
+    //------------------------------------------------------------------------
+    deleteServiceData2(path):Observable<HttpResponse<any>>{//delete note,remove collaborator
       console.log(path);
       this.addAuthorization();
       this.urlpath=this.base_url.concat(path);//deleteNote

@@ -190,7 +190,7 @@ pinNote(note): void {
   console.log("pin note", note);
   note.status = 3;
   this.noteService.updateNote('note/updateNote', note).subscribe(data => {
-    console.log("unArchive note", data);
+    console.log("Pin  note", data);
     this.refreshNote();
   });
 };

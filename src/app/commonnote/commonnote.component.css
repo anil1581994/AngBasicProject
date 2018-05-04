@@ -66,3 +66,11 @@ margin-top: -24px;
 width: 240px;
 max-height:150px;
 }
+.example-header-image {
+   
+  background-image: url('/assets/icons/userProfile2.svg');
+  /* user profile pic*/
+  background-size: cover;
+  margin-left: 8px;
+  margin-top: 11px;
+}

@@ -12,8 +12,7 @@
         <div fxLayout="row">
 
              <mat-form-field fxFlex fxFlex.gt-xs="400px">
-               <input matInput placeholder="Email" name="email" [formControl]="emailControl" [errorStateMatcher]="match"  [(ngModel)]="model.email">
-               <mat-error *ngIf="emailControl.hasError('required')">Email Address is required</mat-error>
+               <input matInput placeholder="Email" name="email" [formControl]="emailControl" [errorStateMatcher]="match"  [(ngModel)]="model.email">               <mat-error *ngIf="emailControl.hasError('required')">Email Address is required</mat-error>
                <mat-error *ngIf="emailControl.hasError('pattern') && !emailControl.hasError('required') ">Enter Valid Email</mat-error>
              </mat-form-field>
            </div>

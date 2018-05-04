@@ -38,9 +38,10 @@ model:any={};
           localStorage.setItem('Authorization',response.headers.get("Authorization"));
              alert("login succesfully");
           this.router.navigate(['/home'])
-        } else if(response.body.statusCode !== 100){
+        } else if(response.body.statusCode !== 100)
+        {
             alert(response.body.msg);
-       }
+        }
      });
     //  console.log("sigInForm",this.data);
 

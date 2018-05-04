@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
   homeForm: FormGroup;
   inputFormControl: FormControl;
   // subscription: Subscription;
-  
+  color:string;
 
   public grid:boolean = false;
   public buttonName:any = 'Show';
@@ -35,6 +35,21 @@ export class HomeComponent implements OnInit {
     this.homeForm = this.builder.group({
     inputFormControl: this.inputFormControl //get home html input
     }); 
+    //for url and color change
+    // router.events.subscribe((routerLink) => {
+    //  if('/home/reminder'){
+    //     this.color= 'background-color:red;';
+    //     }
+    //    });
+    this.router.events.subscribe((event) => {
+      console.log(event);
+       if(event['url'] && event['url'] == '/') {
+          console.log('Home page');
+          //logic to change color of toolk bar along with url reoue change
+          
+       }
+      });
+
      }
      
      ngOnInit(){
@@ -52,11 +67,12 @@ export class HomeComponent implements OnInit {
         });
     }
  
-//navigate to login page after logout
+  //navigate to login page after logout
 changeCSS()
 {
   this.commonService.toggleView();
 }
+   //logout
 logout() {
   console.log("in logout method");
    var token=localStorage.removeItem('Authorization');

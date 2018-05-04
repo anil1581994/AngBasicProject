@@ -28,6 +28,6 @@ export class CollaboratorService {
        //  let url = "note/removeCollborator";
         // let url = 'note/removeCollborator?sharedUserId=' + this.model.sharedUserId + '&noteId=' + this.model.noteId;
 
-        return this.httpservice.deleteServiceData(url);
+        return this.httpservice.deleteServiceData2(url);
      }
 }

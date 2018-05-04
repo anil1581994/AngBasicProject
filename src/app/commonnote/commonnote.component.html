@@ -18,8 +18,11 @@
                        <div fxLayout="row" fxLayoutGap="5px">
                          <div>
                            <mat-chip-list>
-                               <mat-chip>{{collaborator.name}}</mat-chip>
-                               <mat-chip>{{collaborator.email}}</mat-chip>
+                                  <div>
+                                    <img  style="height:20px;" src="/assets/icons/userProfile2.svg">
+                                  </div>
+                                   <mat-chip>{{collaborator.name}}</mat-chip>
+                                    <mat-chip>{{collaborator.email}}</mat-chip>
                               </mat-chip-list>
                          </div>
                        </div>
@@ -193,13 +196,23 @@
                   
                 </mat-menu>
               </div>
+              
               <div class="images" style="margin-right: 10px;height: 20px;margin-top: 10px;">
                 <mat-icon>photo</mat-icon>
                   <input type="file" accept="image/*" (change)="uploadImageToNote($event,note)"/>
                  
                  </div>
+                 <!-- <div>
+                  <button mat-menu-item [matMenuTriggerFor]="anil" class="images">
+                    <mat-icon>photo</mat-icon>
+                  </button>
+                 
+                <mat-menu #anil="matMenu">
+                  <input type="file" accept="image/*" (change)="uploadImageToNote($event,note)"/>
+                </mat-menu> 
+                  </div> -->
 
-            </div>
+            </div> 
             
             <div *ngFor="let linkObj of note.urlPromise | async" style="margin-left:-4vh;" >
               <div fxLayout="row" style="width:100px">

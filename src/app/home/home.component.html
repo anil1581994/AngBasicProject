@@ -76,12 +76,18 @@
 
     <mat-sidenav-container class="example-container">
 
-      <mat-sidenav mode="side"  class="example-sidenav" #sidenav opened fxLayout="column">
+      <mat-sidenav mode="side" style="height:-10px" class="example-sidenav" #sidenav opened fxLayout="column" >
         <div fxLayout="column">
 
-          <div>
+          <!-- <div>
             <a routerLink="/home/note" mat-button>
               <mat-icon>lightbulb_outline</mat-icon> Note</a>
+          </div> -->
+          <div>
+            <button mat-menu-item routerLink="/home/note">
+              <mat-icon>lightbulb_outline</mat-icon>
+              <span>Note</span>
+            </button>
           </div>
           <div>
             <a mat-button routerLink="/home/reminder">
@@ -93,7 +99,8 @@
           </div>
           <div>
             <a routerLink="/home/trash" mat-button>
-              <img style="height:30px;margin-top: 10px;" src="/assets/icons/trash.svg"> Trash</a>
+              <!-- <img style="height:30px;margin-top: 10px;" src="/assets/icons/trash.svg"> Trash</a> -->
+              <mat-icon>delete</mat-icon>Trash</a>
           </div>
           <div>
 

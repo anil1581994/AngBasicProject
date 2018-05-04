@@ -4,7 +4,7 @@ import { ErrorStateMatcher } from '@angular/material/core';
 //import { FormGroup} from '@angular/forms';
 import { HttputilService } from '../httputil.service';
 import { ToDoResponse } from '../ToDoResponse';
-
+import { Router } from '@angular/router';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -21,19 +21,26 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class RegistrationComponent implements OnInit {
 model:any={};
-  constructor(private commonService:HttputilService) {
+  constructor(private commonService:HttputilService,private router:Router) {
 
   }
   //register api 
   register():void{
     console.log("formValue",this.model);
-  this.commonService.postServiceData('register',this.model).subscribe(data=> console.log(data)) ;
-
-  
-  }
+  this.commonService.postServiceData('register',this.model).subscribe(data=> {
+    console.log(data)
+   if(data.body.status===200)
+    {
+       this.router.navigate(['/login'])
+    } else(data.body.status!==200)
+    {
+        alert(data.body.msg);
+    }
+ });
+}
   ngOnInit(){}
   // name validation pattern using validators
-
+body
    nameControl = new FormControl('', [
    Validators.required,
    Validators.pattern('^[a-zA-Z ]*$')
