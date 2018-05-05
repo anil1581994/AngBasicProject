@@ -2,7 +2,7 @@
   
     <div *ngFor="let note of notes">
     <div *ngIf="note.status===1">
-    <mat-card class="note-card2" fxFlex="240px">
+    <mat-card class="note-card2" fxFlex="240px" style="word-wrap: break-word;"  >
       
           <div (click)="openDialog(note)">
             <div [innerHTML]="note.title" class="editable"></div>

@@ -8,21 +8,21 @@ import { Router } from '@angular/router';
   styleUrls: ['./forgot-password.component.css']
 })
 export class ForgotPasswordComponent implements OnInit {
-  model:any={};
+  model:any={};//get email to reset pasword
   constructor(private userService: UserService,private router:Router) { }
 
   ngOnInit() {
   }
   
-  forgotPassword(){
-    console.log(this.model);
+  forgot(){
+    console.log("in forgot ts to ",this.model);
     console.log("in login");
   
     this.userService.getUserService('forgotPassword',this.model).subscribe(response=>{
     if(response.body.statusCode=== 100){
     
     console.log("mail send successfully");
-    this.router.navigate(['/resetpassword']);
+  //  this.router.navigate(['/resetpassword/:jwtToken']);
     }
     else{ 
     console.log("Invalid Password or email");

@@ -10,13 +10,15 @@
        </div>
 
        <div fxLayout="row" fxFlex="60">
-          <mat-icon>search</mat-icon>
+       
           <!-- <input [(ngModel)]="searchText"  [routerLink]="['/search']" type='text' placeholder="Search ..."/> 
          -->
           <!-- <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">  -->
                        
          <form [formGroup]="homeForm">
-           <input type='text' placeholder="Search ..." [formControl]="inputFormControl">  
+            <mat-icon>search</mat-icon>
+           <input type='text' style="height: 46px;width:350%;" placeholder="Search ..." [formControl]="inputFormControl"> 
+          
          </form> 
          
           <!-- <ul>

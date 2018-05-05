@@ -1,0 +1,26 @@
+.editable {
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    outline: none;
+   line-height: 20px;
+   font-weight: bold;  
+   
+   /* font-style:bold;  */
+  } 
+  .note-card2 {
+  word-wrap: break-word;
+     
+  }
+  .hideme{
+    visibility: hidden;
+  }
+  .openhide:hover .hideme{
+    visibility:visible;
+  }
+  .images{
+    opacity: 0.5
+  }
+  .images:hover{
+    opacity:1.5;
+    cursor: pointer
+  }

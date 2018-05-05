@@ -72,14 +72,16 @@ export class HttputilService {
 
   token:string;
   
-    private addAuthorization():void{
-      if(localStorage.getItem('Authorization')){
+    private addAuthorization():void
+    {
+      if(localStorage.getItem('Authorization'))
+      {
         this.httpOptions.headers['Authorization'] = localStorage.getItem('Authorization');
       }
     }
     // ------------------------------------------------------------------
 
-    postServiceData(path,model): Observable<HttpResponse<any>>{ //login,register,createNote,createcollaborator
+    postServiceData(path,model): Observable<HttpResponse<any>>{ //login,register,createNote,createcollaborator,reset/forgot password
       console.log(path,model);
       this.addAuthorization();
       this.urlpath= this.base_url.concat(path);

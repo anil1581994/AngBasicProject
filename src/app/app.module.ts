@@ -98,7 +98,7 @@ export const appRoutes: Routes = [
       { path: 'reminder', component: ReminderComponent }
  ]
 },
- { path: 'forgot', component: ForgotPasswordComponent },
+ { path: 'forgotPassword', component: ForgotPasswordComponent },
  { path: 'forgotpasswordStatus', component: ReturnToRegisterComponent },
  { path: 'resetpassword', component: ResetPasswordComponent }
 ];

@@ -11,24 +11,29 @@ import { Router } from '@angular/router';
 export class ResetPasswordComponent implements OnInit {
 
   constructor(private userService: UserService,private router:Router) { }
-  model:any={}
+  model:any={};
+  jwtToken:string;
   ngOnInit() {
+
+    console.log(window.location.search);
   }
+
 
   resetPassword(){
 
     console.log(this.model);
-    this.userService.getUserService('resetPassword',this.model).subscribe( response =>{
-    // console.log(this.model);
-    // console.log("successfull", response);
-    if(response.body.statusCode=== 100){
+    //this.jwtToken= localStorage.getItem('Authorization');
+     var check= 'resetPassword'+window.location.search;
+    this.userService.getUserService(check,this.model).subscribe( response =>{
+      console.log(response);
+    // if(response.body.statusCode=== 100){
     
-      console.log(" your password reset successfully");
-      this.router.navigate(['/login']);
-      }
-      else{ 
-      console.log("Invalid Password or email");
-      }
+    //   console.log(" your password reset successfully");
+    //   this.router.navigate(['/login']);
+    //   }
+    //   else{ 
+    //   console.log("Invalid Password or email");
+    //   }
 
 
     });
