@@ -22,21 +22,22 @@ export class ResetPasswordComponent implements OnInit {
   resetPassword(){
 
     console.log(this.model);
+    //var query = 'note/removeCollborator?sharedUserId=' + this.model.sharedUserId + '&noteId=' + this.model.noteId;
     //this.jwtToken= localStorage.getItem('Authorization');
      var check= 'resetPassword'+window.location.search;
-    this.userService.getUserService(check,this.model).subscribe( response =>{
-      console.log(response);
-    // if(response.body.statusCode=== 100){
+
+   this.userService.getUserService(check,this.model).subscribe( response =>{
+     // this.userService.getUserService('resetPassword'+'/'+this.jwtToken,this.model).subscribe( response =>{
+  //     console.log(response);
+  //   if(response.body.statusCode=== 100){
     
-    //   console.log(" your password reset successfully");
-    //   this.router.navigate(['/login']);
-    //   }
-    //   else{ 
-    //   console.log("Invalid Password or email");
-    //   }
-
-
-    });
+  //     console.log(" your password reset successfully");
+  //     this.router.navigate(['/login']);
+  //    }
+  //     else{ 
+  //      console.log("Invalid Password or email");
+  //      }
+   });
 }
 
 }
