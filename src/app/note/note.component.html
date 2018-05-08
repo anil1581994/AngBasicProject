@@ -36,7 +36,7 @@
        <!-- <app-commonnote [notes]="note"></app-commonnote> -->
            <mat-card class="note-card2" [style.background]="note.color" class="openhide">
             <div style="margin-left: 90%;">
-              <img [src]="unPinIcon" (click)="unPinNote(note)">
+              <img [src]="unPinIcon" (click)="pinNote(note)">
             </div>
              <div  *ngIf="note.image"(click)="openDialog(note)">
               <img class="image-class" [src]='"/assets/icons/"+note.image'/>
@@ -90,7 +90,7 @@
  <!--UnpinNote -->
    <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="20px">
      <div fxLayout="row wrap"  fxLayoutAlign="space-between center"  class="mat-div" fxFlex="900px"> 
-       <div *ngFor="let note of notes|searchFilter:searchText|noteFilter :{ status : 0}" class={{statusClass}}>
+       <div *ngFor="let note of notes|searchFilter:searchText|noteFilter :{status : 0}" class={{statusClass}}>
         <app-commonnote [note]="note"></app-commonnote>
       </div>
      </div> 

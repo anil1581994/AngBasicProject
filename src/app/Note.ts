@@ -8,7 +8,7 @@ export class Note {
         description:string
         createDate:Date
         lastUpdateDate:Date
-        status:number
+        status:number//
         color:string
         reminder:Date
         labels:Label[]

@@ -50,6 +50,7 @@ export class NoteComponent implements OnInit {
   //url data extraction
   urls: UrlData[]
   image: string;
+  statusNumber:number;
   imageUrl: string
   //array to store note
   notes: Note[];
@@ -171,7 +172,13 @@ export class NoteComponent implements OnInit {
       })
     });
   }
-
+isStatus(){
+  if(this.statusNumber==0){
+    this.pinNote;
+  }else{
+    this.unPinNote;
+  }
+}
 moveTrash(note): void {
   note.status = 1;
   this.noteService.updateNote('note/updateNote', note).subscribe(data => {
