@@ -19,6 +19,7 @@ export class ArchiveComponent implements OnInit {
   
       this.notes = data.body;
                   });
+               
          }
          refreshNote():void{//getAllnotes
           this.commonService.getServiceData('note/getAllNotes').subscribe(data=> {
@@ -28,14 +29,14 @@ export class ArchiveComponent implements OnInit {
          unArchive(note):void{
           note.status=0;
           this.commonService.putServiceData('note/updateNote',note).subscribe(data=>{
-              console.log(data)
-             this.refreshNote();
+          console.log(data)
+          this.refreshNote();
           }) ;
       }
       pinNote(note): void {
         console.log("pin note", note);
         note.status = 3;
-        this.commonService.putServiceData('note/updateNote', note).subscribe(response => {
+        this.commonService.putServiceData('note/updateNote',note).subscribe(response => {
           console.log("unArchive note", response);
           this.refreshNote();
         });

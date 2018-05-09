@@ -61,7 +61,9 @@ export class UserService
        });
     }
 
-
+    public getToken(): string {
+        return localStorage.getItem('Authorization');
+         }
 
 
 

@@ -25,6 +25,7 @@ export class CommonnoteComponent implements OnInit {
   model: any = {};
   image: string;
   notes: Note[];
+  statusNumber:number;//to decide pin or unpin..A
   statusClass: string = localStorage.getItem('cssclass');
   
   archiveImg="/assets/icons/archive.svg";
@@ -107,7 +108,13 @@ export class CommonnoteComponent implements OnInit {
       });
   }
 
-
+  isStatus(note){
+    if(this.note.status==0){
+      this.unPinNote;
+    }else{
+      this.pinNote;
+    }
+  }
   createNote(): void {
     console.log("formValue", this.model);
     //this.commonService.postServiceData('note/createNote',this.model)
@@ -130,7 +137,11 @@ export class CommonnoteComponent implements OnInit {
       })
     });
   }
+//   callall(){
 
+//     this.pinNote;
+//     this.unPinNote;
+// }
 moveTrash(note): void {
   note.status = 1;
   this.noteService.updateNote('note/updateNote', note).subscribe(data => {
@@ -149,7 +160,7 @@ pinNote(note): void {
   console.log("pin note", note);
   note.status = 3;
   this.noteService.updateNote('note/updateNote', note).subscribe(data => {
-    console.log("unArchive note", data);
+    console.log("pin note", data);
     this.refreshNote();
   });
 };
@@ -157,7 +168,7 @@ unPinNote(note): void {
   console.log("pin note", note);
   note.status = 0;
   this.noteService.updateNote('note/updateNote', note).subscribe(data => {
-    console.log("unArchive note", data);
+    console.log("unPin note", data);
     this.refreshNote();
   });
 };

@@ -130,7 +130,7 @@ export class HttputilService {
        return this.http.put(this.urlpath,model,this.httpOptions);
     }
    //----------------------------------------------------------------------
-    //Hamid Added
+
     loadAllLabel():void{
       let path = "note/getAllLabels";
       this.urlpath = this.base_url.concat(path);
@@ -141,7 +141,7 @@ export class HttputilService {
         });
     }
    //------------------------------------------------------------------------
-    //Hamid Added
+
    getAllLabel(): Observable<HttpResponse<any>>{
      this.loadAllLabel();
     return this.allLabelSubject.asObservable(); 

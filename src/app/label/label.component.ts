@@ -10,38 +10,48 @@ import { Label } from '../Label';
   styleUrls: ['./label.component.css']
 })
 
-// const INLINE_EDIT_CONTROL_VALUE_ACCESSOR = new Provider(
-//   NG_VALUE_ACCESSOR, {
-//       useExisting: forwardRef(() => InlineEditComponent),
-//       multi: true
-//   });
-
 export class LabelComponent implements OnInit {
   model: any = {};//get form data by 2way Binding
   @Input() labels: Label[];
   contentId: String;
   showHide1:boolean;
- 
+  labelId:number;
+  labelTitle:String
+
 
   clearImg = "/assets/icons/clear.svg";
+  deletesvg="/assets/icons/trash.svg";
   plusImg = "/assets/icons/createlabel.svg";
   checkImg = "/assets/icons/checkmark.png";
+  imgSrc: string = "/assets/icons/trash.svg";
+  imgSrc1: string ="/assets/icons/checkmark.png";
+  
+  
+  onMouseOut()
+  {
+   this.imgSrc = "/assets/icons/label.svg";//plus interns genrate label icon
+  }
+
+  onMouseOver()
+  {
+    this.imgSrc = "/assets/icons/trash.svg";//delete symbol
+  }
+  changeStatus()
+  {
+    this.showHide1 = !this.showHide1;
+  }
 
 
 
-
-  constructor(@Inject(MAT_DIALOG_DATA)
+  constructor( @Inject(MAT_DIALOG_DATA)
    private data: any,
-    private commonService: HttputilService, public dialogRef: MatDialogRef<LabelComponent>,private dialog: MatDialog) 
+    private commonService: HttputilService, public dialogRef: MatDialogRef<LabelComponent>,private dialog: MatDialog ) 
     { 
 
       this.labels = data.labels;
     }
-    changeShowStatus()
-   {
-     this.showHide1 = !this.showHide1;
-   }
 
+  
 
   ngOnInit() 
   {    
@@ -67,14 +77,36 @@ export class LabelComponent implements OnInit {
     });
 
   }
-  updateLabel(): void {
-    console.log("formValue", this.data);
-    this.commonService.putServiceData('note/updateLabel', this.data)
+  // renameLabel(): void {
+  //   console.log("formValue", this.data.labelId);
+  //   this.commonService.putServiceData('note/updateLabel', this.data)
+  //     .subscribe(data => {
+  //       console.log(data);
+  //       this.commonService.loadAllLabel();
+  //       this.dialogRef.close();
+  //     });
+  // }
+  renameLabel(label): void {
+
+    console.log("data in model",this.model);
+    this.commonService.putServiceData('note/updateLabel',label)
       .subscribe(data => {
         console.log(data);
         this.commonService.loadAllLabel();
         this.dialogRef.close();
       });
   }
+
+ 
+  // updateLabel(labelObj):void{
+  //   this.data=labelObj;
+  //   console.log(this.data);
+    
+  //   this.labelServiceObj.updateLabel(this.data)
+  //   .subscribe(data => {
+  //   console.log(data);
+  //   this.dialogRef.close();
+  //   });
+  //   }
 
 }

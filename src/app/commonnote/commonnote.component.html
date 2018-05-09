@@ -1,7 +1,7 @@
 
        <mat-card class="note-card2" fxFlex="240px" [style.background]="note.color"  class="openhide">
             <div style="margin-left: 90%;" class="images">
-              <img src="{{unPinIcon}}" (click)="unPinNote(note)">
+              <img src="{{unPinIcon}}" (click)="isStatus(note)">
             </div>
                <div (click)="openDialog(note)">
                   <div  *ngIf="note.image">
@@ -204,7 +204,7 @@
 
             </div> 
             
-            <div *ngFor="let linkObj of note.urlPromise | async" style="margin-left:-4vh;" >
+            <div *ngFor="let linkObj of note.urlPromise |async" style="margin-left:-4vh;" >
               <div fxLayout="row" style="width:100px">
                 <div fxFlex="column" fxFlexAlign="start" style="margin-left:0" >
                     <img [src]="linkObj.urlImage" align='left' hspace='8' vspace='8' width='56px' height='56px'>

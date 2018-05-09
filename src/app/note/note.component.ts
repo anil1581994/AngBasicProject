@@ -16,7 +16,7 @@ import { Collaborator } from "../Collaborator";
 import { UrlData } from "../UrlData";
 import { LinkifyPipe } from '../linkify.pipe';
 import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';//hamid added
+import { Subject } from 'rxjs/Subject';
 import {FormGroup, FormControl, FormBuilder} from '@angular/forms'
 
 
@@ -55,14 +55,15 @@ export class NoteComponent implements OnInit {
   //array to store note
   notes: Note[];
   //matchipchip logic
+  status:number//
   public show: boolean = false;
   showButton() {
     this.show = true;
   }
   username: string;
   useremail: string;
-  collaboratorName: string;//
-  ownerId: number
+  collaboratorName: string;
+  ownerId: number;
   statusClass: string = localStorage.getItem('cssclass');
   archiveImg = "/assets/icons/archive.svg";
   pinIcon = "/assets/icons/pin.svg";
@@ -99,9 +100,7 @@ export class NoteComponent implements OnInit {
   ];
 
   constructor(private commonService:HttputilService,private noteService: NoteService, private dialog: MatDialog) {
-    // this.labels
-
-    commonService.searchObservable$.subscribe(
+   commonService.searchObservable$.subscribe(
       formData => {
        this.searchText = formData;
         console.log("in  note component, ", formData);
@@ -109,7 +108,7 @@ export class NoteComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.refreshNote();
+    this.refreshNote();//
     this.getAllLabels();
     this.changeGridCss();
   }
@@ -172,13 +171,13 @@ export class NoteComponent implements OnInit {
       })
     });
   }
-isStatus(){
-  if(this.statusNumber==0){
-    this.pinNote;
-  }else{
-    this.unPinNote;
-  }
-}
+// isStatus(){
+//   if(this.statusNumber==0){
+//     this.unPinNote;
+//   }else{
+//     this.pinNote;
+//   }
+// }
 moveTrash(note): void {
   note.status = 1;
   this.noteService.updateNote('note/updateNote', note).subscribe(data => {

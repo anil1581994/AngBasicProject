@@ -1,5 +1,5 @@
   <div style="height:100vh;">
-    <mat-toolbar  class="example-header">
+    <mat-toolbar  class="example-header" appColorTool>
     <div fxFlex="100">
 
        <div  fxLayout="row" fxFlex="20" >
@@ -81,29 +81,34 @@
       <mat-sidenav mode="side" style="height:-10px" class="example-sidenav" #sidenav opened fxLayout="column" >
         <div fxLayout="column">
 
-          <!-- <div>
-            <a routerLink="/home/note" mat-button>
-              <mat-icon>lightbulb_outline</mat-icon> Note</a>
-          </div> -->
           <div>
             <button mat-menu-item routerLink="/home/note">
               <mat-icon>lightbulb_outline</mat-icon>
               <span>Note</span>
             </button>
           </div>
+         
           <div>
-            <a mat-button routerLink="/home/reminder">
-              <img src="/assets/icons/remender.svg"> Reminders</a>
+            <button mat-menu-item routerLink="/home/reminder">
+              <mat-icon> <img src="/assets/icons/remender.svg"></mat-icon>
+              <span>Reminders</span>
+            </button>
           </div>
+        
           <div>
-            <a routerLink="/home/archive" mat-button>
-              <mat-icon>archive</mat-icon> Archive</a>
+            <button mat-menu-item routerLink="/home/archive">
+              <mat-icon>archive</mat-icon>
+              <span>Archive</span>
+            </button>
           </div>
+         
           <div>
-            <a routerLink="/home/trash" mat-button>
-              <!-- <img style="height:30px;margin-top: 10px;" src="/assets/icons/trash.svg"> Trash</a> -->
-              <mat-icon>delete</mat-icon>Trash</a>
+            <button mat-menu-item routerLink="/home/trash">
+              <mat-icon>delete</mat-icon>
+              <span>Trash</span>
+            </button>
           </div>
+
           <div>
 
             <button mat-menu-item>

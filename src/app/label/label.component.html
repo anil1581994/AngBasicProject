@@ -1,21 +1,45 @@
-<div fxLayout="column" fxLayoutGap="20px" style="left: 493.5px; top: 60.5px;">
 
-    <div><b>Edit labels </b></div>
-    <div>
-         <div class='inline'>
-             <img style="margin-right: 10px;height: 17px;margin-top: 10px;" src="{{clearImg}}" matTooltip="cancel" (click)="deleteLabel(label.labelId)">
-             
-             <!-- <div contenteditable="true" data-text="Take a note..." class="editable"></div> -->
-               <input style="outline: none;border:none;" contenteditable="true" matInput placeholder="Create new label" [(ngModel)]="model.labelTitle">
-              <img style="margin-right: 10px;height: 17px;margin-top: 10px;"matTooltip="create label" src="{{checkImg}}" (click)=" createLabel(label)">
-             </div> 
-              <ul>
-              <li *ngFor="let label of labels"> 
-                {{label.labelTitle}}
-              </li>
-              </ul> 
-           </div>
-    <div flexLayout="row" fxLayoutAlign="end" >
-      <button type="submit" (click)="createLabel()" mat-raised-button style="margin-top: 160px;">Done</button>
-    </div>
+  <h3>Edit labels</h3>
+
+
+ <div class="card-container" fxLayout="column" fxLayoutAlign="center" style=" overflow:hidden;">
+
+  <div fxLayout="row" fxLayoutAlign="center center">
+
+       <div fxFlex="15" fxLayoutAlign="start" >
+       <img  matTooltip="Delete label" matTooltipShowDelay="100" style="width:22px;margin-left: 12px;margin-top:10px" src="/assets/icons/clear.svg"  (click)="changeStatus()"/>
+       </div>
+
+        <div fxFlex="70">
+        <input contenteditable="true" matInput placeholder="create new label" type="text" name="labelTitle"   [(ngModel)]="model.labelTitle" (click)="changeStatus()">
+        </div>
+
+         <div fxFlex="15" *ngIf="showHide1">
+        <img  matTooltip="create label" matTooltipShowDelay="100" style="width:22px;margin-left: 12px" src="/assets/icons/checkmark.png"  (click)="createLabel(label);changeStatus()" />
+        </div>
   </div>
+
+
+  <div fxLayout="row" fxLayoutAlign="center center" *ngFor="let label of labels">
+    
+       <div fxFlex="15" >
+       <img matTooltip="Delete label" matTooltipShowDelay="100" style="width:22px;margin-left: 12px" [src]="imgSrc" (mouseover)="onMouseOver()" (mouseout)="onMouseOut()" (click)="deleteLabel(label.labelId)" />
+       </div>
+
+      <div fxFlex="70">
+       <input contenteditable="true" matInput [(ngModel)]="label.labelTitle">
+       </div>
+
+      <div fxFlex="15">
+        <img  matTooltip="renamelabel" matTooltipShowDelay="100" style="width:22px;margin-left: 12px" [src]="imgSrc1"  (click)="renameLabel(label)"/>
+      </div>
+  </div>
+
+
+  <div fxLayout="row" fxLayoutAlign="end" >
+      <button type="submit" (click)="createLabel()" mat-raised-button style="margin-top: 160px;">Done</button>
+  </div>
+
+
+</div>
+  

@@ -9,3 +9,9 @@
         outline: none;
           line-height: 20px;   
      } 
+     .hideme{
+        visibility: hidden;
+      }
+      .openhide:hover .hideme{
+        visibility:visible;
+      }
