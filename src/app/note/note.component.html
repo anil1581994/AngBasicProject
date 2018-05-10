@@ -22,7 +22,7 @@
 
       <mat-card-actions>
         <div fxLayout="row" fxLayoutAlign="end">
-          <button matbutton type="submit" (click)="createNote()">Done</button>
+          <button matbutton type="submit" (click)="createNote() ;this.disabled=true;">Done</button>
         </div>
       </mat-card-actions>
 
@@ -94,9 +94,19 @@
       </div> 
    </div> -->
  <!--UnpinNote -->
+
+ <div style="margin-left:15px">Other</div>
    <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="20px">
      <div fxLayout="row wrap"  fxLayoutAlign="space-between center"  class="mat-div" fxFlex="900px"> 
-       <div *ngFor="let note of notes|searchFilter:searchText|noteFilter :{status:0}" class={{statusClass}}>
+       <div *ngFor="let note of notes | noteFilter :{status:3}" class={{statusClass}}>
+        <app-commonnote [note]="note"></app-commonnote>
+      </div>
+     </div> 
+  </div>
+ <div style="margin-left:15px">Pinned</div>
+   <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="20px">
+     <div fxLayout="row wrap"  fxLayoutAlign="space-between center"  class="mat-div" fxFlex="900px"> 
+       <div *ngFor="let note of notes | searchFilter : searchText | noteFilter :{status:0}" class={{statusClass}}>
         <app-commonnote [note]="note"></app-commonnote>
       </div>
      </div> 

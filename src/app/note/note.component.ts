@@ -132,7 +132,8 @@ export class NoteComponent implements OnInit {
     this.dialog.open(UpdateNoteComponent,
       {
         data: note,
-        width: '600px'
+        height: '250px',
+        width: '400px'
       });
   }
 
@@ -154,7 +155,7 @@ export class NoteComponent implements OnInit {
         console.log("note created", data);
         this.refreshNote();
       });
-}
+  }
   
   refreshNote(): void {
     this.noteService.getAllNotes().subscribe(data => {
@@ -316,9 +317,9 @@ getScrapData(description : string): Observable<any> {
     return this.noteService.getUrlData(url)
   }
 
- urlify(text) :Array<string> {
+ urlify(text) :any {//Array<string>
   var urlRegex = /(^|\s)((https?:\/\/)?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)/gi;
- return text.match(urlRegex);
+ //return text.match(urlRegex);
   }
 
 

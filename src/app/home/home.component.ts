@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
   public LoggedUser;
  // color='red';
   model:any={};
-  labels:Label[];
+  labels:Label[];//
   username:string;
   useremail:string;
   homeForm: FormGroup;

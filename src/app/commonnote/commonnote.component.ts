@@ -73,6 +73,12 @@ export class CommonnoteComponent implements OnInit {
     
     this.changeGridCss();
   }
+  fetchIcon(note){
+    if(note.status){
+      return this.pinIcon;
+    }
+    return this.unPinIcon;
+  }
 
   changeGridCss() {
 
@@ -109,10 +115,10 @@ export class CommonnoteComponent implements OnInit {
   }
 
   isStatus(note){
-    if(this.note.status==0){
-      this.unPinNote;
+    if(this.note.status==0){ //0 means un-pin 
+      this.pinNote(note);
     }else{
-      this.pinNote;
+      this.unPinNote(note);
     }
   }
   createNote(): void {
@@ -289,6 +295,9 @@ getScrapData(description : string): Observable<any> {
 }
 
  urlify(text) :Array<string> {
+   if(!text){
+     text = "";
+   }
   var urlRegex = /(^|\s)((https?:\/\/)?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)/gi;
   return text.match(urlRegex);
   

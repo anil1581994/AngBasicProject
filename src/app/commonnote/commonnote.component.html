@@ -1,7 +1,7 @@
 
        <mat-card class="note-card2" fxFlex="240px" [style.background]="note.color"  class="openhide">
             <div style="margin-left: 90%;" class="images">
-              <img src="{{unPinIcon}}" (click)="isStatus(note)">
+              <img [src]="fetchIcon(note)" (click)="isStatus(note)">
             </div>
                <div (click)="openDialog(note)">
                   <div  *ngIf="note.image">
@@ -138,7 +138,7 @@
               </div>
 
               <div>
-                <img style="margin-right: 10px;height: 20px;margin-top: 10px;" class="images" [src]="archiveImg" (click)=" archive(note)">
+                <img style="margin-right: 10px;height: 20px;margin-top: 10px;" class="images" [src]="archiveImg" (click)="archive(note)">
               </div>
            
                <div>

@@ -14,41 +14,46 @@ export class NoteService {
 
     
          
-        createNoteService( model: any):Observable<HttpResponse<any>>
-        {
-            let url = "note/createNote";
-            return this.httpservice.postServiceData(url,model);
-        }
+    createNoteService( model: any):Observable<HttpResponse<any>>
+    {
+        let url = "note/createNote";
+        return this.httpservice.postServiceData(url,model);
+    }
 
-        getAllNotes():Observable<HttpResponse<any>>
-        {
-            let url = "note/getAllNotes";
-            return this.httpservice.getServiceData(url);
-        }
+    // getAllNotes():Observable<HttpResponse<any>>
+    // {
+    //     let url = "note/getAllNotes";
+    //     return this.httpservice.getServiceData(url);
+    // }
        
-        updateNote(url: string, model: any):Observable<HttpResponse<any>>
-        {
-            //let url="note/updateNote";
-            return this.httpservice.putServiceData(url,model);
-        }
-        getAllLabel():Observable<HttpResponse<any>>
-        {
-          
-           return this.httpservice.getAllLabel();
-        }
-        getLoggedUser(url: string):Observable<HttpResponse<any>>
-        {
-            return this.httpservice.getLoggedUser(url);
-        }
+    getAllNotes():Observable<HttpResponse<any>>
+    {
+        //let url = "note/getAllNotes";
+        return this.httpservice.getAllNotes();
+    }
+    updateNote(url: string, model: any):Observable<HttpResponse<any>>
+    {
+        //let url="note/updateNote";
+        return this.httpservice.putServiceData(url,model);
+    }
+    getAllLabel():Observable<HttpResponse<any>>
+    {
+        
+        return this.httpservice.getAllLabel();
+    }
+    getLoggedUser(url: string):Observable<HttpResponse<any>>
+    {
+        return this.httpservice.getLoggedUser(url);
+    }
 
-     getStatus():Observable<HttpResponse<any>>
-     {
-        return this.httpservice.getStatus();
-     }
-     getUrlData(model: any):Observable<HttpResponse<any>>
-     {  
-         let url="note/getUrls"
-         return this.httpservice.getUrlInfo(url,model);
-     }
-   
+    getStatus():Observable<HttpResponse<any>>
+    {
+    return this.httpservice.getStatus();
+    }
+    getUrlData(model: any):Observable<HttpResponse<any>>
+    {  
+        let url="note/getUrls"
+        return this.httpservice.getUrlInfo(url,model);
+    }
+
 }

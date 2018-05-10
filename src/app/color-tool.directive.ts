@@ -12,8 +12,9 @@ export class ColorToolDirective {
      private router: Router,
      private elRef: ElementRef) { }
 
-     ngOnInit(): void {
-console.log(" from color directive check->>", this.router.url)
+     ngOnInit(): void 
+     {
+            console.log(" from color directive check->>", this.router.url)
 
 this.router.events.subscribe((event: any) => {
 if(event instanceof NavigationEnd)

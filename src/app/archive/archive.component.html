@@ -1,5 +1,5 @@
-
-<div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="20px" class="note-card">
+ <div fxLayout="row" fxLayoutAlign="center">
+  <div fxLayout="row wrap" fxLayoutAlign="space-between center"  fxLayoutGap="20px" class="mat-div" class="note-card" fxFlex="900px" >
   
     <div *ngFor="let note of notes">
     <div *ngIf="note.status===2">
@@ -31,4 +31,5 @@
       </mat-card>
       </div>
       </div>
+    </div>
     </div>

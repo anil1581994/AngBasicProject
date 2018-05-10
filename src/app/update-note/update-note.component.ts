@@ -27,7 +27,7 @@ export class UpdateNoteComponent implements OnInit {
     this.description.nativeElement.innerHTML = this.data.description;
   
   }
-
+  
   refreshNote():void{
     this.commonService.getServiceData('note/getAllNotes').subscribe(data=> {
       this.notes=data.body;
@@ -44,5 +44,12 @@ export class UpdateNoteComponent implements OnInit {
      this.dialogRef.close();
     }) ;
  
+  }
+  removeImage() {
+    this.data.image = null;
+    this.commonService.putServiceData('note/updateNote', this.data)
+      .subscribe(response => {
+        console.log(response);
+      });
   }
 }
