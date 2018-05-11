@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 import { ToDoResponse } from './ToDoResponse';
 import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';//hamid added
+import { Subject } from 'rxjs/Subject';
 
 import { Note } from './Note';
 import { Label } from './Label';

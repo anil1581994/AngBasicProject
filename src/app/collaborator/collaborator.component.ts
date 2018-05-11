@@ -42,16 +42,8 @@ export class CollaboratorComponent implements OnInit {
        
    });
    }
-  //  shareNotes(){
-  //   this.model.noteId=this.data.noteId;
-  //   console.log(this.model);
-  //   var query = 'addcollaborator?sharedUserEmail=' + this.model.sharedUser + '&noteId=' + this.model.noteId;
-  //   this.userService.registerUser(query, {}).subscribe(response=>{
-    
-  //   console.log('successfull');
-  //   })
-  //   }
-   
+
+  
     
     addCollaborator():void{
       this.model.noteId = this.data.noteId;

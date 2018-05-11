@@ -8,7 +8,7 @@ import { Subject } from 'rxjs/Subject';//hamid added
 
 
 @Injectable()
-export class NoteService {
+export class TrashService {
     model:any={};
     notes: Note[];
     private NoteSubject=new Subject<any>();
@@ -17,11 +17,7 @@ export class NoteService {
  
     
          
-    createNoteService( model: any):Observable<HttpResponse<any>>
-    {
-        let url = "note/createNote";
-        return this.httpservice.postServiceData(url,model);
-    }
+    
 
     getAllNotes():Observable<HttpResponse<any>>
     {
@@ -40,30 +36,16 @@ export class NoteService {
       });
    }
    
-    updateNote(url: string, model: any):Observable<HttpResponse<any>>
+    restoreNote(model: any):Observable<HttpResponse<any>>
     {
-        //let url="note/updateNote";
+        let url="note/updateNote";
         return this.httpservice.putServiceData(url,model);
     }
-    getAllLabel():Observable<HttpResponse<any>>
-    {
+   
+    deleteNoteForever(model:any):Observable<HttpResponse<any>>{
+        let url="note/deleteNote";
+        return this.httpservice.deleteServiceData(url,model);
+       }
         
-        return this.httpservice.getAllLabel();
-    }
-    getLoggedUser(url: string):Observable<HttpResponse<any>>
-    {
-        return this.httpservice.getLoggedUser(url);
-    }
-
-    getStatus():Observable<HttpResponse<any>>
-    {
-    return this.httpservice.getStatus();
-    }
-    getUrlData(model: any):Observable<HttpResponse<any>>
-    {  
-        let url="note/getUrls"
-        return this.httpservice.getUrlInfo(url,model);
-    }
-    
 
 }

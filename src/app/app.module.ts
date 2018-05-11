@@ -37,6 +37,10 @@ import { AuthInterceptor} from './AuthInterceptor';
 import { NoteService} from './note/note.service';
 import { NoteFilter } from './note-filter.pipe';
 import { CollaboratorService} from './collaborator/collaborator.service';
+import { LabelService } from './label/label.service';
+import { TrashService } from './trash/trash.service';
+import { ReminderService } from './reminder/reminder.service';
+import { ArchiveService } from './archive/archive.service';
 import { CollaboratorComponent } from './collaborator/collaborator.component';
 import { AuthHttp, AuthConfig } from 'angular2-jwt';
 import { AuthServiceConfig, GoogleLoginProvider, FacebookLoginProvider, 
@@ -153,7 +157,7 @@ export const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes)
   ],
   entryComponents:[UpdateNoteComponent,LabelComponent,CollaboratorComponent],
-  providers: [HttputilService,AuthGuard,AlwaysLogginAuthGuard,UserService,NoteService,CollaboratorService,{ provide: AuthHttp, useFactory: getAuthHttp, deps: [Http] },
+  providers: [HttputilService,AuthGuard,AlwaysLogginAuthGuard,UserService,NoteService,LabelService,CollaboratorService,TrashService,ReminderService,ArchiveService,{ provide: AuthHttp, useFactory: getAuthHttp, deps: [Http] },
   {
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttputilService } from '../httputil.service';
 import { Note } from '../Note';
+import {ReminderService}from '../reminder/reminder.service';
 
 @Component({
   selector: 'app-reminder',
@@ -41,17 +42,17 @@ export class ReminderComponent implements OnInit {
   }
   ];
 
-  constructor(private commonService: HttputilService) { }
+  constructor(private reminderService: ReminderService) { }
 
   ngOnInit() {
-    this.commonService.getServiceData('note/getAllNotes').subscribe(data => {
+    this.reminderService.getAllNotes().subscribe(data => {
       this.notes = data.body;
     });
   }
 
   createNote(): void {
     console.log("formValue", this.model);
-    this.commonService.postServiceData('note/createNote', this.model)
+    this.reminderService.createNote( this.model)
       .subscribe(data => {
         console.log("note created", data);
         this.refreshNote();
@@ -59,7 +60,7 @@ export class ReminderComponent implements OnInit {
 
   }
   refreshNote(): void {
-    this.commonService.getServiceData('note/getAllNotes').subscribe(data => {
+    this.reminderService.getAllNotes().subscribe(data => {
       this.notes = data.body;
     });
   }
@@ -91,17 +92,16 @@ export class ReminderComponent implements OnInit {
       note.reminder = null;
     } else {
       var dateObj = this.model.reminder;
-      // let validDate =this.convertDate(dateObj); 
+     
       var today = new Date(dateObj);
 
-      // today.setDate(parseInt(newDt));
-      // console.log("Date obj ",today);
+     
 
       note.reminder = today;
       this.refreshNote();
 
     }
-    this.commonService.putServiceData('note/updateNote', note).subscribe(response => {
+    this.reminderService.updateNote(note).subscribe(response => {
       console.log("reminder  response", response);
       this.refreshNote();
     });
@@ -110,14 +110,14 @@ export class ReminderComponent implements OnInit {
   updateNoteColor(note, status): void {
     console.log("change note color", note, status);
     note.status = status;
-    this.commonService.putServiceData('note/updateNote', note).subscribe(data => {
+    this.reminderService.updateNote(note).subscribe(data => {
       console.log("color  response", data);
       this.refreshNote();
     });
   };
   moveTrash(note): void {
     note.status = 1;
-    this.commonService.putServiceData('note/updateNote', note).subscribe(data => {
+    this.reminderService.updateNote(note).subscribe(data => {
       console.log(data);
       this.refreshNote();
     });

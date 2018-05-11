@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttputilService } from '../httputil.service';
 import { Note } from '../Note';
+import {TrashService}from '../trash/trash.service';
 
 @Component({
   selector: 'app-trash',
@@ -12,23 +13,23 @@ export class TrashComponent implements OnInit {
  
 
 
-  constructor(private commonService:HttputilService) { }
+  constructor(private trashService:TrashService) { }
 
   ngOnInit() {
-    this.commonService.getServiceData('note/getAllNotes').subscribe(data=> {
+    this.trashService.getAllNotes().subscribe(data=> {
   
       this.notes = data.body;
                   });
   }
   refreshNote():void{//getAllnotes
-    this.commonService.getServiceData('note/getAllNotes').subscribe(data=> {
+    this.trashService.getAllNotes().subscribe(data=> {
       this.notes=data.body;
        });
   }
 
   restore(note):void{
     note.status=0;
-    this.commonService.putServiceData('note/updateNote',note).subscribe(data=>{
+    this.trashService.restoreNote(note).subscribe(data=>{
         console.log(data)
        this.refreshNote();
     }) ;
@@ -36,7 +37,7 @@ export class TrashComponent implements OnInit {
 
 deleteForever(noteId):void{
   console.log(noteId);
-  this.commonService.deleteServiceData('note/deleteNote',noteId).subscribe(data=>{this.notes=data.body;
+  this.trashService.deleteNoteForever(noteId).subscribe(data=>{this.notes=data.body;
     this.refreshNote();
  });
 

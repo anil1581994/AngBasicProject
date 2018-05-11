@@ -8,7 +8,7 @@ import { Subject } from 'rxjs/Subject';//hamid added
 
 
 @Injectable()
-export class NoteService {
+export class ReminderService {
     model:any={};
     notes: Note[];
     private NoteSubject=new Subject<any>();
@@ -17,7 +17,7 @@ export class NoteService {
  
     
          
-    createNoteService( model: any):Observable<HttpResponse<any>>
+    createNote( model: any):Observable<HttpResponse<any>>
     {
         let url = "note/createNote";
         return this.httpservice.postServiceData(url,model);
@@ -40,30 +40,12 @@ export class NoteService {
       });
    }
    
-    updateNote(url: string, model: any):Observable<HttpResponse<any>>
+    updateNote(model: any):Observable<HttpResponse<any>>
     {
-        //let url="note/updateNote";
+        let url="note/updateNote";
         return this.httpservice.putServiceData(url,model);
     }
-    getAllLabel():Observable<HttpResponse<any>>
-    {
-        
-        return this.httpservice.getAllLabel();
-    }
-    getLoggedUser(url: string):Observable<HttpResponse<any>>
-    {
-        return this.httpservice.getLoggedUser(url);
-    }
-
-    getStatus():Observable<HttpResponse<any>>
-    {
-    return this.httpservice.getStatus();
-    }
-    getUrlData(model: any):Observable<HttpResponse<any>>
-    {  
-        let url="note/getUrls"
-        return this.httpservice.getUrlInfo(url,model);
-    }
+   
     
 
 }

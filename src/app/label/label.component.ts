@@ -3,6 +3,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { HttputilService } from '../httputil.service';
 import { Label } from '../Label';
 import { Subscription } from 'rxjs';
+import {LabelService}from '../label/label.service';
 // import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/common";
 
 @Component({
@@ -46,7 +47,7 @@ export class LabelComponent implements OnInit,OnDestroy {
 
   constructor( @Inject(MAT_DIALOG_DATA)
    private data: any,
-    private commonService: HttputilService, public dialogRef: MatDialogRef<LabelComponent>,private dialog: MatDialog ) 
+    private labelService: LabelService, public dialogRef: MatDialogRef<LabelComponent>,private dialog: MatDialog ) 
     { 
 
       this.labels = data.labels;
@@ -57,13 +58,13 @@ export class LabelComponent implements OnInit,OnDestroy {
   ngOnInit() 
   {    
   }
- 
+
  createLabel(): void {
     console.log("formValue", this.model);
-   this.unsubscibeObj=this.commonService.postServiceData('note/createlabel', this.model)
+   this.unsubscibeObj=this.labelService.createLabelService(this.model)
       .subscribe(data => {
         console.log("label created", data);
-        this.commonService.loadAllLabel();
+        this.labelService.getAllLabel();
         this.dialogRef.close();
 
       });
@@ -72,28 +73,20 @@ export class LabelComponent implements OnInit,OnDestroy {
 
   deleteLabel(contentId): void {
     console.log(contentId);
-    this.commonService.deleteServiceData('note/deleteLabel', contentId).subscribe(data => {
+    this.unsubscibeObj=this.labelService.deleteLabel(contentId).subscribe(data => {
     this.labels = data.body;
-    this.commonService.loadAllLabel();
+    this.labelService.getAllLabel();
     });
 
   }
-  // renameLabel(): void {
-  //   console.log("formValue", this.data.labelId);
-  //   this.commonService.putServiceData('note/updateLabel', this.data)
-  //     .subscribe(data => {
-  //       console.log(data);
-  //       this.commonService.loadAllLabel();
-  //       this.dialogRef.close();
-  //     });
-  // }
+ 
   renameLabel(label): void {
 
     console.log("data in model",this.model);
-    this.unsubscibeObj=this.commonService.putServiceData('note/updateLabel',label)
+    this.unsubscibeObj=this.labelService.updateLabel(label)
       .subscribe(data => {
         console.log(data);
-        this.commonService.loadAllLabel();
+        this.labelService.getAllLabel();
         this.dialogRef.close();
       });
   }

@@ -122,7 +122,7 @@ export class CommonnoteComponent implements OnInit {
   }
   
   refreshNote(): void {
-    this.noteService.reloadAllNotes();
+    this.noteService.getAllNotes();
   }
 //   callall(){
 
