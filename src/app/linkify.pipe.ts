@@ -11,6 +11,9 @@ transform(link: string): string {
   return this.linkify(link);
 }
 private linkify(plainText): string{
+  if(!plainText){
+    plainText = "";
+  }
   let replacedText;
 
   let replacePattern1;

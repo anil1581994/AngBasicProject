@@ -23,7 +23,7 @@ export class HttputilService {
     //Hamid Added
   private allLabelSubject = new Subject<any>();
   //anil
-  private NoteSubject=new Subject<any>();
+ 
 
   private viewSubject = new Subject<any>();
   //search
@@ -145,16 +145,6 @@ export class HttputilService {
     }
    //------------------------------------------------------------------------
 
-   //anil..noteonloading
-   loadAllNotes():void{
-    let path = "note/getAllNotes";
-    this.urlpath = this.base_url.concat(path);
-    this.addAuthorization();
-    this.http.get<any>(this.urlpath,this.httpOptions)
-      .toPromise().then((res)=>{
-      this.NoteSubject.next(res);
-      });
-  }
 
 //hamid
    getAllLabel(): Observable<HttpResponse<any>>{
@@ -163,10 +153,7 @@ export class HttputilService {
    }
    //anil..noteonloading
 
-   getAllNotes(): Observable<HttpResponse<any>>{
-    this.loadAllNotes();
-   return this.NoteSubject.asObservable(); 
-  }
+ 
 
   //----------------------------------------------------------------------------
   getLoggedUser(path): Observable<HttpResponse<any>>{

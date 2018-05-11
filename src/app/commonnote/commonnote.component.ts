@@ -10,6 +10,7 @@ import { Label } from '../Label';
 import { LinkifyPipe } from '../linkify.pipe';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';//hamid added
+//import { HomeComponent } from './home.component';
 
 @Component({
   selector: 'app-commonnote',
@@ -26,7 +27,6 @@ export class CommonnoteComponent implements OnInit {
   image: string;
   notes: Note[];
   statusNumber:number;//to decide pin or unpin..A
-  statusClass: string = localStorage.getItem('cssclass');
   
   archiveImg="/assets/icons/archive.svg";
   reminderImg = "/assets/icons/remender.svg";
@@ -64,35 +64,24 @@ export class CommonnoteComponent implements OnInit {
   constructor(private noteService:NoteService,private dialog: MatDialog) { }
 
   ngOnInit() {
-    this.refreshNote();
+    // this.refreshNote();
     // this.noteService.getAllNotes().subscribe(data => {
     //   this.notes = data.body;
       
     // });
-    this.getAllLabels();
+  //  this.getAllLabels();
     
-    this.changeGridCss();
+   // this.changeGridCss();
   }
   fetchIcon(note){
     if(note.status){
-      return this.pinIcon;
+      return this.unPinIcon;
     }
-    return this.unPinIcon;
+   
+    return this.pinIcon;
   }
 
-  changeGridCss() {
 
-    this.noteService.getStatus().subscribe((status) => {
-      this.statusClass = status ? "list-view" : "grid-view";
-
-      if (status) {
-        localStorage.setItem('cssclass', 'list-view');
-      } else {
-        localStorage.setItem('cssclass', 'grid-view');
-      }
-
-    });
-  }
 
   openDialog(note) {
     console.log("data", note);
@@ -133,15 +122,7 @@ export class CommonnoteComponent implements OnInit {
   }
   
   refreshNote(): void {
-    this.noteService.getAllNotes().subscribe(data => {
-      this.notes = data.body.map(noteObj =>{
-        if(this.urlify(noteObj.description))
-        noteObj.urlPromise = this.getScrapData(noteObj.description).map(res=>{
-          return res.body;
-        });
-        return noteObj;
-      })
-    });
+    this.noteService.reloadAllNotes();
   }
 //   callall(){
 

@@ -18,6 +18,8 @@ import { LinkifyPipe } from '../linkify.pipe';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import {FormGroup, FormControl, FormBuilder} from '@angular/forms'
+import { Subscription } from 'rxjs';
+
 
 
 
@@ -27,13 +29,13 @@ import {FormGroup, FormControl, FormBuilder} from '@angular/forms'
   templateUrl: './note.component.html',
   styleUrls: ['./note.component.css']
 })
-export class NoteComponent implements OnInit {
+export class NoteComponent implements OnInit,OnDestroy {
   //search
   noteForm: FormGroup;
   inputFormControl:FormControl;
   searchText: string;
   //subscription: Subscription;
-
+  unsubscibeObj:Subscription;
   //matchip logic
   public checked: boolean = false;
   visible: boolean = true;
@@ -55,7 +57,8 @@ export class NoteComponent implements OnInit {
   //array to store note
   notes: Note[];
   //matchipchip logic
-  status:number//
+  status : number//
+  flexSize : string;
   public show: boolean = false;
   showButton() {
     this.show = true;
@@ -64,7 +67,8 @@ export class NoteComponent implements OnInit {
   useremail: string;
   collaboratorName: string;
   ownerId: number;
-  statusClass: string = localStorage.getItem('cssclass');
+  gridStatus : boolean;
+  marginTop : string;
   archiveImg = "/assets/icons/archive.svg";
   pinIcon = "/assets/icons/pin.svg";
   unPinIcon = "/assets/icons/pinblue.svg";
@@ -108,7 +112,7 @@ export class NoteComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.refreshNote();//
+    this.refreshNote();
     this.getAllLabels();
     this.changeGridCss();
   }
@@ -116,7 +120,8 @@ export class NoteComponent implements OnInit {
   changeGridCss() {
 
     this.noteService.getStatus().subscribe((status) => {
-      this.statusClass = status ? "list-view" : "grid-view";
+     this.marginTop = status ? "10px" : "0px";
+      this.flexSize = status ? "100%" : "30%";
 
       if (status) {
         localStorage.setItem('cssclass', 'list-view');
@@ -150,7 +155,7 @@ export class NoteComponent implements OnInit {
 
   createNote(): void {
     console.log("formValue", this.model);
-    this.noteService.createNoteService(this.model)
+    this.unsubscibeObj=this.noteService.createNoteService(this.model)
       .subscribe(data => {
         console.log("note created", data);
         this.refreshNote();
@@ -158,7 +163,7 @@ export class NoteComponent implements OnInit {
   }
   
   refreshNote(): void {
-    this.noteService.getAllNotes().subscribe(data => {
+    this.unsubscibeObj=this.noteService.getAllNotes().subscribe(data => {
       this.notes = data.body.map(noteObj =>{
         console.log(noteObj);
         if(this.urlify(noteObj.description))
@@ -172,23 +177,17 @@ export class NoteComponent implements OnInit {
       })
     });
   }
-// isStatus(){
-//   if(this.statusNumber==0){
-//     this.unPinNote;
-//   }else{
-//     this.pinNote;
-//   }
-// }
+
 moveTrash(note): void {
   note.status = 1;
-  this.noteService.updateNote('note/updateNote', note).subscribe(data => {
+  this.unsubscibeObj=this.noteService.updateNote('note/updateNote', note).subscribe(data => {
     console.log(data);
     this.refreshNote();
   });
 }
 archive(note): void {
   note.status = 2;
-  this.noteService.updateNote('note/updateNote', note).subscribe(data => {
+  this.unsubscibeObj=this.noteService.updateNote('note/updateNote', note).subscribe(data => {
     console.log(data);
     this.refreshNote();
   });
@@ -196,7 +195,7 @@ archive(note): void {
 pinNote(note): void {
   console.log("pin note", note);
   note.status = 3;
-  this.noteService.updateNote('note/updateNote', note).subscribe(data => {
+  this.unsubscibeObj=this.noteService.updateNote('note/updateNote', note).subscribe(data => {
     console.log("Pin  note", data);
     this.refreshNote();
   });
@@ -204,7 +203,7 @@ pinNote(note): void {
 unPinNote(note): void {
   console.log("pin note", note);
   note.status = 0;
-  this.noteService.updateNote('note/updateNote', note).subscribe(data => {
+  this.unsubscibeObj=this.noteService.updateNote('note/updateNote', note).subscribe(data => {
     console.log("unArchive note", data);
     this.refreshNote();
   });
@@ -213,7 +212,7 @@ unPinNote(note): void {
 updateNoteColor(note, status): void {
   console.log("change note color", note, status);
   note.status = status;
-  this.noteService.updateNote('note/updateNote', note).subscribe(data => {
+  this.unsubscibeObj=this.noteService.updateNote('note/updateNote', note).subscribe(data => {
     console.log("color  response", data);
     this.refreshNote();
   });
@@ -252,7 +251,7 @@ reminderSave(note, day) {
     this.refreshNote();
 
   }
-  this.noteService.updateNote('note/updateNote', note).subscribe(response => {
+  this.unsubscibeObj=this.noteService.updateNote('note/updateNote', note).subscribe(response => {
     console.log("reminder  response", response);
     this.refreshNote();
   });
@@ -260,7 +259,7 @@ reminderSave(note, day) {
 
 
 getAllLabels(): void {
-  this.noteService.getAllLabel().subscribe(response => {
+  this.unsubscibeObj=this.noteService.getAllLabel().subscribe(response => {
     this.labels = response.body;
   });
 }
@@ -277,7 +276,7 @@ uploadImageToNote(event, note) {
 }
 
 uploadImage(note): void {
-  this.noteService.updateNote('note/uploadImage', note)
+  this.unsubscibeObj=this.noteService.updateNote('note/uploadImage', note)
     .subscribe(response => {
       console.log("Image response :", response);
     });
@@ -287,7 +286,7 @@ uploadImage(note): void {
 addRemoveLabelToNote(noteId, labelId, operation): void {
 
   console.log("note updating with label");
-  this.noteService.updateNote('note/addLabelToNote/' + noteId + '/' + labelId + '/' + operation,
+  this.unsubscibeObj=this.noteService.updateNote('note/addLabelToNote/' + noteId + '/' + labelId + '/' + operation,
     {
       params: {
         labelId: labelId,
@@ -318,9 +317,18 @@ getScrapData(description : string): Observable<any> {
   }
 
  urlify(text) :any {//Array<string>
-  var urlRegex = /(^|\s)((https?:\/\/)?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)/gi;
- //return text.match(urlRegex);
+  if(!text){
+    text = "";
   }
-
+  
+  var urlRegex = /(^|\s)((https?:\/\/)?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)/gi;
+ return text.match(urlRegex);
+  }
+  ngOnDestroy(){
+    this.unsubscibeObj.unsubscribe();
+    console.log(" note service has been unSubscribe successfully");
+ 
+  }
+  
 
 }

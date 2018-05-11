@@ -1,7 +1,8 @@
-import { ViewChild, ElementRef, Component, OnInit, Input,Inject,Provider, forwardRef } from '@angular/core';
+import { ViewChild, ElementRef, Component, OnInit, Input,Inject,Provider, forwardRef, OnDestroy } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { HttputilService } from '../httputil.service';
 import { Label } from '../Label';
+import { Subscription } from 'rxjs';
 // import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/common";
 
 @Component({
@@ -10,14 +11,14 @@ import { Label } from '../Label';
   styleUrls: ['./label.component.css']
 })
 
-export class LabelComponent implements OnInit {
+export class LabelComponent implements OnInit,OnDestroy {
   model: any = {};//get form data by 2way Binding
   @Input() labels: Label[];
   contentId: String;
   showHide1:boolean;
   labelId:number;
   labelTitle:String
-
+  unsubscibeObj:Subscription;
 
   clearImg = "/assets/icons/clear.svg";
   deletesvg="/assets/icons/trash.svg";
@@ -59,7 +60,7 @@ export class LabelComponent implements OnInit {
  
  createLabel(): void {
     console.log("formValue", this.model);
-    this.commonService.postServiceData('note/createlabel', this.model)
+   this.unsubscibeObj=this.commonService.postServiceData('note/createlabel', this.model)
       .subscribe(data => {
         console.log("label created", data);
         this.commonService.loadAllLabel();
@@ -89,24 +90,17 @@ export class LabelComponent implements OnInit {
   renameLabel(label): void {
 
     console.log("data in model",this.model);
-    this.commonService.putServiceData('note/updateLabel',label)
+    this.unsubscibeObj=this.commonService.putServiceData('note/updateLabel',label)
       .subscribe(data => {
         console.log(data);
         this.commonService.loadAllLabel();
         this.dialogRef.close();
       });
   }
+ ngOnDestroy(){
+   this.unsubscibeObj.unsubscribe();
+   console.log("unSubscribe done");
 
+ }
  
-  // updateLabel(labelObj):void{
-  //   this.data=labelObj;
-  //   console.log(this.data);
-    
-  //   this.labelServiceObj.updateLabel(this.data)
-  //   .subscribe(data => {
-  //   console.log(data);
-  //   this.dialogRef.close();
-  //   });
-  //   }
-
 }

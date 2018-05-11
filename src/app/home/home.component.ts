@@ -6,6 +6,8 @@ import { Label } from '../Label';
 import { LoggedUser } from '../LoggedUser';
 import {LabelComponent} from '../label/label.component';
 import {FormsModule, FormGroup, FormControl, FormBuilder} from '@angular/forms'
+import { NoteService } from '../note/note.service';
+
 
 @Component({
   selector: 'app-home',
