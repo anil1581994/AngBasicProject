@@ -24,7 +24,7 @@ export class HttputilService {
   private allLabelSubject = new Subject<any>();
   //anil
  
-
+//list view and grid View
   private viewSubject = new Subject<any>();
   //search
   private searchSubjcet=new Subject<any>();//ap

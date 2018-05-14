@@ -1,6 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { HttputilService } from './httputil.service';
+import { HttputilService } from './service/httputil.service';
 
 describe('HttputilService', () => {
   beforeEach(() => {

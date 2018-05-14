@@ -9,7 +9,7 @@ export class SearchFilterPipe implements PipeTransform {
    * @param items object from array
    * @param term term's search//term==>searchText
    */
-  transform(items: any, searchText: string): any {
+   transform(items: any, searchText: string): any {
     if (!searchText || !items) return items;
 
     return SearchFilterPipe.filter(items, searchText);

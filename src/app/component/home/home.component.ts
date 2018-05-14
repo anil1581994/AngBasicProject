@@ -7,6 +7,7 @@ import { LoggedUser } from '../../object/LoggedUser';
 import {LabelComponent} from '../label/label.component';
 import {FormsModule, FormGroup, FormControl, FormBuilder} from '@angular/forms'
 import { NoteService } from '../../service/note.service';
+import { Note } from '../../object/Note';
 
 
 @Component({
@@ -25,8 +26,13 @@ export class HomeComponent implements OnInit {
   inputFormControl: FormControl;
   // subscription: Subscription;
   color:string;
+  labelId:number
+  labelTitle:String
+ 
+  //array to store note
+  notes: Note[];
 
-  public grid:boolean = false;
+  public grid:boolean = false;//view
   public buttonName:any = 'Show';
 
 
@@ -107,5 +113,14 @@ logout() {
      show()
      {
       this. grid= false;
+     }
+     //getLabeld------>Notes
+     //(click)="getLabeledNotes(label.labelId)"
+     getLabeledNotes(labelId):void{
+        let url='note/getlabeldnotes?labelId='+this.labelId;
+        //routimg url;home/labelnote/:label
+        this.commonService.getServiceData(url).subscribe(response=> {
+        this.notes=response.body;
+          });
      }
 }

@@ -22,8 +22,7 @@ export class ResetPasswordComponent implements OnInit {
   resetPassword(){
 
     console.log(this.model);
-    //var query = 'note/removeCollborator?sharedUserId=' + this.model.sharedUserId + '&noteId=' + this.model.noteId;
-    //this.jwtToken= localStorage.getItem('Authorization');
+   
      var check= 'resetPassword'+window.location.search;
      if(this.model.password==this.model.Confirmpassword){
 

@@ -54,6 +54,8 @@ import { TruncatePipe } from './truncate.pipe';
 import { SearchFilterPipe } from './search-filter.pipe';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ColorToolDirective } from './color-tool.directive';
+import { LabeledNoteFilterPipe } from './labeled-note-filter.pipe';
+import { LabeledNoteComponent } from './component/labeled-note/labeled-note.component';
 
 export function getAuthHttp(http: Http) {
   return new AuthHttp(new AuthConfig({
@@ -80,23 +82,23 @@ const config = new AuthServiceConfig([
 // Route Configuration
 export const appRoutes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: '', component: RegistrationComponent },
   { path: 'register', component: RegistrationComponent},
   { path: 'login', component: LoginComponent, canActivate: [AlwaysLogginAuthGuard]},
-  { path: 'home', component:HomeComponent,
-      canActivate: [AuthGuard],
+  { path: 'home', component:HomeComponent, canActivate: [AuthGuard],
     children: [
       { path: '', redirectTo: 'note', pathMatch: 'full' },
       { path: 'note', component: NoteComponent },
       { path: 'trash', component: TrashComponent },
       { path: 'archive', component: ArchiveComponent },
       { path: 'label', component: LabelComponent },
-      { path: 'reminder', component: ReminderComponent }
+      { path: 'reminder', component: ReminderComponent },
+      { path: 'labelnote/:id', component: LabeledNoteComponent}
  ]
 },
  { path: 'forgotPassword', component: ForgotPasswordComponent },
  { path: 'forgotpasswordStatus', component: ReturnToRegisterComponent },
- { path: 'resetpassword', component: ResetPasswordComponent }
+ { path: 'resetpassword', component: ResetPasswordComponent },
+ { path: "**" , redirectTo: 'login'}
 ];
 @NgModule({
   declarations: [
@@ -120,6 +122,8 @@ export const appRoutes: Routes = [
     TruncatePipe,
     SearchFilterPipe,
     ColorToolDirective,
+    LabeledNoteFilterPipe,
+    LabeledNoteComponent,
   
     
   

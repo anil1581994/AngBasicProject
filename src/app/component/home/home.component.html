@@ -10,22 +10,10 @@
        </div>
 
        <div fxLayout="row" fxFlex="60">
-       
-          <!-- <input [(ngModel)]="searchText"  [routerLink]="['/search']" type='text' placeholder="Search ..."/> 
-         -->
-          <!-- <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">  -->
-                       
-         <form [formGroup]="homeForm">
+           <form [formGroup]="homeForm">
             <mat-icon>search</mat-icon>
            <input type='text' style="height: 46px;width:350%;" placeholder="Search ..." [formControl]="inputFormControl"> 
-          
          </form> 
-         
-          <!-- <ul>
-          <li *ngFor="let c of characters | searchFilter : searchText">
-            {{c}}
-          </li>
-        </ul>  -->
        </div>
 
       <div fxLayout="row" fxFlex="20" fxLayoutAlign="end">
@@ -122,9 +110,9 @@
           </div>
           <div *ngFor="let label of labels">
             <div>
-              <button mat-menu-item>
+              <button [routerLink]="['/home/labelnote',label.labelId]" mat-menu-item>
                 <mat-icon>label</mat-icon>
-                <span>{{label.labelTitle}}</span>
+                <span >{{label.labelTitle}}</span>
               </button>
             </div>
           </div>
