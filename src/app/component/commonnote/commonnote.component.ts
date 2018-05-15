@@ -18,7 +18,9 @@ import { Subject } from 'rxjs/Subject';//hamid added
   styleUrls: ['./commonnote.component.css']
 })
 export class CommonnoteComponent implements OnInit {
-
+   /**
+   *Inject data from Base Note model to CommonnoteComponent
+   */
   @Input() note:Note;
   labels: Label[];//for pipe
   fullImagePath: string;
@@ -69,7 +71,7 @@ export class CommonnoteComponent implements OnInit {
     //   this.notes = data.body;
       
     // });
-  //  this.getAllLabels();
+  // this.getAllLabels();
     
    // this.changeGridCss();
   }

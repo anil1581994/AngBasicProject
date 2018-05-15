@@ -55,6 +55,7 @@ export class NoteComponent implements OnInit,OnDestroy {
   statusNumber:number;
   imageUrl: string
   //array to store note
+  
   notes: Note[];
   //matchipchip logic
   status : number//
@@ -176,6 +177,7 @@ getScrapData(description : string): Observable<any> {
   var urlRegex = /(^|\s)((https?:\/\/)?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)/gi;
  return text.match(urlRegex);
   }
+  
   ngOnDestroy(){
     this.unsubscibeObj.unsubscribe();
     console.log(" note service has been unSubscribe successfully");

@@ -1,7 +1,7 @@
- <div fxLayout="row" fxLayoutAlign="center">
-  <div fxLayout="row wrap" fxLayoutAlign="space-between center"   fxLayoutGap="20px" class="mat-div" class="note-card" fxFlex="900px" >
-    <div *ngFor="let note of notes | noteFilter :{status:2}"  [style.marginTop]="marginTop" [fxFlex]="flexSize">
-        <app-commonnote [note]="note"></app-commonnote>
-      </div>
+<div fxLayout="row" fxLayoutAlign="center" style="margin-top: 140px;">
+  <div fxLayout="row wrap" fxLayoutAlign="space-between center" fxLayoutGap="20px" class="mat-div" class="note-card" fxFlex="900px">
+    <div *ngFor="let note of notes | noteFilter :{status:2}" [style.marginTop]="marginTop" [fxFlex]="flexSize">
+      <app-commonnote [note]="note"></app-commonnote>
     </div>
-    </div>
+  </div>
+</div>

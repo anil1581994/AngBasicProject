@@ -31,63 +31,8 @@
    
 
   <!--pinNote -->
-     <!-- <div fxLayout="row wrap"  fxLayoutAlign="center"  fxLayoutGap="20px">
-      <div *ngFor="let note of notes| noteFilter :{ status : 3}" class={{statusClass}} fxFlex="320px">
-   
-           <mat-card class="note-card2" [style.background]="note.color" class="openhide">
-            <div style="margin-left: 90%;">
-              <img [src]="unPinIcon" (click)="pinNote(note)">
-            </div>
-             <div  *ngIf="note.image"(click)="openDialog(note)">
-              <img class="image-class" [src]='"/assets/icons/"+note.image'/>
-                    
-              <div [innerHTML]="note.title" class="editable"></div>
-              <div [innerHTML]="note.description"></div>
-          
-            </div>
-            <div fxLayout="row" class="hideme">
-              <div>
-                <button mat-icon-button [matMenuTriggerFor]="menu" class="images">
-                  <mat-icon>more_vert</mat-icon>
-                </button>
-                <mat-menu #menu="matMenu">
-                  <button type="submit" class="images" mat-menu-item (click)="moveTrash(note)">
-                    <mat-icon>delete</mat-icon>
-                    <span>delete note</span>
-                  </button>
-                </mat-menu>
-              </div>
-              <div>
-                <button mat-icon-button [matMenuTriggerFor]="color" class="images">
-                  <mat-icon>color_lens</mat-icon>
-                </button>
-                <mat-menu #color="matMenu">
-
-                  <div>
-                    <a *ngFor="let color of colors">
-                      <img src="{{color.path}}" (click)="note.color=color.color;updateNoteColor(note,note.status)">
-                    </a>
-                  </div>
-                </mat-menu>
-              </div>
-              <div>
-                <img style="margin-right: 10px;height: 20px;margin-top: 10px;" class="images" src="{{collaborator}}">
-              </div>
-
-              <div>
-                <img style="margin-right: 10px;height: 20px;margin-top: 10px;" src="{{archiveImg}}" (click)=" archive(note)" class="images">
-              </div>
-              <div>
-                <img style="margin-right: 10px;height: 20px;margin-top: 10px;" src="{{reminderImg}}" class="images">
-              </div>
-            </div>
-          </mat-card> 
-        
-      </div>
-    </div>  -->
-
-   
- <!--UnpinNote -->
+     
+<!--UnpinNote -->
 
  <div style="margin-left:15px">Pinned</div>
    <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="20px">

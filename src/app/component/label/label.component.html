@@ -22,10 +22,10 @@
   </div>
 
 
-  <div fxLayout="row" fxLayoutAlign="center center" *ngFor="let label of labels">
+  <div fxLayout="row" fxLayoutAlign="center center" *ngFor="let label of labels; let i = index">
     
        <div fxFlex="20" >
-       <img matTooltip="Delete label" matTooltipShowDelay="100" style="width:22px;margin-left: 12px" [src]="imgSrc" (mouseover)="onMouseOver()" (mouseout)="onMouseOut()" (click)="deleteLabel(label.labelId)" />
+       <img matTooltip="Delete label" matTooltipShowDelay="100" style="width:22px;margin-left: 12px" [src]="labelImages[i] || imgSrc" (mouseover)="onMouseOver(i)" (mouseout)="onMouseOut(i)" (click)="deleteLabel(label.labelId)" />
        </div>
 
       <div fxFlex="70">

@@ -15,6 +15,7 @@ import {LabelService}from '../../service/label.service';
 export class LabelComponent implements OnInit,OnDestroy {
   model: any = {};//get form data by 2way Binding
   @Input() labels: Label[];
+  labelImages : Array<string> = [];
   contentId: String;
   showHide1:boolean;
   labelId:number;
@@ -25,18 +26,21 @@ export class LabelComponent implements OnInit,OnDestroy {
   deletesvg="/assets/icons/trash.svg";
   plusImg = "/assets/icons/createlabel.svg";
   checkImg = "/assets/icons/checkmark.png";
-  imgSrc: string = "/assets/icons/trash.svg";
+  imgSrc: string = "/assets/icons/label.svg";
   imgSrc1: string ="/assets/icons/checkmark.png";
   
   
-  onMouseOut()
+  onMouseOut(i)
   {
    this.imgSrc = "/assets/icons/label.svg";//plus interns genrate label icon
+   this.labelImages[i] = this.imgSrc;
+   console.log(this.labelImages , i)
   }
 
-  onMouseOver()
+  onMouseOver(i)
   {
     this.imgSrc = "/assets/icons/trash.svg";//delete symbol
+    this.labelImages[i] = this.imgSrc;
   }
   changeStatus()
   {
@@ -51,12 +55,14 @@ export class LabelComponent implements OnInit,OnDestroy {
     { 
 
       this.labels = data.labels;
+      this.labelImages = data.labels.map(()=>this.imgSrc);
     }
 
   
 
   ngOnInit() 
   {    
+  this.labelService.getAllLabel();
   }
 
  createLabel(): void {
