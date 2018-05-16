@@ -29,8 +29,9 @@ export class CommonnoteComponent implements OnInit {
   image: string;
   notes: Note[];
   statusNumber:number;//to decide pin or unpin..A
-  
+
   archiveImg="/assets/icons/archive.svg";
+  unArchiveImg="/assets/icons/unarchive.svg";
   reminderImg = "/assets/icons/remender.svg";
   pinIcon = "/assets/icons/pin.svg";
   unPinIcon = "/assets/icons/pinblue.svg";
@@ -39,6 +40,7 @@ export class CommonnoteComponent implements OnInit {
   clearImg = "/assets/icons/clear.svg";
   collaborator = "/assets/icons/collaborator.svg";
   shareduser = "/assets/icons/shareduser.svg";
+ 
   colors = [{
     color: '#f26f75',
     path: '/assets/icons/Red.png'
@@ -75,6 +77,14 @@ export class CommonnoteComponent implements OnInit {
     
    // this.changeGridCss();
   }
+
+
+   /**
+   * To change icon of pin or unPin on the basis of note status
+   * @param for status '0' unPin
+   * @param for status '3' pin
+   *
+   */
   fetchIcon(note){
     if(note.status){
       return this.unPinIcon;
@@ -83,6 +93,18 @@ export class CommonnoteComponent implements OnInit {
     return this.pinIcon;
   }
 
+   /**
+   * To change  icon of archive or unarchive on the basis of note status
+   * @param for status '0' unArchiveImg
+   * @param for status '2' ArchiveImg
+   */
+   setArchiveIcon(note)
+   {
+    if(note.status){
+      return this.archiveImg;
+     }
+    return this.unArchiveImg;
+   }
 
 
   openDialog(note) {
@@ -110,6 +132,14 @@ export class CommonnoteComponent implements OnInit {
       this.pinNote(note);
     }else{
       this.unPinNote(note);
+    }
+  }
+
+  isArchive(note){
+    if(this.note.status==0){ //0 means Unarchive//2 -archive
+      this.unArchive(note);
+    }else{
+      this.archive(note);
     }
   }
   createNote(): void {
@@ -141,6 +171,15 @@ archive(note): void {
     this.refreshNote();
   });
 }
+
+  unArchive(note):void{
+    note.status=0;
+    this.noteService.updateNote(note,'note/updateNote').subscribe(data=>{
+        console.log(data)
+       this.refreshNote();
+    }) ;
+}
+
 pinNote(note): void {
   console.log("pin note", note);
   note.status = 3;

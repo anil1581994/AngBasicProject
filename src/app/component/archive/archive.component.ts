@@ -30,6 +30,12 @@ export class ArchiveComponent implements OnInit {
       this.flexSize = status ? "100%" : "30%";
     });
   }
-
+  // unArchive(note):void{
+  //   note.status=0;
+  //   this.archiveService.putServiceData('note/updateNote',note).subscribe(data=>{
+  //       console.log(data)
+  //      this.refreshNote();
+  //   }) ;
+//}
 
 }
