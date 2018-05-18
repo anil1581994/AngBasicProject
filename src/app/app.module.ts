@@ -56,6 +56,9 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ColorToolDirective } from './color-tool.directive';
 import { LabeledNoteFilterPipe } from './labeled-note-filter.pipe';
 import { LabeledNoteComponent } from './component/labeled-note/labeled-note.component';
+import {ToasterModule, ToasterService} from 'angular2-toaster';
+
+
 
 export function getAuthHttp(http: Http) {
   return new AuthHttp(new AuthConfig({
@@ -125,6 +128,7 @@ export const appRoutes: Routes = [
     LabeledNoteFilterPipe,
     LabeledNoteComponent,
   
+  
     
   
     
@@ -154,6 +158,8 @@ export const appRoutes: Routes = [
     MatCheckboxModule,
     MatChipsModule,
     HttpModule,
+    ToasterModule.forRoot(),
+    
   
     
     RouterModule.forRoot(appRoutes)

@@ -20,7 +20,8 @@
                            <mat-chip-list>
                                   <div>
                                     <img  style="height:20px;" src="/assets/icons/userProfile2.svg">
-                                    collaborator                   </div>
+                                   </div>
+                      
                                    <mat-chip>{{collaborator.name}}</mat-chip>
                                     <mat-chip>{{collaborator.email}}</mat-chip>
                               </mat-chip-list>
@@ -138,8 +139,8 @@
               </div>
 
               <div>
-                  <img style="margin-right: 10px;height: 20px;margin-top: 10px;" class="images" [src]="archiveImg" (click)="archive(note)">
-                <!-- <img style="margin-right: 10px;height: 20px;margin-top: 10px;" class="images" [src]="setArchiveIcon(note)" (click)="isArchive(note)"> -->
+                  <!-- <img style="margin-right: 10px;height: 20px;margin-top: 10px;" class="images" [src]="archiveImg" (click)="archive(note)"> -->
+                 <img style="margin-right: 10px;height: 20px;margin-top: 10px;" class="images" [src]="setArchiveIcon(note)" (click)="isArchive(note)"> 
               </div>
            
                <div>

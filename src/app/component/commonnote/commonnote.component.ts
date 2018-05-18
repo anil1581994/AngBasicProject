@@ -165,7 +165,7 @@ moveTrash(note): void {
   });
 }
 archive(note): void {
-  note.status = 2;
+  note.status = 0;
   this.noteService.updateNote( note,'note/updateNote').subscribe(data => {
     console.log(data);
     this.refreshNote();
@@ -173,7 +173,7 @@ archive(note): void {
 }
 
   unArchive(note):void{
-    note.status=0;
+    note.status=2;
     this.noteService.updateNote(note,'note/updateNote').subscribe(data=>{
         console.log(data)
        this.refreshNote();

@@ -4,9 +4,9 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { FormGroup} from '@angular/forms';
 import { HttputilService } from '../../service/httputil.service';
 import{UserService}from '../../service/user.service';
-
 import { ToDoResponse } from '../../object/ToDoResponse';
 import { Router } from '@angular/router';
+import {ToasterModule, ToasterService} from 'angular2-toaster';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -22,9 +22,10 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class LoginComponent implements OnInit {
 model:any={};
-
  // constructor(private commonService:HttputilService,private router:Router) {}
-    constructor(private userService: UserService,private router:Router) {}
+    constructor(private userService: UserService,private router:Router, private toasterService: ToasterService) {
+    
+    }
 
  ngOnInit() {}
    logIn():void
@@ -36,18 +37,26 @@ model:any={};
         {
          
           localStorage.setItem('Authorization',response.headers.get("Authorization"));
-             alert("login succesfully");
-             //make service to get token
-             
-          this.router.navigate(['/home'])
+
+          this.toasterService.pop("success","login succesfully");
+          // alert("login succesfully");
+
+        //  this.router.navigate(['/home'])
+          
+          setTimeout (() => {
+          this.router.navigate(['/home']);
+           }, 1000);
+
         } else if(response.body.statusCode !== 100)
         {
+          this.toasterService.pop("error")
             alert(response.body.msg);
-        }
-     });
-    //  console.log("sigInForm",this.data);
 
-   }
+        }
+     },(err)=>{
+       this.toasterService.pop("error",err.error.msg);
+     });
+    }
    fbLogin() {
     this.userService.login()
                      .then(() => {
@@ -67,5 +76,7 @@ model:any={};
     Validators.pattern('[A-Za-z0-9]{8}')
   ]);
   match = new MyErrorStateMatcher();
+
+ 
  
 }
