@@ -139,6 +139,7 @@ export class NoteComponent implements OnInit,OnDestroy {
 
   readNotes(): void {
     this.unsubscibeObj=this.noteService.getAllNotes().subscribe(data => {
+      console.log("my notes",data)
       if(data.body){
       this.notes = data.body.map(noteObj =>{
         if(this.urlify(noteObj.description))
